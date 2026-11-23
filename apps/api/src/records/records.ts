@@ -176,11 +176,6 @@ export class RecordsController {
     return withActor(actorOf(u), (tx) => this.svc.update(tx, u, id, body.attrs ?? {}, Number(body.version)));
   }
 
-  @Post(':id/:action')
-  transition(@CurrentUser() u: SessionUser, @Param('id') id: string, @Param('action') action: string, @Body() body: { comment?: string }) {
-    return withActor(actorOf(u), (tx) => this.svc.transition(tx, u, id, action, body?.comment));
-  }
-
   @Perm('records.write')
   @Post(':id/links')
   link(@CurrentUser() u: SessionUser, @Param('id') id: string, @Body() body: { relation_id: string; target_id: string }) {
@@ -196,6 +191,12 @@ export class RecordsController {
       await audit(tx, actorOf(u), 'unlink', 'record_link', linkId, before, null);
       return { ok: true };
     });
+  }
+
+  // Declared last so it never shadows /:id/links.
+  @Post(':id/:action')
+  transition(@CurrentUser() u: SessionUser, @Param('id') id: string, @Param('action') action: string, @Body() body: { comment?: string }) {
+    return withActor(actorOf(u), (tx) => this.svc.transition(tx, u, id, action, body?.comment));
   }
 }
 

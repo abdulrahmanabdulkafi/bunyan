@@ -4328,1849 +4328,2157 @@
    "source": "vision",
    "verb": "Leads",
    "target": "mission",
-   "description_en": "Explaining the connection between the entity’ vision and the entity’s mission"
+   "description_en": "Explaining the connection between the entity’ vision and the entity’s mission",
+   "name_ar": "يقود إلى"
   },
   {
    "source": "vision",
    "verb": "Contributes",
    "target": "vision",
-   "description_en": "Defining the vision that contributes to realization of another vision"
+   "description_en": "Defining the vision that contributes to realization of another vision",
+   "name_ar": "يساهم في"
   },
   {
    "source": "vision",
    "verb": "Owned",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit that supports the realization of the vision"
+   "description_en": "Identifying the organizational unit that supports the realization of the vision",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "mission",
    "verb": "Contributes",
    "target": "vision",
-   "description_en": "Determining the mission that contributes to the realization of the entity’s approved vision"
+   "description_en": "Determining the mission that contributes to the realization of the entity’s approved vision",
+   "name_ar": "يساهم في"
   },
   {
    "source": "mission",
    "verb": "Contributes",
    "target": "mission",
-   "description_en": "Identifying the mission that contributes to achieving another mission"
+   "description_en": "Identifying the mission that contributes to achieving another mission",
+   "name_ar": "يساهم في"
   },
   {
    "source": "mission",
    "verb": "Translates To",
    "target": "objective",
-   "description_en": "Determining the link between the entity’s mission and the objectives that embody the mission"
+   "description_en": "Determining the link between the entity’s mission and the objectives that embody the mission",
+   "name_ar": "يُترجَم إلى"
   },
   {
    "source": "objective",
    "verb": "Belongs To",
    "target": "pillar",
-   "description_en": "Determining the link between the objective and the strategic pillars, where each objective belongs to at least one pillar"
+   "description_en": "Determining the link between the objective and the strategic pillars, where each objective belongs to at least one pillar",
+   "name_ar": "يتبع"
   },
   {
    "source": "objective",
    "verb": "Contributes",
    "target": "objective",
-   "description_en": "Identifying the objective that contributes to the achievement of another objective"
+   "description_en": "Identifying the objective that contributes to the achievement of another objective",
+   "name_ar": "يساهم في"
   },
   {
    "source": "objective",
    "verb": "Achieved Through",
    "target": "initiative",
-   "description_en": "Identifying the initiative that contributes to achieving an objective"
+   "description_en": "Identifying the initiative that contributes to achieving an objective",
+   "name_ar": "يتحقق من خلال"
   },
   {
    "source": "objective",
    "verb": "Contributes",
    "target": "mission",
-   "description_en": "Determining the relationship between the objectives and the entity’s mission, as each defined objective must contribute to achieving the entity’s mission"
+   "description_en": "Determining the relationship between the objectives and the entity’s mission, as each defined objective must contribute to achieving the entity’s mission",
+   "name_ar": "يساهم في"
   },
   {
    "source": "objective",
    "verb": "Belongs To",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational units that are ultimately accountable for achieving the objective"
+   "description_en": "Identifying the organizational units that are ultimately accountable for achieving the objective",
+   "name_ar": "يتبع"
   },
   {
    "source": "objective",
    "verb": "Measured",
    "target": "key_performance_indicator",
-   "description_en": "Identifying key performance indicators related to measuring the success of each of the approved objectives"
+   "description_en": "Identifying key performance indicators related to measuring the success of each of the approved objectives",
+   "name_ar": "يُقاس بـ"
   },
   {
    "source": "pillar",
    "verb": "Contains",
    "target": "initiative",
-   "description_en": "Identifying a set of initiatives that contribute to building and activating the pillar"
+   "description_en": "Identifying a set of initiatives that contribute to building and activating the pillar",
+   "name_ar": "يحتوي"
   },
   {
    "source": "pillar",
    "verb": "Contains",
    "target": "objective",
-   "description_en": "Determining the pillar’s contribution to achieving one or more of the entity’s objectives"
+   "description_en": "Determining the pillar’s contribution to achieving one or more of the entity’s objectives",
+   "name_ar": "يحتوي"
   },
   {
    "source": "initiative",
    "verb": "Contains",
    "target": "project",
-   "description_en": "Identifying the projects included in the initiative"
+   "description_en": "Identifying the projects included in the initiative",
+   "name_ar": "يحتوي"
   },
   {
    "source": "initiative",
    "verb": "Contributes To",
    "target": "pillar",
-   "description_en": "Identifying initiatives linked to strategic pillars"
+   "description_en": "Identifying initiatives linked to strategic pillars",
+   "name_ar": "يساهم في"
   },
   {
    "source": "initiative",
    "verb": "Achieves",
    "target": "objective",
-   "description_en": "Determining the objective that the initiative seeks to achieve"
+   "description_en": "Determining the objective that the initiative seeks to achieve",
+   "name_ar": "يحقق"
   },
   {
    "source": "initiative",
    "verb": "Belongs To",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit that supervises or owns the approved initiatives"
+   "description_en": "Identifying the organizational unit that supervises or owns the approved initiatives",
+   "name_ar": "يتبع"
   },
   {
    "source": "initiative",
    "verb": "Measured",
    "target": "key_performance_indicator",
-   "description_en": "Measuring the success of each initiative using an approved key performance indicator"
+   "description_en": "Measuring the success of each initiative using an approved key performance indicator",
+   "name_ar": "يُقاس بـ"
   },
   {
    "source": "initiative",
    "verb": "Owned",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for implementing the project as the project business owner"
+   "description_en": "Identifying the organizational unit responsible for implementing the project as the project business owner",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "initiative",
    "verb": "Executed By",
    "target": "organizational_unit",
-   "description_en": "Determining if the project is executed internally by an organizational unit"
+   "description_en": "Determining if the project is executed internally by an organizational unit",
+   "name_ar": "يُنفَّذ بواسطة"
   },
   {
    "source": "project",
    "verb": "Falls Under",
    "target": "initiative",
-   "description_en": "Identifying the strategic initiative under which the project falls"
+   "description_en": "Identifying the strategic initiative under which the project falls",
+   "name_ar": "يندرج تحت"
   },
   {
    "source": "project",
    "verb": "Measured",
    "target": "key_performance_indicator",
-   "description_en": "Identifying key performance indicators that measure project success"
+   "description_en": "Identifying key performance indicators that measure project success",
+   "name_ar": "يُقاس بـ"
   },
   {
    "source": "project",
    "verb": "Executed By",
    "target": "service_provider",
-   "description_en": "Determining if the project is being executed by a service provider"
+   "description_en": "Determining if the project is being executed by a service provider",
+   "name_ar": "يُنفَّذ بواسطة"
   },
   {
    "source": "key_performance_indicator",
    "verb": "Measures",
    "target": "objective",
-   "description_en": "Identifying the objective associated with the key performance indicator"
+   "description_en": "Identifying the objective associated with the key performance indicator",
+   "name_ar": "يقيس"
   },
   {
    "source": "key_performance_indicator",
    "verb": "Measures",
    "target": "initiative",
-   "description_en": "Identifying the initiative whose success or progress rate is measured by the key performance indicator"
+   "description_en": "Identifying the initiative whose success or progress rate is measured by the key performance indicator",
+   "name_ar": "يقيس"
   },
   {
    "source": "key_performance_indicator",
    "verb": "Measures",
    "target": "project",
-   "description_en": "Identifying the project whose success or progress rate is measured by the key performance indicator"
+   "description_en": "Identifying the project whose success or progress rate is measured by the key performance indicator",
+   "name_ar": "يقيس"
   },
   {
    "source": "key_performance_indicator",
    "verb": "Linked",
    "target": "key_performance_indicator",
-   "description_en": "Determining the link between the operational indicator and a strategic indicator, as each strategic performance indicator must be associated with one or more operational performance indicators"
+   "description_en": "Determining the link between the operational indicator and a strategic indicator, as each strategic performance indicator must be associated with one or more operational performance indicators",
+   "name_ar": "مرتبط بـ"
   },
   {
    "source": "key_performance_indicator",
    "verb": "Belongs To",
    "target": "organizational_unit",
-   "description_en": "Specifying the indicator that belongs to a defined organizational unit"
+   "description_en": "Specifying the indicator that belongs to a defined organizational unit",
+   "name_ar": "يتبع"
   },
   {
    "source": "key_performance_indicator",
    "verb": "Measures",
    "target": "service",
-   "description_en": "Determining the indicator that measures the efficiency of the defined service"
+   "description_en": "Determining the indicator that measures the efficiency of the defined service",
+   "name_ar": "يقيس"
   },
   {
    "source": "key_performance_indicator",
    "verb": "Measures",
    "target": "business_process",
-   "description_en": "Identifying the indicator that measures the efficiency of the defined business process"
+   "description_en": "Identifying the indicator that measures the efficiency of the defined business process",
+   "name_ar": "يقيس"
   },
   {
    "source": "business_capability",
    "verb": "Achieved Through",
    "target": "organizational_unit",
-   "description_en": "Determining the business capability achieved by a defined organizational unit"
+   "description_en": "Determining the business capability achieved by a defined organizational unit",
+   "name_ar": "يتحقق من خلال"
   },
   {
    "source": "business_capability",
    "verb": "Implemented Through",
    "target": "processes_group",
-   "description_en": "Determining the business capability that is implemented through a processes group"
+   "description_en": "Determining the business capability that is implemented through a processes group",
+   "name_ar": "يُنفَّذ من خلال"
   },
   {
    "source": "business_capability",
    "verb": "Owns",
    "target": "data_entity",
-   "description_en": "Determining the business capability that contains a data entity"
+   "description_en": "Determining the business capability that contains a data entity",
+   "name_ar": "يملك"
   },
   {
    "source": "organizational_unit",
    "verb": "Owns",
    "target": "vision",
-   "description_en": "Identifying the unit responsible for achieving the defined vision"
+   "description_en": "Identifying the unit responsible for achieving the defined vision",
+   "name_ar": "يملك"
   },
   {
    "source": "organizational_unit",
    "verb": "Owns",
    "target": "objective",
-   "description_en": "Identifying the unit responsible for achieving the defined objective"
+   "description_en": "Identifying the unit responsible for achieving the defined objective",
+   "name_ar": "يملك"
   },
   {
    "source": "organizational_unit",
    "verb": "Owns",
    "target": "initiative",
-   "description_en": "Identifying the unit responsible for achieving the objective of the defined initiative"
+   "description_en": "Identifying the unit responsible for achieving the objective of the defined initiative",
+   "name_ar": "يملك"
   },
   {
    "source": "organizational_unit",
    "verb": "Owns",
    "target": "project",
-   "description_en": "Identifying the unit responsible for achieving the objective of the defined project"
+   "description_en": "Identifying the unit responsible for achieving the objective of the defined project",
+   "name_ar": "يملك"
   },
   {
    "source": "organizational_unit",
    "verb": "Executed",
    "target": "project",
-   "description_en": "Identifying the organizational unit responsible for executing the defined project"
+   "description_en": "Identifying the organizational unit responsible for executing the defined project",
+   "name_ar": "يُنفَّذ بواسطة"
   },
   {
    "source": "organizational_unit",
    "verb": "Owns",
    "target": "business_capability",
-   "description_en": "Identifying the unit responsible for the defined business capability"
+   "description_en": "Identifying the unit responsible for the defined business capability",
+   "name_ar": "يملك"
   },
   {
    "source": "organizational_unit",
    "verb": "Owns",
    "target": "service",
-   "description_en": "Identifying the unit responsible for executing work related to the service"
+   "description_en": "Identifying the unit responsible for executing work related to the service",
+   "name_ar": "يملك"
   },
   {
    "source": "organizational_unit",
    "verb": "Owns",
    "target": "key_performance_indicator",
-   "description_en": "Identifying the unit responsible for measuring the performance of the business indicator"
+   "description_en": "Identifying the unit responsible for measuring the performance of the business indicator",
+   "name_ar": "يملك"
   },
   {
    "source": "organizational_unit",
    "verb": "Owns",
    "target": "data_entity",
-   "description_en": "Specifying which organizational unit owns data entities"
+   "description_en": "Specifying which organizational unit owns data entities",
+   "name_ar": "يملك"
   },
   {
    "source": "organizational_unit",
    "verb": "Contains",
    "target": "position",
-   "description_en": "Identifying the organizational unit that contains defined job positions"
+   "description_en": "Identifying the organizational unit that contains defined job positions",
+   "name_ar": "يحتوي"
   },
   {
    "source": "organizational_unit",
    "verb": "Enters Into Contracts With",
    "target": "service_provider",
-   "description_en": "Identifying the organizational unit that enters into contracts with a specific service provider"
+   "description_en": "Identifying the organizational unit that enters into contracts with a specific service provider",
+   "name_ar": "يتعاقد مع"
   },
   {
    "source": "organizational_unit",
    "verb": "Interacts With",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit that reports to/or interacts"
+   "description_en": "Identifying the organizational unit that reports to/or interacts",
+   "name_ar": "يتفاعل مع"
   },
   {
    "source": "service_provider",
    "verb": "Linked",
    "target": "organizational_unit",
-   "description_en": "Identifying the service provider linked to the business of an organizational unit"
+   "description_en": "Identifying the service provider linked to the business of an organizational unit",
+   "name_ar": "مرتبط بـ"
   },
   {
    "source": "service_provider",
    "verb": "Contributes To",
    "target": "service",
-   "description_en": "Identifying the service provider that contributes to the provision of the service"
+   "description_en": "Identifying the service provider that contributes to the provision of the service",
+   "name_ar": "يساهم في"
   },
   {
    "source": "service_provider",
    "verb": "Contributes To",
    "target": "project",
-   "description_en": "Identifying the service provider that contributes to the execution of project mandates"
+   "description_en": "Identifying the service provider that contributes to the execution of project mandates",
+   "name_ar": "يساهم في"
   },
   {
    "source": "service",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Specifying a service that is owned by an organizational unit"
+   "description_en": "Specifying a service that is owned by an organizational unit",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "service",
    "verb": "Provided Through",
    "target": "business_process",
-   "description_en": "Determining the service that is provided through the execution of a business process"
+   "description_en": "Determining the service that is provided through the execution of a business process",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "service",
    "verb": "Provided To",
    "target": "beneficiary",
-   "description_en": "Determining the service provided to a beneficiary"
+   "description_en": "Determining the service provided to a beneficiary",
+   "name_ar": "يُقدَّم إلى"
   },
   {
    "source": "service",
    "verb": "Provided Through",
    "target": "service_provider",
-   "description_en": "Determining the service that is provided by a service provider"
+   "description_en": "Determining the service that is provided by a service provider",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "service",
    "verb": "Uses",
    "target": "model_template",
-   "description_en": "Specifying which service uses the defined model/template"
+   "description_en": "Specifying which service uses the defined model/template",
+   "name_ar": "يستخدم"
   },
   {
    "source": "service",
    "verb": "Measured",
    "target": "key_performance_indicator",
-   "description_en": "Determining the service whose efficiency is measured by a key performance indicator"
+   "description_en": "Determining the service whose efficiency is measured by a key performance indicator",
+   "name_ar": "يُقاس بـ"
   },
   {
    "source": "service",
    "verb": "Produces",
    "target": "product",
-   "description_en": "Identifying the service that produces a product Defining the service that is automated using a defined application"
+   "description_en": "Identifying the service that produces a product Defining the service that is automated using a defined application",
+   "name_ar": "ينتج"
   },
   {
    "source": "processes_group",
    "verb": "Consists Of",
    "target": "business_process",
-   "description_en": "Defining a processes group that consists of one or more business processes"
+   "description_en": "Defining a processes group that consists of one or more business processes",
+   "name_ar": "يتكون من"
   },
   {
    "source": "processes_group",
    "verb": "Executed By",
    "target": "position",
-   "description_en": "Specifying the group that is being executed by a position"
+   "description_en": "Specifying the group that is being executed by a position",
+   "name_ar": "يُنفَّذ بواسطة"
   },
   {
    "source": "processes_group",
    "verb": "Achieves",
    "target": "business_capability",
-   "description_en": "Identifying a processes group that achieves a business capability"
+   "description_en": "Identifying a processes group that achieves a business capability",
+   "name_ar": "يحقق"
   },
   {
    "source": "business_process",
    "verb": "Belongs To",
    "target": "processes_group",
-   "description_en": "Specifying the business process that belongs to a processes group"
+   "description_en": "Specifying the business process that belongs to a processes group",
+   "name_ar": "يتبع"
   },
   {
    "source": "business_process",
    "verb": "Executed",
    "target": "service",
-   "description_en": "Specifying the business process that executes a service"
+   "description_en": "Specifying the business process that executes a service",
+   "name_ar": "يُنفَّذ بواسطة"
   },
   {
    "source": "business_process",
    "verb": "Uses",
    "target": "model_template",
-   "description_en": "Identifying the business process that uses a model/template"
+   "description_en": "Identifying the business process that uses a model/template",
+   "name_ar": "يستخدم"
   },
   {
    "source": "business_process",
    "verb": "Executed By",
    "target": "role",
-   "description_en": "Specifying the business process that is executed by a defined role"
+   "description_en": "Specifying the business process that is executed by a defined role",
+   "name_ar": "يُنفَّذ بواسطة"
   },
   {
    "source": "business_process",
    "verb": "Governed Through",
    "target": "policy",
-   "description_en": "Specifying the process that governs through a defined policy"
+   "description_en": "Specifying the process that governs through a defined policy",
+   "name_ar": "يُحكم من خلال"
   },
   {
    "source": "business_process",
    "verb": "Measured",
    "target": "key_performance_indicator",
-   "description_en": "Identifying the business process that is measured by a key performance indicator"
+   "description_en": "Identifying the business process that is measured by a key performance indicator",
+   "name_ar": "يُقاس بـ"
   },
   {
    "source": "business_process",
    "verb": "Produces",
    "target": "product",
-   "description_en": "Identifying the business process that produces a product"
+   "description_en": "Identifying the business process that produces a product",
+   "name_ar": "ينتج"
   },
   {
    "source": "business_process",
    "verb": "Provided Through",
    "target": "activity",
-   "description_en": "Identifying the business process that is provided through an activity"
+   "description_en": "Identifying the business process that is provided through an activity",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "business_process",
    "verb": "Automated",
    "target": "application",
-   "description_en": "Defining the business process that is automated through an application"
+   "description_en": "Defining the business process that is automated through an application",
+   "name_ar": "مؤتمت بواسطة"
   },
   {
    "source": "activity",
    "verb": "Belongs To",
    "target": "business_process",
-   "description_en": "Identifying the activity that belongs to a business process"
+   "description_en": "Identifying the activity that belongs to a business process",
+   "name_ar": "يتبع"
   },
   {
    "source": "activity",
    "verb": "Executed By",
    "target": "role",
-   "description_en": "Determining the activity that is executed by a role"
+   "description_en": "Determining the activity that is executed by a role",
+   "name_ar": "يُنفَّذ بواسطة"
   },
   {
    "source": "activity",
    "verb": "Governs Through",
    "target": "policy",
-   "description_en": "Determining the activity that is governed through a policy"
+   "description_en": "Determining the activity that is governed through a policy",
+   "name_ar": "يحكم من خلال"
   },
   {
    "source": "product",
    "verb": "Deliverable",
    "target": "service",
-   "description_en": "Specifying the product that is the deliverable of a service"
+   "description_en": "Specifying the product that is the deliverable of a service",
+   "name_ar": "مخرج لـ"
   },
   {
    "source": "product",
    "verb": "Deliverable",
    "target": "business_process",
-   "description_en": "Specifying the product that is the deliverable of a business process"
+   "description_en": "Specifying the product that is the deliverable of a business process",
+   "name_ar": "مخرج لـ"
   },
   {
    "source": "product",
    "verb": "Provided To",
    "target": "beneficiary",
-   "description_en": "Determining the product that is provided to a beneficiary"
+   "description_en": "Determining the product that is provided to a beneficiary",
+   "name_ar": "يُقدَّم إلى"
   },
   {
    "source": "product",
    "verb": "Provided Through",
    "target": "organizational_unit",
-   "description_en": "Specifying the product that is provided through a defined organizational unit"
+   "description_en": "Specifying the product that is provided through a defined organizational unit",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "product",
    "verb": "Provided Through",
    "target": "application",
-   "description_en": "Determining the product that is provided through an application"
+   "description_en": "Determining the product that is provided through an application",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "position",
    "verb": "Provided",
    "target": "processes_group",
-   "description_en": "Identifying the position that provides a processes group"
+   "description_en": "Identifying the position that provides a processes group",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "position",
    "verb": "Executed",
    "target": "role",
-   "description_en": "Identifying the position that has one or more"
+   "description_en": "Identifying the position that has one or more",
+   "name_ar": "يُنفَّذ بواسطة"
   },
   {
    "source": "position",
    "verb": "Belongs To",
    "target": "organizational_unit",
-   "description_en": "Identifying the position that belongs to an organizational unit"
+   "description_en": "Identifying the position that belongs to an organizational unit",
+   "name_ar": "يتبع"
   },
   {
    "source": "role",
    "verb": "Represented By",
    "target": "position",
-   "description_en": "Determining the role represented by a position"
+   "description_en": "Determining the role represented by a position",
+   "name_ar": "يُمثَّل بـ"
   },
   {
    "source": "role",
    "verb": "Performs",
    "target": "business_process",
-   "description_en": "Determining the role that will perform the business process"
+   "description_en": "Determining the role that will perform the business process",
+   "name_ar": "يؤدي"
   },
   {
    "source": "role",
    "verb": "Performs",
    "target": "activity",
-   "description_en": "Determining the role that will perform an activity"
+   "description_en": "Determining the role that will perform an activity",
+   "name_ar": "يؤدي"
   },
   {
    "source": "role",
    "verb": "Responsible For",
    "target": "data_entity",
-   "description_en": "Defining the role responsible for data entities (through a Business Data Administrator and a Business Data Specialist)"
+   "description_en": "Defining the role responsible for data entities (through a Business Data Administrator and a Business Data Specialist)",
+   "name_ar": "مسؤول عن"
   },
   {
    "source": "policy",
    "verb": "Governs",
    "target": "business_process",
-   "description_en": "Determining the policy that governs the execution of the business process"
+   "description_en": "Determining the policy that governs the execution of the business process",
+   "name_ar": "يحكم"
   },
   {
    "source": "policy",
    "verb": "Applies To",
    "target": "data_entity",
-   "description_en": "Specifying the policy that applies to the data entity"
+   "description_en": "Specifying the policy that applies to the data entity",
+   "name_ar": "ينطبق على"
   },
   {
    "source": "model_template",
    "verb": "Input / Deliverable",
    "target": "service",
-   "description_en": "Specifying a model/template, which shall be an input/deliverable in the completion of the work related to the service"
+   "description_en": "Specifying a model/template, which shall be an input/deliverable in the completion of the work related to the service",
+   "name_ar": "مدخل / مخرج"
   },
   {
    "source": "model_template",
    "verb": "Input / Deliverable",
    "target": "business_process",
-   "description_en": "Specifying a model/template that is the input/deliverable in the execution of business process activities"
+   "description_en": "Specifying a model/template that is the input/deliverable in the execution of business process activities",
+   "name_ar": "مدخل / مخرج"
   },
   {
    "source": "model_template",
    "verb": "Uses",
    "target": "data_entity",
-   "description_en": "A model/template uses one or more data entities"
+   "description_en": "A model/template uses one or more data entities",
+   "name_ar": "يستخدم"
   },
   {
    "source": "beneficiary",
    "verb": "Benefits From",
    "target": "service",
-   "description_en": "Identifying services related to the beneficiary"
+   "description_en": "Identifying services related to the beneficiary",
+   "name_ar": "يستفيد من"
   },
   {
    "source": "beneficiary",
    "verb": "Interacts With",
    "target": "service_provider",
-   "description_en": "Identifying the service provider and their interaction with the beneficiary"
+   "description_en": "Identifying the service provider and their interaction with the beneficiary",
+   "name_ar": "يتفاعل مع"
   },
   {
    "source": "beneficiary",
    "verb": "Interacts With",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit and its interaction with the beneficiary"
+   "description_en": "Identifying the organizational unit and its interaction with the beneficiary",
+   "name_ar": "يتفاعل مع"
   },
   {
    "source": "beneficiary_journey",
    "verb": "Includes",
    "target": "phase",
-   "description_en": "The beneficiary journey includes several phases"
+   "description_en": "The beneficiary journey includes several phases",
+   "name_ar": "يتضمن"
   },
   {
    "source": "beneficiary",
    "verb": "Owns",
    "target": "beneficiary_journey",
-   "description_en": "The persona owns the journey of one or more beneficiaries"
+   "description_en": "The persona owns the journey of one or more beneficiaries",
+   "name_ar": "يملك"
   },
   {
    "source": "step",
    "verb": "Part Of",
    "target": "phase",
-   "description_en": "Identifying the steps involved in one of the phases of the beneficiary journey"
+   "description_en": "Identifying the steps involved in one of the phases of the beneficiary journey",
+   "name_ar": "جزء من"
   },
   {
    "source": "phase",
    "verb": "Constitutes",
    "target": "beneficiary_journey",
-   "description_en": "Identifying the phases that together constitute the beneficiary journey"
+   "description_en": "Identifying the phases that together constitute the beneficiary journey",
+   "name_ar": "يشكّل"
   },
   {
    "source": "phase",
    "verb": "Includes",
    "target": "step",
-   "description_en": "Identifying the phases that include a list of steps"
+   "description_en": "Identifying the phases that include a list of steps",
+   "name_ar": "يتضمن"
   },
   {
    "source": "data_entity",
    "verb": "Described Through",
    "target": "data_attributes",
-   "description_en": "Identifying the core attributes that describe the data entity"
+   "description_en": "Identifying the core attributes that describe the data entity",
+   "name_ar": "يوصف من خلال"
   },
   {
    "source": "data_entity",
    "verb": "Stored In",
    "target": "data_vault",
-   "description_en": "Specifying the location for storing data entities"
+   "description_en": "Specifying the location for storing data entities",
+   "name_ar": "مخزّن في"
   },
   {
    "source": "data_entity",
    "verb": "Responsibility",
    "target": "role",
-   "description_en": "Defining the responsibility for identifying, managing, updating, and maintaining data entities for the role of “Business Data Administrator” and “Business Data Specialist”"
+   "description_en": "Defining the responsibility for identifying, managing, updating, and maintaining data entities for the role of “Business Data Administrator” and “Business Data Specialist”",
+   "name_ar": "مسؤولية"
   },
   {
    "source": "data_entity",
    "verb": "Subject To",
    "target": "policy",
-   "description_en": "Determining the data policies that govern data entities in accordance with the terms of the data policies and their related requirements"
+   "description_en": "Determining the data policies that govern data entities in accordance with the terms of the data policies and their related requirements",
+   "name_ar": "يخضع لـ"
   },
   {
    "source": "data_entity",
    "verb": "Linked To",
    "target": "business_capability",
-   "description_en": "Identifying the association of data entities with a specific business capability"
+   "description_en": "Identifying the association of data entities with a specific business capability",
+   "name_ar": "مرتبط بـ"
   },
   {
    "source": "data_entity",
    "verb": "Linked To",
    "target": "organizational_unit",
-   "description_en": "Determining the organizational unit’s ownership of the data entity"
+   "description_en": "Determining the organizational unit’s ownership of the data entity",
+   "name_ar": "مرتبط بـ"
   },
   {
    "source": "data_entity",
    "verb": "Constitutes",
    "target": "model_template",
-   "description_en": "Identifying data entities that constitute a model for business processes or services"
+   "description_en": "Identifying data entities that constitute a model for business processes or services",
+   "name_ar": "يشكّل"
   },
   {
    "source": "data_entity",
    "verb": "Used In",
    "target": "application",
-   "description_en": "Specifying the application that deals with the data entity"
+   "description_en": "Specifying the application that deals with the data entity",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "data_attributes",
    "verb": "Describes",
    "target": "data_entity",
-   "description_en": "Identifying the core data entity attributes that describe data entities"
+   "description_en": "Identifying the core data entity attributes that describe data entities",
+   "name_ar": "يصف"
   },
   {
    "source": "data_vault",
    "verb": "Contains",
    "target": "data_entity",
-   "description_en": "Defining the association of the data vault with data entities"
+   "description_en": "Defining the association of the data vault with data entities",
+   "name_ar": "يحتوي"
   },
   {
    "source": "data_vault",
    "verb": "Hosted In",
    "target": "storage",
-   "description_en": "Identifying the technical equipment that hosts the data vault"
+   "description_en": "Identifying the technical equipment that hosts the data vault",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "data_vault",
    "verb": "Hosted",
    "target": "server",
-   "description_en": "Identifying the technical equipment that hosts the data vault"
+   "description_en": "Identifying the technical equipment that hosts the data vault",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "data_vault",
    "verb": "Provided Through",
    "target": "security_hardware",
-   "description_en": "Identifying the security hardware that secures the data vault"
+   "description_en": "Identifying the security hardware that secures the data vault",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "data_vault",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying the security software that secures the data vault"
+   "description_en": "Identifying the security software that secures the data vault",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "data_vault",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Specifying the security service that secures the data vault"
+   "description_en": "Specifying the security service that secures the data vault",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "application",
    "verb": "Contains",
    "target": "application_modules",
-   "description_en": "Identifying the functional and non-functional modules of the application"
+   "description_en": "Identifying the functional and non-functional modules of the application",
+   "name_ar": "يحتوي"
   },
   {
    "source": "application",
    "verb": "Provides",
    "target": "technical_integration_interface",
-   "description_en": "Defining the application interface points"
+   "description_en": "Defining the application interface points",
+   "name_ar": "يقدّم"
   },
   {
    "source": "application",
    "verb": "Serves",
    "target": "beneficiary",
-   "description_en": "Identifying beneficiaries of the application services, as each application serves a group of beneficiaries"
+   "description_en": "Identifying beneficiaries of the application services, as each application serves a group of beneficiaries",
+   "name_ar": "يخدم"
   },
   {
    "source": "application",
    "verb": "Managed By",
    "target": "role",
-   "description_en": "Identifying the role responsible for technical management of the application"
+   "description_en": "Identifying the role responsible for technical management of the application",
+   "name_ar": "يُدار بواسطة"
   },
   {
    "source": "application",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Determining the organizational unit that owns the application"
+   "description_en": "Determining the organizational unit that owns the application",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "application",
    "verb": "Automated",
    "target": "business_process",
-   "description_en": "Defining the business processes automated by the application"
+   "description_en": "Defining the business processes automated by the application",
+   "name_ar": "مؤتمت بواسطة"
   },
   {
    "source": "application",
    "verb": "Provided",
    "target": "service",
-   "description_en": "Identifying the business services or set of services provided by the application"
+   "description_en": "Identifying the business services or set of services provided by the application",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "application",
    "verb": "Handles",
    "target": "data_entity",
-   "description_en": "Identifying the data entities processed or handled by the application"
+   "description_en": "Identifying the data entities processed or handled by the application",
+   "name_ar": "يتولى"
   },
   {
    "source": "application",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying the security software used to protect the application"
+   "description_en": "Identifying the security software used to protect the application",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "application",
    "verb": "Provided Through",
    "target": "security_hardware",
-   "description_en": "Identifying the security hardware used to protect the application"
+   "description_en": "Identifying the security hardware used to protect the application",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "application",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Identifying the security service used to protect the application"
+   "description_en": "Identifying the security service used to protect the application",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "application",
    "verb": "Hosted By",
    "target": "server",
-   "description_en": "Specifying the server or servers that host the application"
+   "description_en": "Specifying the server or servers that host the application",
+   "name_ar": "مستضاف على"
   },
   {
    "source": "application_modules",
    "verb": "Belongs To",
    "target": "application",
-   "description_en": "Identifying the application module which usually belongs to one application or more"
+   "description_en": "Identifying the application module which usually belongs to one application or more",
+   "name_ar": "يتبع"
   },
   {
    "source": "application_modules",
    "verb": "Contains",
    "target": "application_function",
-   "description_en": "Defining the set of application functions provided by a single module"
+   "description_en": "Defining the set of application functions provided by a single module",
+   "name_ar": "يحتوي"
   },
   {
    "source": "application_modules",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying the security software used to protect the application module"
+   "description_en": "Identifying the security software used to protect the application module",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "application_modules",
    "verb": "Provided Through",
    "target": "security_hardware",
-   "description_en": "Identifying the security hardware used to protect the application module"
+   "description_en": "Identifying the security hardware used to protect the application module",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "application_modules",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Identifying the security service used to protect the application module"
+   "description_en": "Identifying the security service used to protect the application module",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "application_function",
    "verb": "Belongs To",
    "target": "application_modules",
-   "description_en": "Specifying which application functions belong to one application module or more"
+   "description_en": "Specifying which application functions belong to one application module or more",
+   "name_ar": "يتبع"
   },
   {
    "source": "application_function",
    "verb": "Provided Through",
    "target": "technical_integration_interface",
-   "description_en": "Identifying application functions that can be delivered through a Technical Integration Interface"
+   "description_en": "Identifying application functions that can be delivered through a Technical Integration Interface",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "application_function",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying the security software used to protect a specific application function"
+   "description_en": "Identifying the security software used to protect a specific application function",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "application_function",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Identifying the security service used to protect a specific application function"
+   "description_en": "Identifying the security service used to protect a specific application function",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "technical_integration_interface",
    "verb": "Consumed By",
    "target": "application",
-   "description_en": "Identifying the consumer application of the Technical Integration Interface"
+   "description_en": "Identifying the consumer application of the Technical Integration Interface",
+   "name_ar": "يُستهلك من"
   },
   {
    "source": "technical_integration_interface",
    "verb": "Provided",
    "target": "application_function",
-   "description_en": "Specifying one or more functions of the application that are provided through the Technical Integration Interface"
+   "description_en": "Specifying one or more functions of the application that are provided through the Technical Integration Interface",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "technical_integration_interface",
    "verb": "Provided / Delivered",
    "target": "data_entity",
-   "description_en": "Specifying the data entities provided by the Technical Integration Interface for the purpose of exchange"
+   "description_en": "Specifying the data entities provided by the Technical Integration Interface for the purpose of exchange",
+   "name_ar": "يُقدَّم / يُسلَّم"
   },
   {
    "source": "technical_integration_interface",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying the security software used to protect the Technical Integration Interface"
+   "description_en": "Identifying the security software used to protect the Technical Integration Interface",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "technical_integration_interface",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Identifying the security service used to protect the Technical Integration Interface"
+   "description_en": "Identifying the security service used to protect the Technical Integration Interface",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "data_center",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Identifying a data center service provider and data center artifacts"
+   "description_en": "Identifying a data center service provider and data center artifacts",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "infrastructure_service",
-   "description_en": "Identifying the data center that hosts the infrastructure service"
+   "description_en": "Identifying the data center that hosts the infrastructure service",
+   "name_ar": "يستضيف"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "peripheral_device",
-   "description_en": "Determining which data center hosts the peripheral device"
+   "description_en": "Determining which data center hosts the peripheral device",
+   "name_ar": "يستضيف"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "physical_host",
-   "description_en": "Determining which data center hosts physical host devices"
+   "description_en": "Determining which data center hosts physical host devices",
+   "name_ar": "يستضيف"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "server",
-   "description_en": "Determining which data center hosts the servers"
+   "description_en": "Determining which data center hosts the servers",
+   "name_ar": "يستضيف"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "network_device",
-   "description_en": "Determining which data center hosts the network devices"
+   "description_en": "Determining which data center hosts the network devices",
+   "name_ar": "يستضيف"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "storage",
-   "description_en": "Determining which data center hosts the storage devices"
+   "description_en": "Determining which data center hosts the storage devices",
+   "name_ar": "يستضيف"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "containerization_engine",
-   "description_en": "Identifying the data center that hosts the containerization engine"
+   "description_en": "Identifying the data center that hosts the containerization engine",
+   "name_ar": "يستضيف"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying the data center that hosts infrastructure artifacts management applications"
+   "description_en": "Identifying the data center that hosts infrastructure artifacts management applications",
+   "name_ar": "يستضيف"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "network_link",
-   "description_en": "Identifying the data center that hosts the network connectivity circuits"
+   "description_en": "Identifying the data center that hosts the network connectivity circuits",
+   "name_ar": "يستضيف"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "security_hardware",
-   "description_en": "Determining the data center that hosts the security hardware"
+   "description_en": "Determining the data center that hosts the security hardware",
+   "name_ar": "يستضيف"
   },
   {
    "source": "data_center",
    "verb": "Hosts",
    "target": "security_software",
-   "description_en": "Identifying the data center that hosts the security software"
+   "description_en": "Identifying the data center that hosts the security software",
+   "name_ar": "يستضيف"
   },
   {
    "source": "physical_host",
    "verb": "Hosted In",
    "target": "data_center",
-   "description_en": "Determining the hosting location of the physical host device"
+   "description_en": "Determining the hosting location of the physical host device",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "physical_host",
    "verb": "Hosts",
    "target": "server",
-   "description_en": "Specifying the physical host that hosts the servers"
+   "description_en": "Specifying the physical host that hosts the servers",
+   "name_ar": "يستضيف"
   },
   {
    "source": "physical_host",
    "verb": "Managed By",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying the infrastructure artifacts management applications that manage and monitor the physical host device"
+   "description_en": "Identifying the infrastructure artifacts management applications that manage and monitor the physical host device",
+   "name_ar": "يُدار بواسطة"
   },
   {
    "source": "physical_host",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Specifying the licenses used by the physical host device (specific licenses or subscriptions)"
+   "description_en": "Specifying the licenses used by the physical host device (specific licenses or subscriptions)",
+   "name_ar": "يستخدم"
   },
   {
    "source": "physical_host",
    "verb": "Linked Through",
    "target": "network_link",
-   "description_en": "Specifying the network link used to link the physical host to the network"
+   "description_en": "Specifying the network link used to link the physical host to the network",
+   "name_ar": "مرتبط من خلال"
   },
   {
    "source": "physical_host",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Identifying the service provider that provides the physical host device"
+   "description_en": "Identifying the service provider that provides the physical host device",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "physical_host",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the physical host"
+   "description_en": "Identifying the organizational unit responsible for the physical host",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "physical_host",
    "verb": "Provided Through",
    "target": "security_hardware",
-   "description_en": "Identifying the security devices and artifacts associated with the physical host device"
+   "description_en": "Identifying the security devices and artifacts associated with the physical host device",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "physical_host",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying security software associated with the physical host device"
+   "description_en": "Identifying security software associated with the physical host device",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "physical_host",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Identifying security services associated with the physical host device"
+   "description_en": "Identifying security services associated with the physical host device",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "server",
    "verb": "Hosted In",
    "target": "data_center",
-   "description_en": "Determining where the server will be hosted (a data center owned by the entity or a data center owned by a hosting service provider)"
+   "description_en": "Determining where the server will be hosted (a data center owned by the entity or a data center owned by a hosting service provider)",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "server",
    "verb": "Hosted In",
    "target": "physical_host",
-   "description_en": "Identifying the physical host responsible for hosting the server"
+   "description_en": "Identifying the physical host responsible for hosting the server",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "server",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Determining software licenses and subscriptions by the server"
+   "description_en": "Determining software licenses and subscriptions by the server",
+   "name_ar": "يستخدم"
   },
   {
    "source": "server",
    "verb": "Managed By",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying one or more infrastructure management tools responsible for managing or monitoring the server"
+   "description_en": "Identifying one or more infrastructure management tools responsible for managing or monitoring the server",
+   "name_ar": "يُدار بواسطة"
   },
   {
    "source": "server",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Specifying a provider or company to provide the server"
+   "description_en": "Specifying a provider or company to provide the server",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "server",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the server"
+   "description_en": "Identifying the organizational unit responsible for the server",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "server",
    "verb": "Hosts",
    "target": "application",
-   "description_en": "Specifying the application or applications hosted on the server"
+   "description_en": "Specifying the application or applications hosted on the server",
+   "name_ar": "يستضيف"
   },
   {
    "source": "server",
    "verb": "Hosts",
    "target": "data_vault",
-   "description_en": "Identifying the data vault hosted on the server"
+   "description_en": "Identifying the data vault hosted on the server",
+   "name_ar": "يستضيف"
   },
   {
    "source": "server",
    "verb": "Provided Through",
    "target": "security_hardware",
-   "description_en": "Identifying the security hardware responsible for securing the server"
+   "description_en": "Identifying the security hardware responsible for securing the server",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "server",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying security software responsible for securing the server"
+   "description_en": "Identifying security software responsible for securing the server",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "server",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Specifying one or more security services responsible for securing the server"
+   "description_en": "Specifying one or more security services responsible for securing the server",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "network_device",
    "verb": "Managed By",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying the infrastructure management tool used to manage and monitor network devices"
+   "description_en": "Identifying the infrastructure management tool used to manage and monitor network devices",
+   "name_ar": "يُدار بواسطة"
   },
   {
    "source": "network_device",
    "verb": "Hosted In",
    "target": "data_center",
-   "description_en": "Identifying the data center that hosts the network device"
+   "description_en": "Identifying the data center that hosts the network device",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "network_device",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Determining the licenses and subscriptions used by the network device"
+   "description_en": "Determining the licenses and subscriptions used by the network device",
+   "name_ar": "يستخدم"
   },
   {
    "source": "network_device",
    "verb": "Linked Through",
    "target": "network_link",
-   "description_en": "Identifying the network link responsible for linking the network device to the rest of the network elements or to other devices"
+   "description_en": "Identifying the network link responsible for linking the network device to the rest of the network elements or to other devices",
+   "name_ar": "مرتبط من خلال"
   },
   {
    "source": "network_device",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Identifying the provider or company that supplied the network device"
+   "description_en": "Identifying the provider or company that supplied the network device",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "network_device",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the network device"
+   "description_en": "Identifying the organizational unit responsible for the network device",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "network_device",
    "verb": "Provided Through",
    "target": "security_hardware",
-   "description_en": "Identifying one or more physical security hardware that secure the network device"
+   "description_en": "Identifying one or more physical security hardware that secure the network device",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "network_device",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying one or more security software that secure the network device"
+   "description_en": "Identifying one or more security software that secure the network device",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "network_device",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Identifying one or more security services that secure the network device"
+   "description_en": "Identifying one or more security services that secure the network device",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "network_link",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the network link"
+   "description_en": "Identifying the organizational unit responsible for the network link",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "network_link",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Identifying service providers for the network connectivity circuits"
+   "description_en": "Identifying service providers for the network connectivity circuits",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "network_link",
    "verb": "Hosted In",
    "target": "data_center",
-   "description_en": "Identifying the data center that hosts the network link or network connectivity circuits"
+   "description_en": "Identifying the data center that hosts the network link or network connectivity circuits",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "network_link",
    "verb": "Managed By",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying the infrastructure management tool that manages and monitors the network connectivity circuits"
+   "description_en": "Identifying the infrastructure management tool that manages and monitors the network connectivity circuits",
+   "name_ar": "يُدار بواسطة"
   },
   {
    "source": "network_link",
    "verb": "Links",
    "target": "peripheral_device",
-   "description_en": "Specifying the network link to connect the peripheral device to the network"
+   "description_en": "Specifying the network link to connect the peripheral device to the network",
+   "name_ar": "يربط"
   },
   {
    "source": "network_link",
    "verb": "Links",
    "target": "physical_host",
-   "description_en": "Specifying the network link responsible for connecting the peripheral device to the network"
+   "description_en": "Specifying the network link responsible for connecting the peripheral device to the network",
+   "name_ar": "يربط"
   },
   {
    "source": "network_link",
    "verb": "Links",
    "target": "storage",
-   "description_en": "Specifying the network link responsible for connecting the storage device to the network"
+   "description_en": "Specifying the network link responsible for connecting the storage device to the network",
+   "name_ar": "يربط"
   },
   {
    "source": "network_link",
    "verb": "Links",
    "target": "network_device",
-   "description_en": "Identifying the network link responsible for connecting the network device to the network"
+   "description_en": "Identifying the network link responsible for connecting the network device to the network",
+   "name_ar": "يربط"
   },
   {
    "source": "network_link",
    "verb": "Links",
    "target": "security_hardware",
-   "description_en": "Identifying the network link for connecting the security hardware to the network"
+   "description_en": "Identifying the network link for connecting the security hardware to the network",
+   "name_ar": "يربط"
   },
   {
    "source": "network_link",
    "verb": "Provided Through",
    "target": "security_hardware",
-   "description_en": "Identifying one or more physical security hardware that secure the network connectivity circuit"
+   "description_en": "Identifying one or more physical security hardware that secure the network connectivity circuit",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "network_link",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying one or more security software programs that secure the network connectivity circuit"
+   "description_en": "Identifying one or more security software programs that secure the network connectivity circuit",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "network_link",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Specifying one or more security services that secure the network connectivity circuit"
+   "description_en": "Specifying one or more security services that secure the network connectivity circuit",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "storage",
    "verb": "Hosted In",
    "target": "data_center",
-   "description_en": "Identifying a specific data center for the entity or for a service provider that hosts the storage equipment and tools"
+   "description_en": "Identifying a specific data center for the entity or for a service provider that hosts the storage equipment and tools",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "storage",
    "verb": "Managed By",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring storage equipment and tools"
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring storage equipment and tools",
+   "name_ar": "يُدار بواسطة"
   },
   {
    "source": "storage",
    "verb": "Linked Through",
    "target": "network_link",
-   "description_en": "Identifying the network link responsible for connecting the storage device to the rest of the network elements or to other devices"
+   "description_en": "Identifying the network link responsible for connecting the storage device to the rest of the network elements or to other devices",
+   "name_ar": "مرتبط من خلال"
   },
   {
    "source": "storage",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Determining the licenses and subscriptions used by the storage device"
+   "description_en": "Determining the licenses and subscriptions used by the storage device",
+   "name_ar": "يستخدم"
   },
   {
    "source": "storage",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Identifying the service provider supplying storage devices and equipment"
+   "description_en": "Identifying the service provider supplying storage devices and equipment",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "storage",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for storage devices and equipment"
+   "description_en": "Identifying the organizational unit responsible for storage devices and equipment",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "storage",
    "verb": "Provided Through",
    "target": "security_hardware",
-   "description_en": "Identifying one or more physical security"
+   "description_en": "Identifying one or more physical security",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "storage",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying one or more security software programs that secure the storage device"
+   "description_en": "Identifying one or more security software programs that secure the storage device",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "storage",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Specifying one or more security services that secure the storage device"
+   "description_en": "Specifying one or more security services that secure the storage device",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "storage",
    "verb": "Hosts",
    "target": "data_vault",
-   "description_en": "Identifying the data vault hosted on the storage device"
+   "description_en": "Identifying the data vault hosted on the storage device",
+   "name_ar": "يستضيف"
   },
   {
    "source": "containerization_engine",
    "verb": "Hosted In",
    "target": "data_center",
-   "description_en": "Identifying a specific data center for the entity or cloud service provider to host the containerization engine"
+   "description_en": "Identifying a specific data center for the entity or cloud service provider to host the containerization engine",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "containerization_engine",
    "verb": "Managed By",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring the containerization engine"
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring the containerization engine",
+   "name_ar": "يُدار بواسطة"
   },
   {
    "source": "containerization_engine",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Determining the licenses and subscriptions used by the containerization engine"
+   "description_en": "Determining the licenses and subscriptions used by the containerization engine",
+   "name_ar": "يستخدم"
   },
   {
    "source": "containerization_engine",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Identifying the service provider or manufacturer of the containerization engine"
+   "description_en": "Identifying the service provider or manufacturer of the containerization engine",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "containerization_engine",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the containerization engine"
+   "description_en": "Identifying the organizational unit responsible for the containerization engine",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "containerization_engine",
    "verb": "Provided Through",
    "target": "security_hardware",
-   "description_en": "Identifying one or more physical security hardware that secure the containerization engine"
+   "description_en": "Identifying one or more physical security hardware that secure the containerization engine",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "containerization_engine",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Identifying one or more security software programs that secure the containerization engine"
+   "description_en": "Identifying one or more security software programs that secure the containerization engine",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "containerization_engine",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Identifying one or more security services that secure the containerization engine"
+   "description_en": "Identifying one or more security services that secure the containerization engine",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Hosted In",
    "target": "data_center",
-   "description_en": "Identifying the data center responsible for hosting the infrastructure management tool"
+   "description_en": "Identifying the data center responsible for hosting the infrastructure management tool",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Manages",
    "target": "physical_host",
-   "description_en": "The infrastructure management tool manages or monitors the physical host devices"
+   "description_en": "The infrastructure management tool manages or monitors the physical host devices",
+   "name_ar": "يدير"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Manages",
    "target": "server",
-   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring the servers"
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring the servers",
+   "name_ar": "يدير"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Manages",
    "target": "network_device",
-   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring network devices"
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring network devices",
+   "name_ar": "يدير"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Manages",
    "target": "storage",
-   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring storage devices"
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring storage devices",
+   "name_ar": "يدير"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Manages",
    "target": "containerization_engine",
-   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring containerization engines"
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring containerization engines",
+   "name_ar": "يدير"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Manages",
    "target": "peripheral_device",
-   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring a peripheral device"
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring a peripheral device",
+   "name_ar": "يدير"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Manages",
    "target": "infrastructure_service",
-   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring an infrastructure service"
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring an infrastructure service",
+   "name_ar": "يدير"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Manages",
    "target": "network_link",
-   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring network connectivity circuits"
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring network connectivity circuits",
+   "name_ar": "يدير"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Determining the licenses for the infrastructure management tool"
+   "description_en": "Determining the licenses for the infrastructure management tool",
+   "name_ar": "يستخدم"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the infrastructure management tool"
+   "description_en": "Identifying the organizational unit responsible for the infrastructure management tool",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Identifying the license or service provider for the infrastructure management tool"
+   "description_en": "Identifying the license or service provider for the infrastructure management tool",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Secured Through",
    "target": "security_hardware",
-   "description_en": "Identifying one or more physical security hardware that secure the infrastructure management tool"
+   "description_en": "Identifying one or more physical security hardware that secure the infrastructure management tool",
+   "name_ar": "مؤمَّن من خلال"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Secured Through",
    "target": "security_software",
-   "description_en": "Identifying one or more security software programs that secure the infrastructure management tool"
+   "description_en": "Identifying one or more security software programs that secure the infrastructure management tool",
+   "name_ar": "مؤمَّن من خلال"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Secured Through",
    "target": "security_service",
-   "description_en": "Identifying one or more security services that secure the infrastructure management tool"
+   "description_en": "Identifying one or more security services that secure the infrastructure management tool",
+   "name_ar": "مؤمَّن من خلال"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Supports",
    "target": "technical_integration_interface",
-   "description_en": "Specifying the Technical Integration Interface that is supported by the infrastructure management tool"
+   "description_en": "Specifying the Technical Integration Interface that is supported by the infrastructure management tool",
+   "name_ar": "يدعم"
   },
   {
    "source": "infrastructure_management_tool",
    "verb": "Supports",
    "target": "application",
-   "description_en": "Determining the application that supports the use of the infrastructure management tool"
+   "description_en": "Determining the application that supports the use of the infrastructure management tool",
+   "name_ar": "يدعم"
   },
   {
    "source": "license",
    "verb": "Used In",
    "target": "physical_host",
-   "description_en": "Determining the license installed on physical host devices"
+   "description_en": "Determining the license installed on physical host devices",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "license",
    "verb": "Used In",
    "target": "server",
-   "description_en": "Determining the license installed on server hardware"
+   "description_en": "Determining the license installed on server hardware",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "license",
    "verb": "Used In",
    "target": "infrastructure_management_tool",
-   "description_en": "Determining the license for the infrastructure management tool"
+   "description_en": "Determining the license for the infrastructure management tool",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "license",
    "verb": "Used In",
    "target": "infrastructure_service",
-   "description_en": "Determining the license of the infrastructure service"
+   "description_en": "Determining the license of the infrastructure service",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "license",
    "verb": "Used In",
    "target": "containerization_engine",
-   "description_en": "Specifying the license used for the containerization engine"
+   "description_en": "Specifying the license used for the containerization engine",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "license",
    "verb": "Used In",
    "target": "network_device",
-   "description_en": "Determining the license used for network devices"
+   "description_en": "Determining the license used for network devices",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "license",
    "verb": "Used In",
    "target": "storage",
-   "description_en": "Determining the license used for storage devices"
+   "description_en": "Determining the license used for storage devices",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "license",
    "verb": "Used In",
    "target": "peripheral_device",
-   "description_en": "Determining the license used in the peripheral device"
+   "description_en": "Determining the license used in the peripheral device",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "license",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Determining the license owned by an organizational unit"
+   "description_en": "Determining the license owned by an organizational unit",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "license",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Determining the license provided by a provider or a company"
+   "description_en": "Determining the license provided by a provider or a company",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "license",
    "verb": "Used In",
    "target": "security_hardware",
-   "description_en": "Determining the license used in a security hardware"
+   "description_en": "Determining the license used in a security hardware",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "license",
    "verb": "Used In",
    "target": "security_software",
-   "description_en": "Determining the license used in a security software"
+   "description_en": "Determining the license used in a security software",
+   "name_ar": "يُستخدم في"
   },
   {
    "source": "peripheral_device",
    "verb": "Managed By",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying the peripheral device that is managed by an infrastructure management tool"
+   "description_en": "Identifying the peripheral device that is managed by an infrastructure management tool",
+   "name_ar": "يُدار بواسطة"
   },
   {
    "source": "peripheral_device",
    "verb": "Linked Through",
    "target": "network_link",
-   "description_en": "Specifying the network link responsible for connecting the peripheral device to the network"
+   "description_en": "Specifying the network link responsible for connecting the peripheral device to the network",
+   "name_ar": "مرتبط من خلال"
   },
   {
    "source": "peripheral_device",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Determining the licenses and subscriptions used by the peripheral device"
+   "description_en": "Determining the licenses and subscriptions used by the peripheral device",
+   "name_ar": "يستخدم"
   },
   {
    "source": "peripheral_device",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Specifying the provider of the peripheral device"
+   "description_en": "Specifying the provider of the peripheral device",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "peripheral_device",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the peripheral device"
+   "description_en": "Identifying the organizational unit responsible for the peripheral device",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "peripheral_device",
    "verb": "Provided Through",
    "target": "security_hardware",
-   "description_en": "Determining the peripheral device secured by one or more security hardware"
+   "description_en": "Determining the peripheral device secured by one or more security hardware",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "peripheral_device",
    "verb": "Provided Through",
    "target": "security_software",
-   "description_en": "Determining the peripheral device secured by one or more security software"
+   "description_en": "Determining the peripheral device secured by one or more security software",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "peripheral_device",
    "verb": "Provided Through",
    "target": "security_service",
-   "description_en": "Determining the peripheral device secured by one or more security services"
+   "description_en": "Determining the peripheral device secured by one or more security services",
+   "name_ar": "يُقدَّم من خلال"
   },
   {
    "source": "infrastructure_service",
    "verb": "Hosted In",
    "target": "data_center",
-   "description_en": "Determining the infrastructure service hosted in a data center"
+   "description_en": "Determining the infrastructure service hosted in a data center",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "infrastructure_service",
    "verb": "Managed By",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying the infrastructure service that is managed by an infrastructure management tool"
+   "description_en": "Identifying the infrastructure service that is managed by an infrastructure management tool",
+   "name_ar": "يُدار بواسطة"
   },
   {
    "source": "infrastructure_service",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Identifying the infrastructure service that uses specific licenses or subscriptions"
+   "description_en": "Identifying the infrastructure service that uses specific licenses or subscriptions",
+   "name_ar": "يستخدم"
   },
   {
    "source": "infrastructure_service",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Identifying the infrastructure service provided by a provider or manufacturer"
+   "description_en": "Identifying the infrastructure service provided by a provider or manufacturer",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "infrastructure_service",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the infrastructure service"
+   "description_en": "Identifying the organizational unit responsible for the infrastructure service",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "infrastructure_service",
    "verb": "Secured Through",
    "target": "security_hardware",
-   "description_en": "Identifying one or more physical security hardware that secure the infrastructure service"
+   "description_en": "Identifying one or more physical security hardware that secure the infrastructure service",
+   "name_ar": "مؤمَّن من خلال"
   },
   {
    "source": "infrastructure_service",
    "verb": "Secured Through",
    "target": "security_software",
-   "description_en": "Identifying one or more security software programs that secure the infrastructure service"
+   "description_en": "Identifying one or more security software programs that secure the infrastructure service",
+   "name_ar": "مؤمَّن من خلال"
   },
   {
    "source": "infrastructure_service",
    "verb": "Secured Through",
    "target": "security_service",
-   "description_en": "Identifying one or more security services that secure an infrastructure service"
+   "description_en": "Identifying one or more security services that secure an infrastructure service",
+   "name_ar": "مؤمَّن من خلال"
   },
   {
    "source": "security_hardware",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Determining the licenses and subscriptions used by the security hardware"
+   "description_en": "Determining the licenses and subscriptions used by the security hardware",
+   "name_ar": "يستخدم"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "physical_host",
-   "description_en": "Identifying one or more physical security hardware that secure a physical host"
+   "description_en": "Identifying one or more physical security hardware that secure a physical host",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "server",
-   "description_en": "Identifying one or more physical security hardware that secure a server"
+   "description_en": "Identifying one or more physical security hardware that secure a server",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "network_device",
-   "description_en": "Identifying one or more physical security hardware that secure a network device"
+   "description_en": "Identifying one or more physical security hardware that secure a network device",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "storage",
-   "description_en": "Identifying one or more physical security hardware that secure a storage device"
+   "description_en": "Identifying one or more physical security hardware that secure a storage device",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "containerization_engine",
-   "description_en": "Identifying one or more physical security hardware that secure a containerization engine"
+   "description_en": "Identifying one or more physical security hardware that secure a containerization engine",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "peripheral_device",
-   "description_en": "Identifying one or more physical security hardware that secure a peripheral device"
+   "description_en": "Identifying one or more physical security hardware that secure a peripheral device",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying one or more physical security hardware that secure the infrastructure management tool"
+   "description_en": "Identifying one or more physical security hardware that secure the infrastructure management tool",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "infrastructure_service",
-   "description_en": "Identifying one or more physical security hardware that secure the infrastructure service"
+   "description_en": "Identifying one or more physical security hardware that secure the infrastructure service",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "network_link",
-   "description_en": "Identifying one or more physical security hardware that secure a network link"
+   "description_en": "Identifying one or more physical security hardware that secure a network link",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Identifying a service provider providing the security hardware"
+   "description_en": "Identifying a service provider providing the security hardware",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "security_hardware",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the security hardware"
+   "description_en": "Identifying the organizational unit responsible for the security hardware",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "data_vault",
-   "description_en": "Identifying one or more physical security hardware that secure a data vault"
+   "description_en": "Identifying one or more physical security hardware that secure a data vault",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "technical_integration_interface",
-   "description_en": "Identifying one or more physical security hardware that secure the Technical Integration Interface"
+   "description_en": "Identifying one or more physical security hardware that secure the Technical Integration Interface",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "application_function",
-   "description_en": "Identifying one or more physical security hardware that secure the application function"
+   "description_en": "Identifying one or more physical security hardware that secure the application function",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "application_modules",
-   "description_en": "Identifying one or more physical security hardware that secure the application module"
+   "description_en": "Identifying one or more physical security hardware that secure the application module",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_hardware",
    "verb": "Secures",
    "target": "application",
-   "description_en": "Identifying one or more physical security hardware that secure an application"
+   "description_en": "Identifying one or more physical security hardware that secure an application",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Hosted In",
    "target": "data_center",
-   "description_en": "Determining the hosting location of the security software"
+   "description_en": "Determining the hosting location of the security software",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "security_software",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Determining the licenses and subscriptions used by the security software"
+   "description_en": "Determining the licenses and subscriptions used by the security software",
+   "name_ar": "يستخدم"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "physical_host",
-   "description_en": "Identifying one or more security software programs that secure a physical host"
+   "description_en": "Identifying one or more security software programs that secure a physical host",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "server",
-   "description_en": "Identifying one or more security software programs that secure a server"
+   "description_en": "Identifying one or more security software programs that secure a server",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "network_device",
-   "description_en": "Identifying one or more security software programs that secure a network device"
+   "description_en": "Identifying one or more security software programs that secure a network device",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "storage",
-   "description_en": "Identifying one or more security software programs that secure storage equipment and tools"
+   "description_en": "Identifying one or more security software programs that secure storage equipment and tools",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "containerization_engine",
-   "description_en": "Identifying one or more security software programs that secure a containerization engine"
+   "description_en": "Identifying one or more security software programs that secure a containerization engine",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "peripheral_device",
-   "description_en": "Identifying one or more security software programs that secure a peripheral device"
+   "description_en": "Identifying one or more security software programs that secure a peripheral device",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying one or more security software programs that secure the infrastructure management tool"
+   "description_en": "Identifying one or more security software programs that secure the infrastructure management tool",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "infrastructure_service",
-   "description_en": "Identifying one or more security software programs that secure the infrastructure service"
+   "description_en": "Identifying one or more security software programs that secure the infrastructure service",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "network_link",
-   "description_en": "Identifying one or more security software programs that secure a network link"
+   "description_en": "Identifying one or more security software programs that secure a network link",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Identifying a security software service provider"
+   "description_en": "Identifying a security software service provider",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "security_software",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the security software"
+   "description_en": "Identifying the organizational unit responsible for the security software",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "data_vault",
-   "description_en": "Identifying one or more security software programs that secure a data vault"
+   "description_en": "Identifying one or more security software programs that secure a data vault",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "application",
-   "description_en": "Identifying one or more security software programs that secure an application"
+   "description_en": "Identifying one or more security software programs that secure an application",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "application_modules",
-   "description_en": "Identifying one or more security software programs that secure an application module"
+   "description_en": "Identifying one or more security software programs that secure an application module",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "technical_integration_interface",
-   "description_en": "Identifying one or more security software programs that secure the Technical Integration Interface"
+   "description_en": "Identifying one or more security software programs that secure the Technical Integration Interface",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_software",
    "verb": "Secures",
    "target": "application_function",
-   "description_en": "Identifying one or more security software programs that secure the application function"
+   "description_en": "Identifying one or more security software programs that secure the application function",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Hosted In",
    "target": "data_center",
-   "description_en": "Identifying the data center that hosts the security service"
+   "description_en": "Identifying the data center that hosts the security service",
+   "name_ar": "مستضاف في"
   },
   {
    "source": "security_service",
    "verb": "Uses",
    "target": "license",
-   "description_en": "Identifying specific licenses or subscriptions used by the security service"
+   "description_en": "Identifying specific licenses or subscriptions used by the security service",
+   "name_ar": "يستخدم"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "physical_host",
-   "description_en": "Identifying one or more security services that secure a physical host"
+   "description_en": "Identifying one or more security services that secure a physical host",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "server",
-   "description_en": "Identifying one or more security services that secure a server"
+   "description_en": "Identifying one or more security services that secure a server",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "network_device",
-   "description_en": "Specifying one or more security services that secure a network device"
+   "description_en": "Specifying one or more security services that secure a network device",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "storage",
-   "description_en": "Specifying one or more security services that secure the storage equipment"
+   "description_en": "Specifying one or more security services that secure the storage equipment",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "containerization_engine",
-   "description_en": "Identifying one or more security services that secure a containerization engine"
+   "description_en": "Identifying one or more security services that secure a containerization engine",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "peripheral_device",
-   "description_en": "Specifying one or more security services that secure a peripheral device"
+   "description_en": "Specifying one or more security services that secure a peripheral device",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "infrastructure_management_tool",
-   "description_en": "Identifying one or more security services that secure the infrastructure management tool"
+   "description_en": "Identifying one or more security services that secure the infrastructure management tool",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "infrastructure_service",
-   "description_en": "Identifying one or more security services that secure an infrastructure service"
+   "description_en": "Identifying one or more security services that secure an infrastructure service",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "network_link",
-   "description_en": "Specifying one or more security services that secure a network link"
+   "description_en": "Specifying one or more security services that secure a network link",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Provided By",
    "target": "service_provider",
-   "description_en": "Determining the provider of the security service"
+   "description_en": "Determining the provider of the security service",
+   "name_ar": "يُقدَّم من"
   },
   {
    "source": "security_service",
    "verb": "Owned By",
    "target": "organizational_unit",
-   "description_en": "Identifying the organizational unit responsible for the security service"
+   "description_en": "Identifying the organizational unit responsible for the security service",
+   "name_ar": "مملوك لـ"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "data_vault",
-   "description_en": "Identifying one or more security services that secure a data vault"
+   "description_en": "Identifying one or more security services that secure a data vault",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "application",
-   "description_en": "Identifying one or more security services that secure an application"
+   "description_en": "Identifying one or more security services that secure an application",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "application_modules",
-   "description_en": "Identifying one or more security services that secure the application module"
+   "description_en": "Identifying one or more security services that secure the application module",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "application_function",
-   "description_en": "Identifying one or more security services that secure the application function"
+   "description_en": "Identifying one or more security services that secure the application function",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "security_service",
    "verb": "Secures",
    "target": "technical_integration_interface",
-   "description_en": "Identifying one or more security services that secure the Technical Integration Interface"
+   "description_en": "Identifying one or more security services that secure the Technical Integration Interface",
+   "name_ar": "يؤمّن"
   },
   {
    "source": "persona",
    "verb": "Represents",
    "target": "beneficiary",
-   "description_en": "A persona represents a beneficiary segment."
+   "description_en": "A persona represents a beneficiary segment.",
+   "name_ar": "يمثّل"
   }
  ],
  "notes": "Enum attributes without options act as free text with suggestions until an entity EA owner (R2) configures the list."

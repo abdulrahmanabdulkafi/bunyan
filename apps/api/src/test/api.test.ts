@@ -145,6 +145,21 @@ describe('validation & workflow', () => {
   });
 });
 
+describe('relationships', () => {
+  it('links two records only through a relation defined in the meta-model', async () => {
+    const apps = (await api(T.ea, 'GET', '/records?block=application')).body.items;
+    const servers = (await api(T.ea, 'GET', '/records?block=server')).body.items;
+    const m = (await api(T.ea, 'GET', '/metamodel')).body;
+    const hosts = m.relations.find((r: { source_code: string; verb: string; target_code: string }) => r.source_code === 'server' && r.verb === 'Hosts' && r.target_code === 'application');
+    const ok = await api(T.ea, 'POST', `/records/${servers[0].id}/links`, { relation_id: hosts.id, target_id: apps[0].id });
+    assert.equal(ok.status, 201, JSON.stringify(ok.body));
+    const wrong = await api(T.ea, 'POST', `/records/${apps[0].id}/links`, { relation_id: hosts.id, target_id: servers[0].id });
+    assert.equal(wrong.status, 400);
+    const detail = await api(T.ea, 'GET', `/records/${apps[0].id}`);
+    assert.ok(detail.body.links.some((l: { direction: string; other_id: string }) => l.direction === 'in' && l.other_id === servers[0].id));
+  });
+});
+
 describe('meta-model configuration', () => {
   it('adds a custom attribute with options and enforces it', async () => {
     const add = await api(T.ea, 'POST', '/metamodel/blocks/server/attributes', {

@@ -15,7 +15,7 @@ export interface Seed {
   version: string;
   domains: { code: string; name_ar: string; name_en: string; active: boolean }[];
   blocks: SeedBlock[];
-  relations: { source: string; verb: string; target: string; description_en: string }[];
+  relations: { source: string; verb: string; target: string; name_ar?: string; description_en: string }[];
 }
 
 let cached: Seed | null = null;
@@ -40,8 +40,8 @@ export async function applyTemplate(tx: Tx, tenantId: string) {
     }
   }
   for (const r of s.relations) {
-    await tx.query(`insert into mm_relations (tenant_id, source_code, verb, target_code, description) values ($1,$2,$3,$4,$5) on conflict do nothing`,
-      [tenantId, r.source, r.verb, r.target, r.description_en]);
+    await tx.query(`insert into mm_relations (tenant_id, source_code, verb, target_code, name_ar, description) values ($1,$2,$3,$4,$5,$6) on conflict do nothing`,
+      [tenantId, r.source, r.verb, r.target, r.name_ar ?? null, r.description_en]);
   }
 }
 
