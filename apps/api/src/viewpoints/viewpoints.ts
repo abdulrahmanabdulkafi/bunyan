@@ -1,15 +1,44 @@
-import { BadRequestException, Controller, ForbiddenException, Get, Query } from '@nestjs/common';
+import { BadRequestException, Controller, ForbiddenException, Get, Param, Query } from '@nestjs/common';
 import { pool, withActor } from '../common/db.js';
 import { CurrentUser, Perm, SessionUser, actorOf } from '../auth/auth.js';
 import { can, inScope } from '../auth/permissions.js';
 import { loadModel } from '../metamodel/metamodel.js';
 import { completeness } from '../records/validate.js';
+import { VIEWPOINTS } from './catalog.js';
+import { Level, missingBlocks, run } from './engine.js';
+import { NotFoundException } from '@nestjs/common';
 
 const ALERT_DAYS = 180;
 const EOL_KEYS = ['support_end_date', 'expiry_date'];
 
 @Controller('viewpoints')
 export class ViewpointsController {
+  /** The 35 phase-1 viewpoints, with whether each can be built for this entity right now. */
+  @Perm('records.read')
+  @Get('catalog')
+  catalog(@CurrentUser() u: SessionUser) {
+    return withActor(actorOf(u), async (tx) => {
+      const model = await loadModel(tx);
+      const readable = (b: string) => { const d = model.blocks.find((x) => x.code === b); return !!d && inScope(u.roles, u.scope ?? {}, 'records.read', d.code, d.domain_code); };
+      return VIEWPOINTS.map(({ spec, ...vp }) => ({ ...vp, kind: spec.kind, missing: missingBlocks({ spec, ...vp }, { model, readable }) }));
+    });
+  }
+
+  @Perm('records.read')
+  @Get('run/:code')
+  runOne(@CurrentUser() u: SessionUser, @Param('code') code: string, @Query('level') level: string) {
+    const vp = VIEWPOINTS.find((v) => v.code === code);
+    if (!vp) throw new NotFoundException();
+    const lvl: Level = level === 'conceptual' || level === 'physical' ? level : 'logical';
+    return withActor(actorOf(u), async (tx) => {
+      const model = await loadModel(tx);
+      const readable = (b: string) => { const d = model.blocks.find((x) => x.code === b); return !!d && inScope(u.roles, u.scope ?? {}, 'records.read', d.code, d.domain_code); };
+      const missing = missingBlocks(vp, { model, readable });
+      if (missing.length) return { code, missing };
+      return { code, level: lvl, ...(await run(tx, vp.spec, { model, readable, level: lvl, showCost: can(u.roles, 'cost.read') })) };
+    });
+  }
+
   /** Relationship matrix between two building blocks (e.g. Applications × Servers). */
   @Perm('records.read')
   @Get('matrix')

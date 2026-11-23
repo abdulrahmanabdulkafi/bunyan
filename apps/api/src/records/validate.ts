@@ -3,8 +3,24 @@ import type { BlockDef } from '../metamodel/metamodel.js';
 export interface FieldError { key: string; message: string }
 
 /** Coerce one value to the attribute's type; returns undefined for empty values. Throws a message string on bad input. */
-export function coerce(type: string, raw: unknown, options: { value: string }[]): unknown {
-  if (raw === null || raw === undefined || (typeof raw === 'string' && raw.trim() === '')) return undefined;
+export interface CoerceOpts { options?: { value: string }[]; multiple?: boolean; strict?: boolean }
+
+const SPLIT = /[;\n؛]/;
+
+/** Split a list value given as an array, or as text separated by ; or new lines. */
+export function toList(raw: unknown): string[] {
+  const arr = Array.isArray(raw) ? raw : String(raw).split(SPLIT);
+  return [...new Set(arr.map((x) => String(x).trim()).filter(Boolean))];
+}
+
+export function coerce(type: string, raw: unknown, o: CoerceOpts = {}): unknown {
+  if (raw === null || raw === undefined || (typeof raw === 'string' && raw.trim() === '') || (Array.isArray(raw) && raw.length === 0)) return undefined;
+  // Any attribute flagged `multiple` (and every multi_text) stores a list; each item is checked on its own.
+  if (o.multiple || type === 'multi_text') {
+    const items = toList(raw).map((x) => coerce(type === 'multi_text' ? 'text' : type, x, { ...o, multiple: false }));
+    return items.length ? items : undefined;
+  }
+  const options = o.options ?? [];
   switch (type) {
     case 'number': {
       const n = typeof raw === 'number' ? raw : Number(String(raw).replace(/[,\s]/g, '').replace(/[٠-٩]/g, (d) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(d))));
@@ -19,14 +35,10 @@ export function coerce(type: string, raw: unknown, options: { value: string }[])
     case 'url': {
       try { const u = new URL(String(raw)); if (!/^https?:$/.test(u.protocol)) throw 0; return u.toString(); } catch { throw 'رابط غير صالح'; }
     }
-    case 'multi_text': {
-      const arr = Array.isArray(raw) ? raw : String(raw).split(/[;\n،]/);
-      const out = arr.map((x) => String(x).trim()).filter(Boolean);
-      return out.length ? out : undefined;
-    }
     case 'enum': {
+      // Options are suggestions; only a list marked strict rejects other values.
       const v = String(raw).trim();
-      if (options.length && !options.some((o) => o.value === v)) throw `قيمة غير مسموحة؛ القيم المتاحة: ${options.map((o) => o.value).join('، ')}`;
+      if (o.strict && options.length && !options.some((x) => x.value === v)) throw `قيمة غير مسموحة؛ القيم المتاحة: ${options.map((x) => x.value).join('، ')}`;
       return v;
     }
     default: {
@@ -51,7 +63,7 @@ export function validateAttrs(block: BlockDef, input: Record<string, unknown>, o
   for (const a of active.values()) {
     if (opts.partial && !(a.key in (input ?? {}))) continue;
     try {
-      const v = coerce(a.type, input?.[a.key], a.options ?? []);
+      const v = coerce(a.type, input?.[a.key], { options: a.options ?? [], multiple: a.multiple, strict: a.strict });
       if (v === undefined) {
         if (a.required) errors.push({ key: a.key, message: 'حقل إلزامي' });
       } else out[a.key] = v;

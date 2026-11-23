@@ -29,6 +29,7 @@ export type Permission =
   | 'cost.read'
   | 'reports.export'
   | 'audit.read'
+  | 'integrations.manage'
   | 'dashboard.sector'
   | 'dashboard.national';
 
@@ -45,6 +46,7 @@ const MATRIX: Record<Permission, Role[]> = {
   'cost.read': ['R2', 'R3', 'R4', 'R6', 'R7'],
   'reports.export': ['R2', 'R3', 'R4', 'R6', 'R7', 'R8', 'R9'],
   'audit.read': ['R0', 'R1', 'R2', 'R7'],
+  'integrations.manage': ['R1', 'R2'],
   'dashboard.sector': ['R2', 'R6', 'R8', 'R9'],
   'dashboard.national': ['R2', 'R6', 'R8', 'R9'],
 };

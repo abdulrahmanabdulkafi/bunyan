@@ -58,12 +58,17 @@ export class ExcelController {
         attrs.forEach((a, i) => {
           const col = ws.getColumn(i + 2);
           if (a.type === 'date') col.numFmt = 'yyyy-mm-dd';
-          const note = [a.name_en, a.description ?? ''].filter(Boolean).join(' — ');
+          const note = [a.name_en, a.description ?? '', a.multiple || a.type === 'multi_text' ? 'يمكن إدخال أكثر من قيمة مفصولة بـ ; — Separate multiple values with ;' : '']
+            .filter(Boolean).join('\n');
           if (note) ws.getCell(1, i + 2).note = note;
-          if (a.type === 'enum' && a.options?.length) {
-            const list = a.options.map((o) => o.value).join(',');
+          // A dropdown only for single-value lists; strict lists block other values, open lists just suggest.
+          if (a.type === 'enum' && a.options?.length && !a.multiple) {
+            const list = a.options.map((o) => o.value.replace(/[",]/g, ' ')).join(',');
             if (list.length < 250) for (let r = HEADER_ROWS + 1; r <= 2000; r++) {
-              ws.getCell(r, i + 2).dataValidation = { type: 'list', allowBlank: true, formulae: [`"${list}"`] };
+              ws.getCell(r, i + 2).dataValidation = {
+                type: 'list', allowBlank: true, formulae: [`"${list}"`],
+                showErrorMessage: a.strict, errorStyle: a.strict ? 'stop' : 'information',
+              };
             }
           }
         });

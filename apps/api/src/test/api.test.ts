@@ -5,6 +5,8 @@
 import { after, before, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
+import http from 'node:http';
+import type { AddressInfo } from 'node:net';
 import pg from 'pg';
 import { createApp } from '../main.js';
 import { pool } from '../common/db.js';
@@ -13,6 +15,7 @@ import { config } from '../common/config.js';
 let base = '';
 let app: Awaited<ReturnType<typeof createApp>>;
 const PW = process.env.DEMO_PASSWORD ?? 'Bunyan@2026';
+process.env.CONNECTOR_ALLOW_LOOPBACK = 'true'; // the mock vCenter below listens on localhost
 
 async function api(token: string, method: string, path: string, body?: unknown) {
   const res = await fetch(base + path, {
@@ -161,16 +164,27 @@ describe('relationships', () => {
 });
 
 describe('meta-model configuration', () => {
-  it('adds a custom attribute with options and enforces it', async () => {
+  it('predefined lists accept any value by default, and only strict lists reject others', async () => {
     const add = await api(T.ea, 'POST', '/metamodel/blocks/server/attributes', {
       key: 'hosting_zone', name_ar: 'منطقة الاستضافة', name_en: 'Hosting zone', type: 'enum',
       options: [{ value: 'DMZ' }, { value: 'Internal' }],
     });
     assert.equal(add.status, 201);
+    const open = await api(T.ea, 'POST', '/records', { block: 'server', attrs: { server_name: 'Z0', hosting_zone: 'Partner zone' } });
+    assert.equal(open.status, 201, 'open list accepts a value outside the suggestions');
+    assert.equal((await api(T.ea, 'PATCH', '/metamodel/blocks/server/attributes/hosting_zone', { strict: true })).status, 200);
     const bad = await api(T.ea, 'POST', '/records', { block: 'server', attrs: { server_name: 'Z1', hosting_zone: 'Moon' } });
     assert.equal(bad.status, 422);
     const ok = await api(T.ea, 'POST', '/records', { block: 'server', attrs: { server_name: 'Z1', hosting_zone: 'DMZ' } });
     assert.equal(ok.status, 201);
+  });
+  it('an attribute can hold a list of values', async () => {
+    assert.equal((await api(T.ea, 'PATCH', '/metamodel/blocks/server/attributes/environment', { multiple: true })).status, 200);
+    const r = await api(T.ea, 'POST', '/records', { block: 'server', attrs: { server_name: 'Z2', environment: 'الإنتاج; الاختبار' } });
+    assert.equal(r.status, 201);
+    assert.deepEqual(r.body.attrs.environment, ['الإنتاج', 'الاختبار']);
+    const r2 = await api(T.ea, 'POST', '/records', { block: 'server', attrs: { server_name: 'Z3', environment: ['التطوير'] } });
+    assert.deepEqual(r2.body.attrs.environment, ['التطوير']);
   });
   it('entity B is not affected by entity A model changes', async () => {
     const m = await api(T.eb, 'GET', '/metamodel');
@@ -213,5 +227,151 @@ describe('excel template round trip', () => {
     const list = await api(T.ea, 'GET', '/records?block=license&q=مستوردة');
     assert.equal(list.body.total, 1);
     assert.equal(list.body.items[0].source, 'excel');
+  });
+});
+
+describe('viewpoints', () => {
+  it('lists the 35 phase-1 viewpoints and flags those that need phase-2 blocks', async () => {
+    const r = await api(T.ea, 'GET', '/viewpoints/catalog');
+    assert.equal(r.body.length, 35);
+    const byDomain = (d: string) => r.body.filter((v: { domain: string }) => v.domain === d).length;
+    assert.deepEqual([byDomain('applications'), byDomain('technology'), byDomain('security')], [15, 12, 8]);
+    const ou = r.body.find((v: { code: string }) => v.code === 'APP-M2');
+    assert.deepEqual(ou.missing, ['organizational_unit']);
+    assert.ok(r.body.filter((v: { missing: string[] }) => v.missing.length === 0).length >= 27);
+  });
+  it('builds every available viewpoint without error', async () => {
+    const cat = (await api(T.ea, 'GET', '/viewpoints/catalog')).body;
+    for (const v of cat) {
+      const r = await api(T.ea, 'GET', `/viewpoints/run/${v.code}`);
+      assert.equal(r.status, 200, v.code);
+      if (!v.missing.length) assert.equal(r.body.kind, v.kind, v.code);
+    }
+  });
+  it('matrix follows intermediate blocks (data center → host → server → application)', async () => {
+    const r = await api(T.ea, 'GET', '/viewpoints/run/TEC-M2');
+    const dc = r.body.rows.find((x: { name: string }) => x.name.includes('الرياض'));
+    const crm = r.body.cols.find((x: { name: string }) => x.name === 'نظام إدارة علاقات العملاء');
+    assert.ok(r.body.cells.some((c: { row: string; col: string }) => c.row === dc.id && c.col === crm.id));
+  });
+  it('application integration view links applications through their interfaces', async () => {
+    const r = await api(T.ea, 'GET', '/viewpoints/run/APP-D4');
+    assert.ok(r.body.nodes.every((n: { block_code: string }) => n.block_code === 'application'));
+    assert.ok(r.body.edges.length >= 2);
+  });
+  it('detail levels change the columns of a catalogue', async () => {
+    const c = await api(T.ea, 'GET', '/viewpoints/run/APP-L1?level=conceptual');
+    const p = await api(T.ea, 'GET', '/viewpoints/run/APP-L1?level=physical');
+    assert.equal(c.body.columns.length, 1);
+    assert.ok(p.body.columns.length > 10);
+  });
+  it('hides cost columns from users without cost permission', async () => {
+    const r = await api(T.entry, 'GET', '/viewpoints/run/TEC-L1?level=physical');
+    assert.ok(!r.body.columns.some((c: { key: string }) => /cost/.test(c.key)));
+  });
+});
+
+describe('integrations (vCenter)', () => {
+  let vc: http.Server;
+  let url = '';
+  const state = { cpu: 8, password: 'vc-secret-1' };
+  before(async () => {
+    vc = http.createServer((req, res) => {
+      const send = (b: unknown, code = 200) => { res.writeHead(code, { 'content-type': 'application/json' }); res.end(JSON.stringify(b)); };
+      if (req.url === '/api/session' && req.method === 'POST') {
+        const ok = req.headers.authorization === `Basic ${Buffer.from(`svc-ea@vsphere.local:${state.password}`).toString('base64')}`;
+        return ok ? send('tok-123', 201) : send({ error: 'unauthenticated' }, 401);
+      }
+      if (req.url === '/api/session' && req.method === 'DELETE') return send(null, 204);
+      if (req.headers['vmware-api-session-id'] !== 'tok-123') return send({}, 401);
+      if (req.method !== 'GET') return send({}, 405); // read-only: the connector must never write
+      if (req.url === '/api/vcenter/cluster') return send([{ cluster: 'domain-c1', name: 'CL-PROD' }]);
+      if (req.url === '/api/vcenter/host?clusters=domain-c1') return send([{ host: 'host-1' }]);
+      if (req.url === '/api/vcenter/host') return send([
+        { host: 'host-1', name: 'ESX-RUH-01', connection_state: 'CONNECTED', power_state: 'POWERED_ON' },
+        { host: 'host-9', name: 'esx-new-09', connection_state: 'CONNECTED', power_state: 'POWERED_ON' },
+      ]);
+      if (req.url === '/api/vcenter/vm') return send([{ vm: 'vm-1', name: 'SRV-CRM-01', power_state: 'POWERED_ON' }, { vm: 'vm-7', name: 'SRV-NEW-07', power_state: 'POWERED_OFF' }]);
+      if (req.url === '/api/vcenter/vm/vm-1') return send({ guest_OS: 'RHEL_9_64', cpu: { count: state.cpu }, memory: { size_MiB: 65536 }, disks: { '2000': { capacity: 107374182400 } }, placement: { host: 'host-1' } });
+      if (req.url === '/api/vcenter/vm/vm-7') return send({ guest_OS: 'WINDOWS_SERVER_2022', cpu: { count: 2 }, memory: { size_MiB: 8192 }, disks: {}, placement: { host: 'host-9' } });
+      send({}, 404);
+    });
+    await new Promise<void>((r) => vc.listen(0, '127.0.0.1', r));
+    url = `http://127.0.0.1:${(vc.address() as AddressInfo).port}`;
+  });
+  after(() => { vc.close(); });
+
+  let id = '';
+  it('only entity admins and EA owners manage connectors', async () => {
+    assert.equal((await api(T.arch, 'GET', '/integrations')).status, 403);
+  });
+  it('stores credentials encrypted and never returns them', async () => {
+    const r = await api(T.ea, 'POST', '/integrations', {
+      name: 'vCenter الرياض', type: 'vcenter', settings: { url }, secret: { username: 'svc-ea@vsphere.local', password: state.password },
+    });
+    assert.equal(r.status, 201, JSON.stringify(r.body));
+    id = r.body.id;
+    assert.equal(r.body.secret, undefined);
+    assert.equal(r.body.has_secret, true);
+    const c = new pg.Client({ connectionString: config.databaseUrl.replace('bunyan_app:bunyan_app', 'bunyan_owner:bunyan_owner') });
+    await c.connect();
+    await c.query(`select set_config('app.platform','on',false)`);
+    const raw = (await c.query('select secret from connectors where id=$1', [id])).rows[0].secret as string;
+    await c.end();
+    assert.ok(raw.startsWith('v1.') && !raw.includes(state.password));
+  });
+  it('tests the connection', async () => {
+    assert.equal((await api(T.ea, 'POST', `/integrations/${id}/test`)).body.ok, true);
+    state.password = 'rotated';
+    const bad = await api(T.ea, 'POST', `/integrations/${id}/test`);
+    assert.equal(bad.body.ok, false);
+    await api(T.ea, 'PATCH', `/integrations/${id}`, { secret: { password: 'rotated', username: '' } });
+    assert.equal((await api(T.ea, 'POST', `/integrations/${id}/test`)).body.ok, true, 'blank username keeps the stored one');
+  });
+  it('a dry run reports changes without saving them', async () => {
+    const before = (await api(T.ea, 'GET', '/records?block=server')).body.total;
+    const r = await api(T.ea, 'POST', `/integrations/${id}/run?dryRun=true`);
+    assert.equal(r.body.status, 'succeeded', JSON.stringify(r.body.details));
+    assert.equal(r.body.created, 2, JSON.stringify(r.body)); // esx-new-09, SRV-NEW-07
+    assert.equal(r.body.updated, 1); // SRV-CRM-01 matched by name and changed
+    assert.equal(r.body.unchanged, 1); // ESX-RUH-01 matched by name, same values
+    assert.equal(r.body.details.length, 0, 'the disc mapping targets an attribute switched off earlier and is skipped');
+    assert.equal((await api(T.ea, 'GET', '/records?block=server')).body.total, before);
+  });
+  it('syncs: merges by name, creates drafts, then matches by source id', async () => {
+    const r = await api(T.ea, 'POST', `/integrations/${id}/run`);
+    assert.equal(r.body.status, 'succeeded');
+    const crm = (await api(T.ea, 'GET', '/records?block=server&q=SRV-CRM-01')).body.items[0];
+    assert.equal(crm.attrs.central_processing_units, 8);
+    assert.equal(crm.attrs.random_access_memory_ram, 64);
+    assert.equal(crm.status, 'draft', 'changed data goes back through approval');
+    const fresh = (await api(T.ea, 'GET', '/records?block=server&q=SRV-NEW-07')).body.items[0];
+    assert.equal(fresh.source, 'integration');
+    assert.equal(fresh.status, 'draft');
+    const again = await api(T.ea, 'POST', `/integrations/${id}/run`);
+    assert.deepEqual([again.body.created, again.body.updated, again.body.unchanged], [0, 0, 4]);
+    const runs = await api(T.ea, 'GET', `/integrations/${id}/runs`);
+    assert.equal(runs.body.length, 2);
+  });
+  it('fill-empty mode keeps repository values and reports conflicts', async () => {
+    const conn = (await api(T.ea, 'GET', '/integrations')).body.find((c: { id: string }) => c.id === id);
+    const targets = conn.config.targets.map((t: { entity: string }) => ({ ...t, mode: t.entity === 'vm' ? 'fill_empty' : 'overwrite' }));
+    await api(T.ea, 'PATCH', `/integrations/${id}`, { targets });
+    state.cpu = 12;
+    const r = await api(T.ea, 'POST', `/integrations/${id}/run`);
+    assert.equal(r.body.conflicts, 1);
+    assert.equal(r.body.details[0].attribute, 'central_processing_units');
+    const crm = (await api(T.ea, 'GET', '/records?block=server&q=SRV-CRM-01')).body.items[0];
+    assert.equal(crm.attrs.central_processing_units, 8);
+  });
+  it('refuses cloud-metadata and link-local addresses', async () => {
+    const r = await api(T.ea, 'POST', '/integrations', { name: 'bad', type: 'json_api', settings: { url: 'http://169.254.169.254/latest/meta-data', id_field: 'id', source_fields: 'id' }, secret: {} });
+    const t = await api(T.ea, 'POST', `/integrations/${r.body.id}/test`);
+    assert.equal(t.body.ok, false);
+    assert.match(t.body.message, /blocked/);
+  });
+  it('entity B cannot see entity A connectors', async () => {
+    assert.equal((await api(T.eb, 'GET', '/integrations')).body.length, 0);
+    assert.equal((await api(T.eb, 'POST', `/integrations/${id}/run`)).status, 404);
   });
 });

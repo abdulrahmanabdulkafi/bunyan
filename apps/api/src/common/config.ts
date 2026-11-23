@@ -21,6 +21,9 @@ export const config = {
   // Optional OIDC (Keycloak / AD FS / Nafath gateway). When set, /auth/oidc accepts id_tokens from this issuer.
   oidcIssuer: process.env.OIDC_ISSUER ?? '',
   oidcAudience: process.env.OIDC_AUDIENCE ?? '',
+  // 32-byte base64 key encrypting connector credentials. Required in production.
+  connectorKey: isProd ? required('CONNECTOR_KEY') : (process.env.CONNECTOR_KEY ?? ''),
+  scheduler: process.env.SCHEDULER !== 'off',
   corsOrigin: process.env.CORS_ORIGIN ?? 'http://localhost:3000',
   seedFile: process.env.SEED_FILE ?? path.resolve(here, '../../../../packages/seed/metamodel.seed.json'),
 };

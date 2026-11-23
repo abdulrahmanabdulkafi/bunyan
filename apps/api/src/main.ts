@@ -10,6 +10,7 @@ import { MetamodelController, MetamodelService } from './metamodel/metamodel.js'
 import { ApprovalsController, RecordsController, RecordsService } from './records/records.js';
 import { ExcelController } from './io/excel.js';
 import { ViewpointsController } from './viewpoints/viewpoints.js';
+import { IntegrationsController, IntegrationsService, startScheduler } from './integrations/integrations.js';
 
 /** Turn validation and database errors into clean JSON; never leak SQL or stack traces. */
 @Catch()
@@ -29,8 +30,8 @@ class ErrorFilter implements ExceptionFilter {
 }
 
 @Module({
-  controllers: [AuthController, TenantsController, MetamodelController, RecordsController, ApprovalsController, ExcelController, ViewpointsController],
-  providers: [TenantsService, MetamodelService, RecordsService, { provide: APP_GUARD, useClass: AuthGuard }],
+  controllers: [AuthController, TenantsController, MetamodelController, RecordsController, ApprovalsController, ExcelController, ViewpointsController, IntegrationsController],
+  providers: [TenantsService, MetamodelService, RecordsService, IntegrationsService, { provide: APP_GUARD, useClass: AuthGuard }],
 })
 export class AppModule {}
 
@@ -46,6 +47,7 @@ if (process.argv[1]?.endsWith('main.js')) {
   const app = await createApp();
   await app.listen(config.port);
   console.log(`Bunyan API on :${config.port}`);
+  if (config.scheduler) startScheduler(app.get(IntegrationsService));
   const stop = async () => { await app.close(); await pool.end(); process.exit(0); };
   process.on('SIGTERM', stop);
   process.on('SIGINT', stop);

@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { Actor, Tx, audit, withActor } from '../common/db.js';
 import { CurrentUser, Perm, SessionUser, actorOf } from '../auth/auth.js';
 
-export interface AttrDef { key: string; name_ar: string; name_en: string; type: string; required: boolean; options: { value: string; label_ar?: string; label_en?: string }[]; active: boolean; sort: number; description: string | null; is_custom: boolean }
+export interface AttrDef { key: string; name_ar: string; name_en: string; type: string; required: boolean; options: { value: string; label_ar?: string; label_en?: string }[]; active: boolean; sort: number; description: string | null; is_custom: boolean; multiple: boolean; strict: boolean }
 export interface BlockDef { code: string; domain_code: string; name_ar: string; name_en: string; active: boolean; title_key: string | null; is_custom: boolean; attributes: AttrDef[] }
 export interface RelationDef { id: string; source_code: string; verb: string; target_code: string; name_ar: string | null; description: string | null; active: boolean }
 export interface Model { domains: { code: string; name_ar: string; name_en: string; active: boolean }[]; blocks: BlockDef[]; relations: RelationDef[] }
@@ -11,7 +11,7 @@ export interface Model { domains: { code: string; name_ar: string; name_en: stri
 export async function loadModel(tx: Tx): Promise<Model> {
   const domains = (await tx.query('select code, name_ar, name_en, active from mm_domains order by sort')).rows;
   const blocks: BlockDef[] = (await tx.query('select code, domain_code, name_ar, name_en, active, title_key, is_custom from mm_blocks order by sort')).rows;
-  const attrs = (await tx.query('select block_code, key, name_ar, name_en, type, required, options, active, sort, description, is_custom from mm_attributes order by sort')).rows;
+  const attrs = (await tx.query('select block_code, key, name_ar, name_en, type, required, options, multiple, strict, active, sort, description, is_custom from mm_attributes order by sort')).rows;
   const byBlock = new Map(blocks.map((b) => [b.code, Object.assign(b, { attributes: [] as AttrDef[] })]));
   for (const a of attrs) byBlock.get(a.block_code)?.attributes.push(a);
   const relations = (await tx.query('select id, source_code, verb, target_code, name_ar, description, active from mm_relations order by source_code, verb')).rows;
@@ -23,9 +23,15 @@ const Option = z.object({ value: z.string().min(1), label_ar: z.string().optiona
 const AttrDto = z.object({
   key: Key, name_ar: z.string().min(1), name_en: z.string().min(1),
   type: z.enum(['text', 'multi_text', 'number', 'date', 'enum', 'url', 'duration', 'reference']),
-  required: z.boolean().default(false), options: z.array(Option).default([]), description: z.string().optional(), sort: z.number().int().default(999),
+  required: z.boolean().default(false), options: z.array(Option).default([]), multiple: z.boolean().default(false), strict: z.boolean().default(false), description: z.string().optional(), sort: z.number().int().default(999),
 });
-const AttrPatch = AttrDto.omit({ key: true }).partial().extend({ active: z.boolean().optional() });
+// Explicit optional fields (no defaults): a PATCH must never reset attributes it did not mention.
+const AttrPatch = z.object({
+  name_ar: z.string().min(1), name_en: z.string().min(1),
+  type: z.enum(['text', 'multi_text', 'number', 'date', 'enum', 'url', 'duration', 'reference']),
+  required: z.boolean(), options: z.array(Option), multiple: z.boolean(), strict: z.boolean(),
+  description: z.string(), sort: z.number().int(), active: z.boolean(),
+}).partial();
 const BlockDto = z.object({ code: Key, domain_code: z.string(), name_ar: z.string().min(1), name_en: z.string().min(1), title_key: z.string().default('name') });
 const BlockPatch = z.object({ name_ar: z.string(), name_en: z.string(), active: z.boolean(), title_key: z.string() }).partial();
 const RelDto = z.object({ source_code: z.string(), verb: z.string().min(2), target_code: z.string(), name_ar: z.string().optional(), description: z.string().optional() });
@@ -75,9 +81,9 @@ export class MetamodelService {
   createAttr(actor: Actor, block: string, body: unknown) {
     const d = AttrDto.parse(body);
     return this.change(actor, 'mm_attribute', `${block}.${d.key}`, async (tx) => {
-      const after = (await tx.query(`insert into mm_attributes (tenant_id, block_code, key, name_ar, name_en, description, type, required, options, is_custom, sort)
-        values (app_tenant(), $1,$2,$3,$4,$5,$6,$7,$8,true,$9) returning *`,
-        [block, d.key, d.name_ar, d.name_en, d.description ?? null, d.type, d.required, JSON.stringify(d.options), d.sort])).rows[0];
+      const after = (await tx.query(`insert into mm_attributes (tenant_id, block_code, key, name_ar, name_en, description, type, required, options, multiple, strict, is_custom, sort)
+        values (app_tenant(), $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,true,$11) returning *`,
+        [block, d.key, d.name_ar, d.name_en, d.description ?? null, d.type, d.required, JSON.stringify(d.options), d.multiple, d.strict, d.sort])).rows[0];
       return { before: null, after };
     });
   }
@@ -87,9 +93,10 @@ export class MetamodelService {
     return this.change(actor, 'mm_attribute', `${block}.${key}`, async (tx) => {
       const before = (await tx.query('select * from mm_attributes where block_code=$1 and key=$2', [block, key])).rows[0];
       const after = (await tx.query(`update mm_attributes set name_ar=coalesce($3,name_ar), name_en=coalesce($4,name_en), type=coalesce($5,type),
-          required=coalesce($6,required), options=coalesce($7,options), description=coalesce($8,description), active=coalesce($9,active), sort=coalesce($10,sort)
+          required=coalesce($6,required), options=coalesce($7,options), description=coalesce($8,description), active=coalesce($9,active), sort=coalesce($10,sort),
+          multiple=coalesce($11,multiple), strict=coalesce($12,strict)
         where block_code=$1 and key=$2 returning *`,
-        [block, key, p.name_ar, p.name_en, p.type, p.required, p.options ? JSON.stringify(p.options) : null, p.description, p.active, p.sort])).rows[0];
+        [block, key, p.name_ar, p.name_en, p.type, p.required, p.options ? JSON.stringify(p.options) : null, p.description, p.active, p.sort, p.multiple, p.strict])).rows[0];
       return { before, after };
     });
   }
