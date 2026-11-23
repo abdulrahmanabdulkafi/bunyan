@@ -1,0 +1,19 @@
+{
+  "name": "bunyan",
+  "private": true,
+  "description": "بُنيان — منصة البنية المؤسسية للجهات الحكومية",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "db:setup": "node scripts/db-setup.mjs",
+    "dev:api": "npm --workspace apps/api run dev",
+    "dev:web": "npm --workspace apps/web run dev",
+    "build": "npm --workspace apps/api run build && npm --workspace apps/web run build",
+    "test": "npm --workspace apps/api test"
+  },
+  "devDependencies": {
+    "bcryptjs": "^3.0.3",
+    "pg": "^8.23.1"
+  }
+}

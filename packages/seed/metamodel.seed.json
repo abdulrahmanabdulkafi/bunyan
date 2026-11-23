@@ -1,0 +1,6177 @@
+{
+ "version": "dga-ea-cmm-1.0",
+ "domains": [
+  {
+   "code": "strategy",
+   "name_ar": "المواءمة الاستراتيجية",
+   "name_en": "Strategic Alignment",
+   "active": false
+  },
+  {
+   "code": "business",
+   "name_ar": "الأعمال",
+   "name_en": "Business",
+   "active": false
+  },
+  {
+   "code": "beneficiary",
+   "name_ar": "تجربة المستفيد",
+   "name_en": "Beneficiary Experience",
+   "active": false
+  },
+  {
+   "code": "data",
+   "name_ar": "البيانات",
+   "name_en": "Data",
+   "active": false
+  },
+  {
+   "code": "applications",
+   "name_ar": "التطبيقات",
+   "name_en": "Applications",
+   "active": true
+  },
+  {
+   "code": "technology",
+   "name_ar": "التقنية",
+   "name_en": "Technology",
+   "active": true
+  },
+  {
+   "code": "security",
+   "name_ar": "الأمن السيبراني",
+   "name_en": "Security",
+   "active": true
+  }
+ ],
+ "blocks": [
+  {
+   "code": "vision",
+   "name_en": "Vision",
+   "name_ar": "رؤية",
+   "domain": "strategy",
+   "active": false,
+   "attributes": [
+    {
+     "key": "vision_statement",
+     "order": 1,
+     "name_en": "Vision Statement",
+     "name_ar": "نص الرؤية",
+     "description_en": "Text of the vision statement for the organizational unit’s strategy in a specific domain (e.g.: Business Strategy, Digital Transformation Strategy, Cyber Security Strategy)",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "scope_of_the_vision",
+     "order": 2,
+     "name_en": "Scope of the Vision",
+     "name_ar": "نطاق الرؤية",
+     "description_en": "Determine the scope of work that the vision seeks to achieve (e.g.: specific domain of work, technical domain, data domain, business domain)",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "vision_statement"
+  },
+  {
+   "code": "mission",
+   "name_en": "Mission",
+   "name_ar": "رسالة",
+   "domain": "strategy",
+   "active": false,
+   "attributes": [
+    {
+     "key": "mission_statement",
+     "order": 1,
+     "name_en": "Mission Statement",
+     "name_ar": "نص الرسالة",
+     "description_en": "Text of the mission statement for the organizational unit’s strategy in a specific domain (e.g.: Business Strategy, Digital Transformation Strategy, Cyber Security Strategy)",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "scope_of_the_mission",
+     "order": 2,
+     "name_en": "Scope of the Mission",
+     "name_ar": "نطاق الرسالة",
+     "description_en": "Determine the scope of work that the mission seeks to achieve (e.g.:",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "mission_statement"
+  },
+  {
+   "code": "objective",
+   "name_en": "Objective",
+   "name_ar": "هدف",
+   "domain": "strategy",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the objective",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name for the strategic objective",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Brief description of the objective",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 4,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Description of the type of objective (e.g.: strategic objective, operational objective)",
+     "type": "multi_text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "pillar",
+   "name_en": "Pillar",
+   "name_ar": "ركيزة",
+   "domain": "strategy",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the pillar",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name for the pillar",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Brief description of the pillar",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "initiative",
+   "name_en": "Initiative",
+   "name_ar": "مبادرة",
+   "domain": "strategy",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the Initiative",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name for the Initiative",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of the initiative",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 4,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Description of the initiative type (e.g.: strategic initiative, technical initiative, operational initiative)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "owner_of_the_initiative",
+     "order": 5,
+     "name_en": "Owner of the Initiative",
+     "name_ar": "مالك المبادرة",
+     "description_en": "Organizational unit/ Position that owns the initiative",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "start_date",
+     "order": 6,
+     "name_en": "Start Date",
+     "name_ar": "تاريخ البدء",
+     "description_en": "Initiative execution start date",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "completion_date",
+     "order": 7,
+     "name_en": "Completion Date",
+     "name_ar": "تاريخ الانتهاء",
+     "description_en": "Initiative execution completion date",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "budget",
+     "order": 8,
+     "name_en": "Budget",
+     "name_ar": "الميزانية",
+     "description_en": "Financial amount allocated to the execution of the initiative",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "project",
+   "name_en": "Project",
+   "name_ar": "مشروع",
+   "domain": "strategy",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the project",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Project name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of the project",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "project_scope_of_work",
+     "order": 4,
+     "name_en": "Project Scope of Work",
+     "name_ar": "نطاق عمل المشروع",
+     "description_en": "Description of the project scope of work",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "project_sponsor",
+     "order": 5,
+     "name_en": "Project Sponsor",
+     "name_ar": "راعي المشروع",
+     "description_en": "Name of the project sponsor",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "project_owner",
+     "order": 6,
+     "name_en": "Project Owner",
+     "name_ar": "مالك المشروع",
+     "description_en": "Department that owns the project",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "project_manager",
+     "order": 7,
+     "name_en": "Project Manager",
+     "name_ar": "مدير المشروع",
+     "description_en": "Name of the Project Manager",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "project_deliverables",
+     "order": 8,
+     "name_en": "Project Deliverables",
+     "name_ar": "مخرجات المشروع",
+     "description_en": "Description of project deliverables",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "status_of_the_project",
+     "order": 9,
+     "name_en": "Status of the Project",
+     "name_ar": "حالة المشروع",
+     "description_en": "Description of the project execution status (e.g.: scheduled, active, suspended, cancelled)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "entity_in_charge_of_execution",
+     "order": 10,
+     "name_en": "Entity in Charge of Execution",
+     "name_ar": "جهة التنفيذ",
+     "description_en": "Determine the type of entity responsible for executing the project (e.g.: in-house execution, outsourced execution, etc.)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "start_date",
+     "order": 11,
+     "name_en": "Start Date",
+     "name_ar": "تاريخ البدء",
+     "description_en": "Project task execution start date",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "completion_date",
+     "order": 12,
+     "name_en": "Completion Date",
+     "name_ar": "تاريخ الانتهاء",
+     "description_en": "Project task execution completion date",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "budget",
+     "order": 13,
+     "name_en": "Budget",
+     "name_ar": "الميزانية",
+     "description_en": "Financial amount allocated to the execution of the project scope of work",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "currency",
+     "order": 14,
+     "name_en": "Currency",
+     "name_ar": "العملة",
+     "description_en": "Currency used to define the budget (e.g.: Saudi Riyal, US Dollar)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "priority",
+     "order": 15,
+     "name_en": "Priority",
+     "name_ar": "الأولوية",
+     "description_en": "Determine the project execution priority (e.g.: high priority, medium priority, low priority)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "key_performance_indicator",
+   "name_en": "Key Performance Indicator",
+   "name_ar": "مؤشر أداء",
+   "domain": "strategy",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the key performance indicator",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Indicator name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Brief description of the indicator",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "indicator_level",
+     "order": 4,
+     "name_en": "Indicator Level",
+     "name_ar": "مستوى المؤشر",
+     "description_en": "Determine the level that the indicator measures (e.g.: strategic, operational)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "calculation_formula",
+     "order": 5,
+     "name_en": "Calculation Formula",
+     "name_ar": "معادلة الاحتساب",
+     "description_en": "Indicator calculation formula",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "data_source",
+     "order": 6,
+     "name_en": "Data Source",
+     "name_ar": "مصدر البيانات",
+     "description_en": "Source of the data needed to calculate the indicator",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "measurement_periodicity",
+     "order": 7,
+     "name_en": "Measurement Periodicity",
+     "name_ar": "دورية القياس",
+     "description_en": "Specify the period over which the indicator is measured (e.g.: daily, monthly, quarterly)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "measurement_unit",
+     "order": 8,
+     "name_en": "Measurement Unit",
+     "name_ar": "وحدة القياس",
+     "description_en": "Specify the unit in which the indicator value is calculated (e.g.: percentage, number)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "polarity_of_measurement",
+     "order": 9,
+     "name_en": "Polarity of Measurement",
+     "name_ar": "قطبية القياس",
+     "description_en": "Specify the desired direction of the indicator value (ascending, descending)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "actual_indicator_value",
+     "order": 10,
+     "name_en": "Actual Indicator Value",
+     "name_ar": "قيمة المؤشر الفعلية",
+     "description_en": "Determine the actual indicator value",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "date_of_the_last_indicator_measurement",
+     "order": 11,
+     "name_en": "Date of the Last Indicator Measurement",
+     "name_ar": "تاريخ آخر قياس للمؤشر",
+     "description_en": "Specify the date of the last indicator measurement",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "baseline_value",
+     "order": 12,
+     "name_en": "Baseline Value",
+     "name_ar": "قيمة خط الأساس",
+     "description_en": "Determine the baseline value",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "baseline_value_calculation_date",
+     "order": 13,
+     "name_en": "Baseline Value Calculation Date",
+     "name_ar": "تاريخ احتساب قيمة خط الأساس",
+     "description_en": "Specify the baseline value calculation date",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "target_value",
+     "order": 14,
+     "name_en": "Target Value",
+     "name_ar": "القيمة المستهدفة",
+     "description_en": "Determine the target value",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "date_for_specifying_the_target_value",
+     "order": 15,
+     "name_en": "Date for Specifying the Target Value",
+     "name_ar": "تاريخ تحديد القيمة المستهدفة",
+     "description_en": "Date for specifying the new target value for the indicator",
+     "type": "date",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "business_capability",
+   "name_en": "Business Capability",
+   "name_ar": "قدرة عمل",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Capability name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 2,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Brief description of the capability",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capability_type",
+     "order": 3,
+     "name_en": "Capability Type",
+     "name_ar": "نوع القدرة",
+     "description_en": "Determining the type of capability (strategic, operational, supporting)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capability_maturity_level",
+     "order": 4,
+     "name_en": "Capability Maturity Level",
+     "name_ar": "مستوى نضج القدرة",
+     "description_en": "Determining the level of maturity of the capability in terms of its activation (e.g.: high maturity capability, medium maturity capability, low maturity capability)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "organizational_unit",
+   "name_en": "Organizational Unit",
+   "name_ar": "وحدة تنظيمية",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Organizational unit name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 2,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of the organizational unit",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 3,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Determining the administrative type that the organizational unit",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "organizational_dependency",
+     "order": 4,
+     "name_en": "Organizational Dependency",
+     "name_ar": "التبعية التنظيمية",
+     "description_en": "represents (e.g.: ministry, authority, agency, sector, public administration, department) Organizational affiliation with the highest organizational unit in the entity’s organizational structure",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "mandates",
+     "order": 5,
+     "name_en": "Mandates",
+     "name_ar": "المهام",
+     "description_en": "Listing the mandates of the organizational unit",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "geographic_location",
+     "order": 6,
+     "name_en": "Geographic Location",
+     "name_ar": "الموقع الجغرافي",
+     "description_en": "Describing the geographic location of the organizational unit",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "service_provider",
+   "name_en": "Service Provider",
+   "name_ar": "مزود خدمة",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Service provider name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 2,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the service provider’s objective and scope of work Specifying the type of contractual",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_contractual_relationship",
+     "order": 3,
+     "name_en": "Type of Contractual Relationship",
+     "name_ar": "نوع العلاقة التعاقدية",
+     "description_en": "relationship (e.g.: external partner, authorized service provider, service provider, technical solutions and hardware provider, security solutions and hardware provider, etc.)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "services_provided",
+     "order": 4,
+     "name_en": "Services Provided",
+     "name_ar": "الخدمات المقدمة",
+     "description_en": "Listing of all services provided by the provider to the entity",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "service_provider_status",
+     "order": 5,
+     "name_en": "Service Provider Status",
+     "name_ar": "حالة مزود الخدمة",
+     "description_en": "Determining the status of interaction with the service provider (e.g.: active, inactive) Shows the status of compliance",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "compliance_and_certifications",
+     "order": 6,
+     "name_en": "Compliance and Certifications",
+     "name_ar": "الامتثال والشهادات",
+     "description_en": "with legal and regulatory requirements, as well as adherence to regulatory policies and standards. It also shows any certifications or accreditation that the provider holds (e.g.: ISO certification, industry-specific certifications, and compliance",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "field_of_activity",
+     "order": 7,
+     "name_en": "Field of Activity",
+     "name_ar": "مجال النشاط",
+     "description_en": "certifications) Defines the provider’s specialization classification (e.g.: technology solutions, security solutions, hardware provider, or service provider)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "relationship_status",
+     "order": 8,
+     "name_en": "Relationship Status",
+     "name_ar": "حالة العلاقة",
+     "description_en": "Expresses observations about the nature and status of relationships with the supplier, including strategic partnerships and previous dealings",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "geographic_location",
+     "order": 9,
+     "name_en": "Geographic Location",
+     "name_ar": "الموقع الجغرافي",
+     "description_en": "Geographic locations of the headquarters of the provider or key operations, which impact the logistical considerations and regulatory compliance of technical and security solutions.",
+     "type": "enum",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "service",
+   "name_en": "Service",
+   "name_ar": "خدمة",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the service",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Service name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of the service",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "classification",
+     "order": 4,
+     "name_en": "Classification",
+     "name_ar": "التصنيف",
+     "description_en": "Determining the service classification by type (e.g.: core service, sub-service)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "service_type",
+     "order": 5,
+     "name_en": "Service Type",
+     "name_ar": "نوع الخدمة",
+     "description_en": "Determining the type of service provided by the entity by business capabilities (e.g.: administrative - core - supporting)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "geographic_coverage",
+     "order": 6,
+     "name_en": "Geographic Coverage",
+     "name_ar": "التغطية الجغرافية",
+     "description_en": "Geographic coverage of service provision (e.g.: within specific areas, all areas of the Kingdom, inside/outside the Kingdom)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "automation_level",
+     "order": 7,
+     "name_en": "Automation Level",
+     "name_ar": "مستوى الأتمتة",
+     "description_en": "Determining the level of automation of the service execution steps (e.g.: fully automated, partially automated, manual)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_beneficiary",
+     "order": 8,
+     "name_en": "Type of Beneficiary",
+     "name_ar": "نوع المستفيد",
+     "description_en": "Determining the type of service beneficiary (e.g.: government entity, private sector, individual)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "requirements_for_obtaining_the_service",
+     "order": 9,
+     "name_en": "Requirements for Obtaining the Service",
+     "name_ar": "متطلبات الحصول على الخدمة",
+     "description_en": "Requirements for completing service execution",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "service_execution_steps",
+     "order": 10,
+     "name_en": "Service Execution Steps",
+     "name_ar": "خطوات تنفيذ الخدمة",
+     "description_en": "Brief description of the service execution steps",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "service_level_agreement_sla",
+     "order": 11,
+     "name_en": "Service Level Agreement (SLA)",
+     "name_ar": "اتفاقية مستوى الخدمة",
+     "description_en": "Number of days required to execute the service",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "service_input",
+     "order": 12,
+     "name_en": "Service Input",
+     "name_ar": "مدخل الخدمة",
+     "description_en": "List of service inputs",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "service_deliverable",
+     "order": 13,
+     "name_en": "Service Deliverable",
+     "name_ar": "مخرج الخدمة",
+     "description_en": "List of service deliverables",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "entities_participating_in_service_provision",
+     "order": 14,
+     "name_en": "Entities Participating in Service Provision",
+     "name_ar": "الجهات المشاركة في تقديم الخدمة",
+     "description_en": "List of entities participating in or relevant to the execution of service activities",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "service_status",
+     "order": 15,
+     "name_en": "Service Status",
+     "name_ar": "حالة الخدمة",
+     "description_en": "Determining the status of service provision (e.g.: active, inactive)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "key_performance_indicator",
+     "order": 16,
+     "name_en": "Key Performance Indicator",
+     "name_ar": "مؤشر أداء",
+     "description_en": "Measurement KPI associated with the defined service",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "service_fees",
+     "order": 17,
+     "name_en": "Service Fees",
+     "name_ar": "رسوم الخدمة",
+     "description_en": "The specified financial amount in exchange for providing the service",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "rate_of_applications",
+     "order": 18,
+     "name_en": "Rate of Applications",
+     "name_ar": "معدل الطلبات",
+     "description_en": "Approximate number of applications for the service",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "feedback",
+     "order": 19,
+     "name_en": "Feedback",
+     "name_ar": "ملاحظات",
+     "description_en": "Feedback on the service",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "processes_group",
+   "name_en": "Processes Group",
+   "name_ar": "مجموعة إجراءات",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the processes group",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Group name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of the group",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 4,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Processes group type (e.g.: core, administrative, supporting)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "business_process",
+   "name_en": "Business Process",
+   "name_ar": "إجراء عمل",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the business process",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Business process name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of the business process",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "owner",
+     "order": 4,
+     "name_en": "Owner",
+     "name_ar": "المالك",
+     "description_en": "Identifying the owner of the process",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "process_classification",
+     "order": 5,
+     "name_en": "Process Classification",
+     "name_ar": "تصنيف الإجراء",
+     "description_en": "Determining process classification by type (e.g.: core process, sub- process)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 6,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Determining the type of business process by business capabilities (e.g.: core, administrative, supporting)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_beneficiary",
+     "order": 7,
+     "name_en": "Type of Beneficiary",
+     "name_ar": "نوع المستفيد",
+     "description_en": "Specifying the type of process beneficiary (e.g.: government entity, private sector, individual)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "agreement_on_the_timeline_for_process_execution",
+     "order": 8,
+     "name_en": "Agreement on the Timeline for Process Execution",
+     "name_ar": "اتفاقية مدة تنفيذ الإجراء",
+     "description_en": "Agreed timeline for executing the Number/unit business process",
+     "type": "duration",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "launch_event",
+     "order": 9,
+     "name_en": "Launch Event",
+     "name_ar": "حدث الإطلاق",
+     "description_en": "Description of the business process launch event",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "process_execution_steps",
+     "order": 10,
+     "name_en": "Process Execution Steps",
+     "name_ar": "خطوات تنفيذ الإجراء",
+     "description_en": "List of the execution steps of the business process",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "process_inputs",
+     "order": 11,
+     "name_en": "Process Inputs",
+     "name_ar": "مدخلات الإجراء",
+     "description_en": "List of business process inputs",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "process_deliverables",
+     "order": 12,
+     "name_en": "Process Deliverables",
+     "name_ar": "مخرجات الإجراء",
+     "description_en": "List of business process deliverables",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "business_rules",
+     "order": 13,
+     "name_en": "Business Rules",
+     "name_ar": "قواعد العمل",
+     "description_en": "Requirements for completing the execution of the business process",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "participating_entities",
+     "order": 14,
+     "name_en": "Participating Entities",
+     "name_ar": "الجهات المشاركة",
+     "description_en": "List of entities participating in the execution of the business process",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "automation_level",
+     "order": 15,
+     "name_en": "Automation Level",
+     "name_ar": "مستوى الأتمتة",
+     "description_en": "Determining the level of automation of the business process execution steps (e.g.: fully automated, partially automated, manual)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "activity",
+   "name_en": "Activity",
+   "name_ar": "نشاط",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the activity",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Activity name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of the activity",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "agreement_in_the_timeline_for_executing_the_activity",
+     "order": 4,
+     "name_en": "Agreement in the Timeline for Executing the Activity",
+     "name_ar": "اتفاقية مدة تنفيذ النشاط",
+     "description_en": "Agreed timeline for executing the Number/unit activity",
+     "type": "duration",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "activity_inputs",
+     "order": 5,
+     "name_en": "Activity Inputs",
+     "name_ar": "مدخلات النشاط",
+     "description_en": "List of activity inputs",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "activity_deliverables",
+     "order": 6,
+     "name_en": "Activity Deliverables",
+     "name_ar": "مخرجات النشاط",
+     "description_en": "List of activity deliverables",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "automation_level",
+     "order": 7,
+     "name_en": "Automation Level",
+     "name_ar": "مستوى الأتمتة",
+     "description_en": "Determining the level of automation of activity execution (e.g.: fully automated, partially automated, manual)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "product",
+   "name_en": "Product",
+   "name_ar": "منتج",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the product",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Product name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of the product",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "product_type",
+     "order": 4,
+     "name_en": "Product Type",
+     "name_ar": "نوع المنتج",
+     "description_en": "Specifying the product type (e.g.: physical product, technical product, document)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "product_owner",
+     "order": 5,
+     "name_en": "Product Owner",
+     "name_ar": "مالك المنتج",
+     "description_en": "Organizational unit/ Position that owns the product",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "beneficiary",
+     "order": 6,
+     "name_en": "Beneficiary",
+     "name_ar": "المستفيد",
+     "description_en": "Targeted segment to benefit from the product",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "position",
+   "name_en": "Position",
+   "name_ar": "مسمى وظيفي",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name of the position approved at the entity (position)",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 2,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of work of the position",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "mandates_of_the_position",
+     "order": 3,
+     "name_en": "Mandates of the Position",
+     "name_ar": "مهام المسمى الوظيفي",
+     "description_en": "Description of the mandates and responsibilities of the position",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "position_qualifications",
+     "order": 4,
+     "name_en": "Position Qualifications",
+     "name_ar": "مؤهلات المسمى الوظيفي",
+     "description_en": "Description of core position qualifications",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "grade",
+     "order": 5,
+     "name_en": "Grade",
+     "name_ar": "الدرجة الوظيفية",
+     "description_en": "Grade related to the defined position",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "role",
+   "name_en": "Role",
+   "name_ar": "دور",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Role name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 2,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of the role",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "role_type",
+     "order": 3,
+     "name_en": "Role Type",
+     "name_ar": "نوع الدور",
+     "description_en": "Specifying the role type (e.g.: core role, supporting role)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "policy",
+   "name_en": "Policy",
+   "name_ar": "سياسة",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the policy",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Policy name",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objective and scope of the policy",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "owner",
+     "order": 4,
+     "name_en": "Owner",
+     "name_ar": "المالك",
+     "description_en": "Organizational unit/ Position that owns the policy",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 5,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Specifying the policy type (e.g.: internal, external (governmental))",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "status",
+     "order": 6,
+     "name_en": "Status",
+     "name_ar": "الحالة",
+     "description_en": "Specifying the policy status (e.g.: activated, suspended, cancelled)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "policy_activation_date",
+     "order": 7,
+     "name_en": "Policy Activation Date",
+     "name_ar": "تاريخ تفعيل السياسة",
+     "description_en": "Effective date of the policy",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "policy_link",
+     "order": 8,
+     "name_en": "Policy Link",
+     "name_ar": "رابط السياسة",
+     "description_en": "Specifying the policy file link",
+     "type": "url",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "model_template",
+   "name_en": "Model/Template",
+   "name_ar": "نموذج / قالب",
+   "domain": "business",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the model/template",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name of the model/template",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Brief description of the model/template",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 4,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Specifying the template type (e.g.: service delivery template, data collection template, guide template, policy template)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "link",
+     "order": 5,
+     "name_en": "Link",
+     "name_ar": "الرابط",
+     "description_en": "Specifying the location for storing the model",
+     "type": "url",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "beneficiary",
+   "name_en": "Beneficiary",
+   "name_ar": "مستفيد",
+   "domain": "beneficiary",
+   "active": false,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name of the beneficiary of the service or added value obtained from dealing with the entity",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 2,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Brief description of the defined beneficiary",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 3,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Specifying the type of beneficiary (internal beneficiary, government entity, business sector, individuals) Journey”",
+     "type": "enum",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "beneficiary_journey",
+   "name_en": "Beneficiary Journey",
+   "name_ar": "رحلة المستفيد",
+   "domain": "beneficiary",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the beneficiary journey",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 2,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the beneficiary journey and its interaction with the provided services",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "objective",
+     "order": 3,
+     "name_en": "Objective",
+     "name_ar": "الهدف",
+     "description_en": "Description of the objective of the beneficiary journey",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "code"
+  },
+  {
+   "code": "persona",
+   "name_en": "Persona",
+   "name_ar": "الشخصية",
+   "domain": "beneficiary",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the persona",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name that denotes a persona specific to a group of beneficiaries",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the beneficiaries’ persona showing their types, objectives, and common characteristics",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "objectives",
+     "order": 4,
+     "name_en": "Objectives",
+     "name_ar": "الأهداف",
+     "description_en": "Description of the objectives of the beneficiaries’ persona",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "demographic_information",
+     "order": 5,
+     "name_en": "Demographic Information",
+     "name_ar": "المعلومات الديموغرافية",
+     "description_en": "Description of the demographic information of the beneficiaries’ persona",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "phase",
+   "name_en": "Phase",
+   "name_ar": "مرحلة",
+   "domain": "beneficiary",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the phase of the beneficiary journey",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name of the phase of the beneficiary journey",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "High-level explanation of the phase of the beneficiary journey",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "step",
+   "name_en": "Step",
+   "name_ar": "خطوة",
+   "domain": "beneficiary",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the step within the beneficiary journey phase",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name of the step within the beneficiary journey phase",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "associated_gaps",
+     "order": 3,
+     "name_en": "Associated Gaps",
+     "name_ar": "الفجوات المرتبطة",
+     "description_en": "Description of the gaps associated with the step within the beneficiary journey phase",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "opportunities_for_improvement",
+     "order": 4,
+     "name_en": "Opportunities for Improvement",
+     "name_ar": "فرص التحسين",
+     "description_en": "Description of opportunities for improvement associated with the step within the beneficiary journey phase",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "expected_impact",
+     "order": 5,
+     "name_en": "Expected Impact",
+     "name_ar": "الأثر المتوقع",
+     "description_en": "Expected impact of implementing opportunities for improvement on the beneficiary experience",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "priority",
+     "order": 6,
+     "name_en": "Priority",
+     "name_ar": "الأولوية",
+     "description_en": "Determining the priority level of the opportunity for improvement Communication channels",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "communication_channel",
+     "order": 7,
+     "name_en": "Communication Channel",
+     "name_ar": "قناة التواصل",
+     "description_en": "associated with each step (e.g.: digital platforms, smartphone apps, social media platforms, traditional channels such as e-mail, field visits, telephone calls)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "data_entity",
+   "name_en": "Data Entity",
+   "name_ar": "كيان بيانات",
+   "domain": "data",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "key_internal_beneficiaries",
+     "order": 4,
+     "name_en": "Key Internal Beneficiaries",
+     "name_ar": "المستفيدون الداخليون الرئيسيون",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "key_external_consumers",
+     "order": 5,
+     "name_en": "Key External Consumers",
+     "name_ar": "المستهلكون الخارجيون الرئيسيون",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "data_source",
+     "order": 6,
+     "name_en": "Data Source",
+     "name_ar": "مصدر البيانات",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "storage_classification",
+     "order": 7,
+     "name_en": "Storage Classification",
+     "name_ar": "تصنيف التخزين",
+     "description_en": "",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "structure_classification",
+     "order": 8,
+     "name_en": "Structure Classification",
+     "name_ar": "تصنيف الهيكلة",
+     "description_en": "",
+     "type": "enum",
+     "required": false,
+     "options": [
+      {
+       "value": "Structured",
+       "label_en": "Structured"
+      },
+      {
+       "value": "Semi-structured",
+       "label_en": "Semi-structured"
+      },
+      {
+       "value": "Unstructured",
+       "label_en": "Unstructured"
+      }
+     ]
+    },
+    {
+     "key": "data_business_rules",
+     "order": 9,
+     "name_en": "Data Business Rules",
+     "name_ar": "قواعد العمل للبيانات",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "security_controls",
+     "order": 10,
+     "name_en": "Security Controls",
+     "name_ar": "الضوابط الأمنية",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "data_storage_rules",
+     "order": 11,
+     "name_en": "Data Storage Rules",
+     "name_ar": "قواعد حفظ البيانات",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "data_entity_classification",
+     "order": 12,
+     "name_en": "Data Entity Classification",
+     "name_ar": "تصنيف كيان البيانات",
+     "description_en": "",
+     "type": "enum",
+     "required": false,
+     "options": [
+      {
+       "value": "Top Secret",
+       "label_en": "Top Secret"
+      },
+      {
+       "value": "Secret",
+       "label_en": "Secret"
+      },
+      {
+       "value": "Restricted",
+       "label_en": "Restricted"
+      },
+      {
+       "value": "Public",
+       "label_en": "Public"
+      }
+     ]
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "data_vault",
+   "name_en": "Data Vault",
+   "name_ar": "خزينة بيانات",
+   "domain": "data",
+   "active": false,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 4,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "",
+     "type": "enum",
+     "required": false,
+     "options": [
+      {
+       "value": "Electronic database",
+       "label_en": "Electronic database"
+      },
+      {
+       "value": "Digital archive",
+       "label_en": "Digital archive"
+      },
+      {
+       "value": "Paper archive",
+       "label_en": "Paper archive"
+      }
+     ]
+    },
+    {
+     "key": "structure",
+     "order": 5,
+     "name_en": "Structure",
+     "name_ar": "الهيكلة",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "data_attributes",
+   "name_en": "Data Attributes",
+   "name_ar": "سمات بيانات",
+   "domain": "data",
+   "active": false,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 2,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 3,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "",
+     "type": "enum",
+     "required": false,
+     "options": [
+      {
+       "value": "Number",
+       "label_en": "Number"
+      },
+      {
+       "value": "Text",
+       "label_en": "Text"
+      },
+      {
+       "value": "Image",
+       "label_en": "Image"
+      },
+      {
+       "value": "Date",
+       "label_en": "Date"
+      }
+     ]
+    },
+    {
+     "key": "quality_rules",
+     "order": 4,
+     "name_en": "Quality Rules",
+     "name_ar": "قواعد الجودة",
+     "description_en": "",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "classification",
+     "order": 5,
+     "name_en": "Classification",
+     "name_ar": "التصنيف",
+     "description_en": "",
+     "type": "enum",
+     "required": false,
+     "options": [
+      {
+       "value": "Top Secret",
+       "label_en": "Top Secret"
+      },
+      {
+       "value": "Secret",
+       "label_en": "Secret"
+      },
+      {
+       "value": "Restricted",
+       "label_en": "Restricted"
+      },
+      {
+       "value": "Public",
+       "label_en": "Public"
+      }
+     ]
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "application",
+   "name_en": "Application",
+   "name_ar": "التطبيق",
+   "domain": "applications",
+   "active": true,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the application",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "The name of the application that is commonly known and used at the entity",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Description of the objectives and nature of the functions provided by the application Determining the layer to which the",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "layer",
+     "order": 4,
+     "name_en": "Layer",
+     "name_ar": "الطبقة",
+     "description_en": "application belongs (access layer, core business applications layer, supporting applications layer, data applications layer, infrastructure applications layer, integration applications layer, and information",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "development_source",
+     "order": 5,
+     "name_en": "Development Source",
+     "name_ar": "مصدر التطوير",
+     "description_en": "security applications layer) Identifying the source of application development (internal, external)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "development_type",
+     "order": 6,
+     "name_en": "Development Type",
+     "name_ar": "نوع التطوير",
+     "description_en": "Determining the type of application development (e.g.: commercial of",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "application_link",
+     "order": 7,
+     "name_en": "Application Link",
+     "name_ar": "رابط التطبيق",
+     "description_en": "the shelf source code, custom source code, open-source code) Web address of the browser for accessing the application. It is preceded by protocol identification",
+     "type": "url",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "authentication_type",
+     "order": 8,
+     "name_en": "Authentication Type",
+     "name_ar": "نوع المصادقة",
+     "description_en": "Specifying the method used to verify the user’s identity before granting access to the application",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "launch_date",
+     "order": 9,
+     "name_en": "Launch Date",
+     "name_ar": "تاريخ الإطلاق",
+     "description_en": "Represents the specific day on which the application is officially made available to users, or the application goes live",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "importance",
+     "order": 10,
+     "name_en": "Importance",
+     "name_ar": "الأهمية",
+     "description_en": "Determining the importance of the application to the entity’s operational priorities (e.g.: critical, high, medium, low)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "application_status",
+     "order": 11,
+     "name_en": "Application Status",
+     "name_ar": "حالة التطبيق",
+     "description_en": "Determining the application’s status in terms of readiness for use (e.g.: under development, newly launched, active, locked, planned)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "pattern_of_the_architecture_structure",
+     "order": 12,
+     "name_en": "Pattern of the Architecture Structure",
+     "name_ar": "نمط الهيكلية المعمارية",
+     "description_en": "Defining the pattern of the application’s architecture structure (e.g.: n-tier Architecture ، client/server ،microservice)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 13,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the expenses invested by the entity in financing the development of the application, which become part of the entity’s fixed assets",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 14,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual expenses required to operate, maintain, and upgrade the application",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "technology_used_for_development",
+     "order": 15,
+     "name_en": "Technology Used for Development",
+     "name_ar": "التقنية المستخدمة للتطوير",
+     "description_en": "Determining the technology used to develop the application (e.g.: Oracle ،Microsoft)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "provider_of_development_and_maintenance_services",
+     "order": 16,
+     "name_en": "Provider of Development and Maintenance Services",
+     "name_ar": "مزود خدمات التطوير والصيانة",
+     "description_en": "Identifying the company providing the applications (manufacturer, developer, operator, in-house developer)",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "access_channel",
+     "order": 17,
+     "name_en": "Access Channel",
+     "name_ar": "قناة الوصول",
+     "description_en": "Specifying the digital channel for providing access to the application (e.g.: internal portal, external portal, mobile app)",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "application_modules",
+   "name_en": "Application Modules",
+   "name_ar": "مكونات التطبيق",
+   "domain": "applications",
+   "active": true,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name of a software module in an application that performs a unique",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 2,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "function or a set of related functions within the application Brief description of the application module, explaining the purpose and nature of the provided function",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "application_function",
+   "name_en": "Application Function",
+   "name_ar": "وظيفة التطبيق",
+   "domain": "applications",
+   "active": true,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name of the software function that represents a set of software processes that perform a specific task",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 2,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Brief description of the application function, explaining the objective and nature of the provided software processes",
+     "type": "text",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "technical_integration_interface",
+   "name_en": "Technical Integration Interface",
+   "name_ar": "واجهة تكامل تقني",
+   "domain": "applications",
+   "active": true,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the technical integration point. It is used as an identifier to distinguish various types of technical points (e.g.: internal integration points versus external integration points) through",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "a specific numerical sequence that makes them easy to access and search for Name of the technical integration point. It refers to the definition and specification of its objective",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 3,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Very brief description of the technical integration point used at the entity",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "consumer",
+     "order": 4,
+     "name_en": "Consumer",
+     "name_ar": "المستهلك",
+     "description_en": "Specifying the names of the applications or entities (in the case of external link) used for the technical integration point",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "product",
+     "order": 5,
+     "name_en": "Product",
+     "name_ar": "المنتج",
+     "description_en": "Specifying the name of the entity producing the technical integration point",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "inputs",
+     "order": 6,
+     "name_en": "Inputs",
+     "name_ar": "المدخلات",
+     "description_en": "Determining the inputs of the interface link",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "deliverables",
+     "order": 7,
+     "name_en": "Deliverables",
+     "name_ar": "المخرجات",
+     "description_en": "Determining the deliverables required from the integration point",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "scope_of_the_connection",
+     "order": 8,
+     "name_en": "Scope of the Connection",
+     "name_ar": "نطاق الربط",
+     "description_en": "Specifying the scope of the application interface connection (e.g.: internal, external)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "integration_platform",
+     "order": 9,
+     "name_en": "Integration Platform",
+     "name_ar": "منصة التكامل",
+     "description_en": "Determining the integration platform through which the technical connection is made",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "connection_pattern",
+     "order": 10,
+     "name_en": "Connection Pattern",
+     "name_ar": "نمط الربط",
+     "description_en": "Specifying the type of application interface connection (e.g.: direct connection, via the integration platform, secure government network, the Governmental Service Bus (GSB))",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "integration_type",
+     "order": 11,
+     "name_en": "Integration Type",
+     "name_ar": "نوع التكامل",
+     "description_en": "Specifying the type of integration used in the application interface (e.g.: DB Link ،SFTP ،SOAP, REST)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "data_format",
+     "order": 12,
+     "name_en": "Data Format",
+     "name_ar": "صيغة البيانات",
+     "description_en": "Data format used in the technical interface point, for example (XML, JSON, Text, CSV, etc.) in order to store, process, and exchange data efficiently",
+     "type": "enum",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "data_center",
+   "name_en": "Data Center",
+   "name_ar": "مركز بيانات",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the data center",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Represents of the name used for the data center",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "role",
+     "order": 3,
+     "name_en": "Role",
+     "name_ar": "الدور",
+     "description_en": "Description of the role of the data center in the technical infrastructure business (e.g.: primary data center, disaster recovery center)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "classification_level",
+     "order": 4,
+     "name_en": "Classification Level",
+     "name_ar": "مستوى التصنيف",
+     "description_en": "Determining the classification level of the data center infrastructure specifications (e.g.: Level 1, Level 2, etc.)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "location",
+     "order": 5,
+     "name_en": "Location",
+     "name_ar": "الموقع",
+     "description_en": "Determining the physical location of the data center, which may be the entity’s headquarters, one of its branches, or the location of the cloud service provider",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 6,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Specifying the type of the data center (e.g.: on-premise, co-located, cloud)",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "environment",
+     "order": 7,
+     "name_en": "Environment",
+     "name_ar": "البيئة",
+     "description_en": "Identifying the business environments in the data center (e.g.: production environment, experimental environment, testing environment)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 8,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Determining the operational support mechanism for the data center (e.g.: in-house team, service provider)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 9,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of data center facilities (e.g.: electromechanical equipment and works, security systems for buildings, cabins, network cables, installation, and configuration)",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 10,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of the data center (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "physical_host",
+   "name_en": "Physical Host",
+   "name_ar": "مضيف مادي",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Specifying the Fully Qualified Domain Name (FQDN) for the physical host",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "manufacturer",
+     "order": 2,
+     "name_en": "Manufacturer",
+     "name_ar": "الشركة المصنعة",
+     "description_en": "Specifying the name of the manufacturer of the physical host device",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "model",
+     "order": 3,
+     "name_en": "Model",
+     "name_ar": "الطراز",
+     "description_en": "Determining the model of the physical host as per the manufacturer’s list",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "technology",
+     "order": 4,
+     "name_en": "Technology",
+     "name_ar": "التقنية",
+     "description_en": "Determining the type of technology used in the physical host device (stand-alone or racked server, blade server, Hyper-Converged Infrastructure)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "vault",
+     "order": 5,
+     "name_en": "Vault",
+     "name_ar": "الخزانة",
+     "description_en": "Identifies the code of the vault that contains the physical host device within the entity’s data center",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "cluster_id",
+     "order": 6,
+     "name_en": "Cluster ID",
+     "name_ar": "معرف الكتلة",
+     "description_en": "Specifies the Cluster ID to which the physical host belongs. If it is not associated with a cluster, then is shall be classified as stand-alone",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_virtual_machine_monitor",
+     "order": 7,
+     "name_en": "Type of Virtual Machine Monitor",
+     "name_ar": "نوع مراقب الآلة الافتراضي",
+     "description_en": "Specifying the type of virtual machine monitor available in the physical host device (e.g. ESXI, Hyper-V) (where applicable)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "version_of_virtual_machine_monitor",
+     "order": 8,
+     "name_en": "Version of Virtual Machine Monitor",
+     "name_ar": "إصدار مراقب الآلة الافتراضي",
+     "description_en": "Specifying the release version of the virtual machine monitor (where applicable)",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "network_segment",
+     "order": 9,
+     "name_en": "Network Segment",
+     "name_ar": "مقطع الشبكة",
+     "description_en": "Determining the network segment to which the physical host belongs (e.g.: DMZ ،data center server farm)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "central_processing_unit",
+     "order": 10,
+     "name_en": "Central Processing Unit",
+     "name_ar": "وحدة المعالجة المركزية",
+     "description_en": "Specifying the number, type, and speed of the central processing unit (in GHz)",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "total_number_of_physical_cpu_cores",
+     "order": 11,
+     "name_en": "Total Number of Physical CPU Cores",
+     "name_ar": "العدد الكلي لنوى وحدات المعالجة المركزية المادية",
+     "description_en": "Determining the total number of processor cores available on the physical host device",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "physical_random_access_memory_ram",
+     "order": 12,
+     "name_en": "Physical Random Access Memory (Ram)",
+     "name_ar": "الذاكرة العشوائية المادية",
+     "description_en": "Determining the total available RAM on the physical host device (in GB)",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "local_storage_capacity",
+     "order": 13,
+     "name_en": "Local Storage Capacity",
+     "name_ar": "السعة التخزينية المحلية",
+     "description_en": "Specifying the total local storage space available on the physical host (in GB)",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_end_date",
+     "order": 14,
+     "name_en": "Support End Date",
+     "name_ar": "تاريخ نهاية الدعم",
+     "description_en": "Specifying the support end date for the physical host device as per the manufacturer",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_contract_status",
+     "order": 15,
+     "name_en": "Support Contract Status",
+     "name_ar": "حالة عقد الدعم",
+     "description_en": "Determining the status of the support contract for the physical host device (e.g.: active, expired)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 16,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Specifying the operational support mechanism for a physical host device (e.g.: in-house team, service provider)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 17,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the physical host device upon installation, which includes: cost of the physical host and professional services required for installation and configuration, if any",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 18,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of the physical host (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "server",
+   "name_en": "Server",
+   "name_ar": "خادم",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "server_name",
+     "order": 1,
+     "name_en": "Server Name",
+     "name_ar": "اسم الخادم",
+     "description_en": "Specifying the Fully Qualified Domain Name (FQDN) for the server",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "server_type",
+     "order": 2,
+     "name_en": "Server Type",
+     "name_ar": "نوع الخادم",
+     "description_en": "Determining the server type (physical server or virtual server)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_system_type",
+     "order": 3,
+     "name_en": "Operating System Type",
+     "name_ar": "نوع نظام التشغيل",
+     "description_en": "Determining the type of operating system running on this server (e.g.: Windows ،Linux ،Unix)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_system_version",
+     "order": 4,
+     "name_en": "Operating System Version",
+     "name_ar": "إصدار نظام التشغيل",
+     "description_en": "Determining the version of the operating system running on this server (e.g.: Windows Server 2022)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "cluster_id",
+     "order": 5,
+     "name_en": "Cluster ID",
+     "name_ar": "معرف الكتلة",
+     "description_en": "Specifying the Cluster ID to which the server belongs",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "network_segment",
+     "order": 6,
+     "name_en": "Network Segment",
+     "name_ar": "مقطع الشبكة",
+     "description_en": "Determining the network segment to which the server belongs (e.g.: DMZ ، data center server farm)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "central_processing_units",
+     "order": 7,
+     "name_en": "Central Processing Units",
+     "name_ar": "وحدات المعالجة المركزية",
+     "description_en": "Specifying the number of CPUs on the server",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "random_access_memory_ram",
+     "order": 8,
+     "name_en": "Random Access Memory (Ram)",
+     "name_ar": "الذاكرة العشوائية",
+     "description_en": "Specifying the total server RAM (in GB)",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "disc",
+     "order": 9,
+     "name_en": "Disc",
+     "name_ar": "القرص",
+     "description_en": "Specifying the total disk capacity of the server (in GB)",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "role",
+     "order": 10,
+     "name_en": "Role",
+     "name_ar": "الدور",
+     "description_en": "Specifying the role of the server, e.g. (web server, application server, database server, integration server, infrastructure server, security server)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "environment",
+     "order": 11,
+     "name_en": "Environment",
+     "name_ar": "البيئة",
+     "description_en": "Specifying the server’s hosting environment (e.g.: production environment, preproduction environment, testing environment)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "backup",
+     "order": 12,
+     "name_en": "Backup",
+     "name_ar": "النسخ الاحتياطي",
+     "description_en": "Specifying if the server is included in the backup policy (e.g.: yes, no, partially, not applicable)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "disaster_recovery",
+     "order": 13,
+     "name_en": "Disaster Recovery",
+     "name_ar": "التعافي من الكوارث",
+     "description_en": "Determining if the server is included in the disaster recovery plan (e.g.: yes, no, not applicable)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "status",
+     "order": 14,
+     "name_en": "Status",
+     "name_ar": "الحالة",
+     "description_en": "Determining the server’s operating status (e.g.: operational, not operational)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 15,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Determining the operational support mechanism for the server (e.g.: in-house team, service provider, other)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 16,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the server upon installation, which includes: cost of the server and professional services required for installation and configuration if any",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 17,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of the server (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "server_name"
+  },
+  {
+   "code": "network_device",
+   "name_en": "Network Device",
+   "name_ar": "جهاز شبكي",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name assigned to the network device (host name)",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "manufacturer",
+     "order": 2,
+     "name_en": "Manufacturer",
+     "name_ar": "الشركة المصنعة",
+     "description_en": "Specifying the name of the network device manufacturer",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "model",
+     "order": 3,
+     "name_en": "Model",
+     "name_ar": "الطراز",
+     "description_en": "Determining the model of the network device as per the manufacturer’s list",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "location",
+     "order": 4,
+     "name_en": "Location",
+     "name_ar": "الموقع",
+     "description_en": "Determining the location where the network device is hosted (e.g.: headquarter, branch of the entity)",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "network_segment",
+     "order": 5,
+     "name_en": "Network Segment",
+     "name_ar": "مقطع الشبكة",
+     "description_en": "Determining the network segment to which this network device belongs (e.g.: DMZ, Extranet, Internet, WAN, LAN, Air Gapped, data center)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 6,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Specifying the network device type (e.g.: router, switch, access point, controller)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "function",
+     "order": 7,
+     "name_en": "Function",
+     "name_ar": "الوظيفة",
+     "description_en": "Specifying the function of this network device (e.g.: core switch, distribution switch, access switch, spine, leaf, internet router)",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "firmware_version",
+     "order": 8,
+     "name_en": "Firmware Version",
+     "name_ar": "إصدار البرنامج الثابت",
+     "description_en": "Determining the firmware version of the network device",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_end_date",
+     "order": 9,
+     "name_en": "Support End Date",
+     "name_ar": "تاريخ نهاية الدعم",
+     "description_en": "Network device support end date as per the manufacturer",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_contract_status",
+     "order": 10,
+     "name_en": "Support Contract Status",
+     "name_ar": "حالة عقد الدعم",
+     "description_en": "Determining the status of the support contract for the network device (e.g.: active, expired)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 11,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Determining the operational support mechanism for the network device (e.g.: in-house team, service provider)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 12,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the network device upon installation, which includes: cost of the network device and professional services required for installation and configuration, if any",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 13,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of the network device (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "network_link",
+   "name_en": "Network Link",
+   "name_ar": "رابط شبكي",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Represents the identification code of the network link",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "location",
+     "order": 2,
+     "name_en": "Location",
+     "name_ar": "الموقع",
+     "description_en": "Determining the location where this network link is created, which may be the entity’s headquarters, one of its branches, or another location",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "bandwidth",
+     "order": 3,
+     "name_en": "Bandwidth",
+     "name_ar": "عرض الحزمة",
+     "description_en": "Specifying the bandwidth of the network link (Mbps)",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "technology",
+     "order": 4,
+     "name_en": "Technology",
+     "name_ar": "التقنية",
+     "description_en": "Determining the technology used in this network link, e.g.: fiber, copper, microwave, satellite",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "service",
+     "order": 5,
+     "name_en": "Service",
+     "name_ar": "الخدمة",
+     "description_en": "Determining the service provided by this network link (e.g.: Internet DIA, MPLS, PLL, IP Sec Tunnel, 5G, DWDM, IP VPN, SIP)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "role",
+     "order": 6,
+     "name_en": "Role",
+     "name_ar": "الدور",
+     "description_en": "Determining the role of the network link (e.g.: primary link, backup link)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 7,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Determining the operational support mechanism for the network link (e.g.: in-house team, service provider, other)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 8,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the network link upon installation, which includes: cost of the network link and professional services",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 9,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "required for installation and configuration, if any. Determining the annual operating cost of the network link (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "subscription_fees",
+     "order": 10,
+     "name_en": "Subscription Fees",
+     "name_ar": "رسوم الاشتراك",
+     "description_en": "Determining the annual subscription fee for leased network connectivity circuits (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "code"
+  },
+  {
+   "code": "storage",
+   "name_en": "Storage",
+   "name_ar": "تخزين",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Specifying the name assigned to the storage device",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "manufacturer",
+     "order": 2,
+     "name_en": "Manufacturer",
+     "name_ar": "الشركة المصنعة",
+     "description_en": "Specifying the name of the storage device manufacturer",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "model",
+     "order": 3,
+     "name_en": "Model",
+     "name_ar": "الطراز",
+     "description_en": "Determining the model of the storage device as per the manufacturer’s list",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "firmware_version",
+     "order": 4,
+     "name_en": "Firmware Version",
+     "name_ar": "إصدار البرنامج الثابت",
+     "description_en": "Identifying the firmware version installed on the storage device",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "network_segment",
+     "order": 5,
+     "name_en": "Network Segment",
+     "name_ar": "مقطع الشبكة",
+     "description_en": "Determining the network segment to which this storage device belongs (e.g.: DMZ, Extranet,",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "storage_capacity",
+     "order": 6,
+     "name_en": "Storage Capacity",
+     "name_ar": "سعة التخزين",
+     "description_en": "Internet, WAN, LAN, Air Gapped, data center) Specifying the storage capacity provided by the storage device (in GB)",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_end_date",
+     "order": 7,
+     "name_en": "Support End Date",
+     "name_ar": "تاريخ نهاية الدعم",
+     "description_en": "Support end date for the storage device as per the source",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_contract_status",
+     "order": 8,
+     "name_en": "Support Contract Status",
+     "name_ar": "حالة عقد الدعم",
+     "description_en": "Determining the status of the support contract for the storage device (active, expired)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 9,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Identifying the operational support mechanism for the containerization engine (e.g.: in-house team, service provider, other)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 10,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the storage device upon installation, which includes: cost of the storage device and professional services required for installation and configuration, if any",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 11,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of the storage device (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "containerization_engine",
+   "name_en": "Containerization Engine",
+   "name_ar": "محرك احتواء تقني",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name assigned to the containerization engine",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "manufacturer",
+     "order": 2,
+     "name_en": "Manufacturer",
+     "name_ar": "الشركة المصنعة",
+     "description_en": "Specifying the name of the manufacturer of the containerization engine",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "model",
+     "order": 3,
+     "name_en": "Model",
+     "name_ar": "الطراز",
+     "description_en": "Determining the containerization engine model as per the manufacturer’s list",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "network_segment",
+     "order": 4,
+     "name_en": "Network Segment",
+     "name_ar": "مقطع الشبكة",
+     "description_en": "Specifying the network segment to which the containerization engine belongs (e.g.: DMZ, Extranet, Internet, WAN, LAN, Air Gapped, data center)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "environment",
+     "order": 5,
+     "name_en": "Environment",
+     "name_ar": "البيئة",
+     "description_en": "Determining the hosting environment for the containerization engine (e.g.: production environment, development environment, testing",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_end_date",
+     "order": 6,
+     "name_en": "Support End Date",
+     "name_ar": "تاريخ نهاية الدعم",
+     "description_en": "environment) Containerization engine support end date as per the manufacturer",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_contract_status",
+     "order": 7,
+     "name_en": "Support Contract Status",
+     "name_ar": "حالة عقد الدعم",
+     "description_en": "Determining the status of the support contract for the containerization engine (active, expired)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 8,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Identifying the operational support mechanism for the containerization engine (e.g.: in-house team, service provider, other)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 9,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the containerization engine upon installation, which includes: cost of the containerization engine and professional services required for installation and configuration, if",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 10,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "any. Determining the annual operating cost of the containerization engine (where applicable).",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "infrastructure_management_tool",
+   "name_en": "Infrastructure Management Tool",
+   "name_ar": "أداة تقنية تحتية",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "name",
+     "order": 1,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name of a tool or software that manages, monitors, or supports the artifacts of the technical infrastructure, according to what is customary in the entity",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "manufacturer",
+     "order": 2,
+     "name_en": "Manufacturer",
+     "name_ar": "الشركة المصنعة",
+     "description_en": "Specifying the name of the manufacturer of the infrastructure management tool",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "version",
+     "order": 3,
+     "name_en": "Version",
+     "name_ar": "الإصدار",
+     "description_en": "Determining the release version of the infrastructure management tool or software according to the provider or manufacturer’s list",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "function",
+     "order": 4,
+     "name_en": "Function",
+     "name_ar": "الوظيفة",
+     "description_en": "Function performed by the infrastructure management tool, e.g.: network availability monitoring, servers’ performance monitoring, assets management",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_end_date",
+     "order": 5,
+     "name_en": "Support End Date",
+     "name_ar": "تاريخ نهاية الدعم",
+     "description_en": "Support end date for the infrastructure management tool as per the manufacturer",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_contract_status",
+     "order": 6,
+     "name_en": "Support Contract Status",
+     "name_ar": "حالة عقد الدعم",
+     "description_en": "Determining the status of the support contract for the infrastructure management tool (active, expired)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 7,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Determining the operational support mechanism for the infrastructure management tool (e.g.: in-house team, service provider, other)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 8,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the infrastructure management tool upon installation, which includes: cost of the tool and professional services required for installation and configuration, if any.",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 9,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of the infrastructure management tool (where applicable).",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "license",
+   "name_en": "License",
+   "name_ar": "رخصة",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the license at the entity",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "license_name",
+     "order": 2,
+     "name_en": "License Name",
+     "name_ar": "اسم الرخصة",
+     "description_en": "Name of the license or subscription as listed by the manufacturer or the producer",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "manufacturer",
+     "order": 3,
+     "name_en": "Manufacturer",
+     "name_ar": "الشركة المصنعة",
+     "description_en": "Specifying the name of the license manufacturer or producer",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "quantity",
+     "order": 4,
+     "name_en": "Quantity",
+     "name_ar": "الكمية",
+     "description_en": "Specifying the total purchased quantity or number of this license",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type",
+     "order": 5,
+     "name_en": "Type",
+     "name_ar": "النوع",
+     "description_en": "Specifying the license type (e.g.: permanent license, annual",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "date_of_obtaining",
+     "order": 6,
+     "name_en": "Date of Obtaining",
+     "name_ar": "تاريخ الحصول",
+     "description_en": "subscription, monthly subscription, etc.) Determining the date on which the entity obtained the license",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "expiry_date",
+     "order": 7,
+     "name_en": "Expiry Date",
+     "name_ar": "تاريخ الانتهاء",
+     "description_en": "Specifying the license expiry date (where applicable)",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 8,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the financial cost of purchasing a license",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 9,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of sustaining licenses (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "license_name"
+  },
+  {
+   "code": "infrastructure_service",
+   "name_en": "Infrastructure Service",
+   "name_ar": "خدمة تقنية تحتية",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "service_code",
+     "order": 1,
+     "name_en": "Service Code",
+     "name_ar": "رمز الخدمة",
+     "description_en": "Approved code for the infrastructure service at the entity",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Name of the infrastructure service used at the entity",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "manufacturer",
+     "order": 3,
+     "name_en": "Manufacturer",
+     "name_ar": "الشركة المصنعة",
+     "description_en": "Specifying the name of the manufacturer of the infrastructure service",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "version",
+     "order": 4,
+     "name_en": "Version",
+     "name_ar": "الإصدار",
+     "description_en": "Determining the release version of the infrastructure service according",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "function",
+     "order": 5,
+     "name_en": "Function",
+     "name_ar": "الوظيفة",
+     "description_en": "to the provider or manufacturer’s list Function performed by the infrastructure service, such as: DNS, DHCP, NTP, directory service, email service, communication service, collaboration service, backup and restore service",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_end_date",
+     "order": 6,
+     "name_en": "Support End Date",
+     "name_ar": "تاريخ نهاية الدعم",
+     "description_en": "Support end date for the infrastructure service as per the manufacturer",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_contract_status",
+     "order": 7,
+     "name_en": "Support Contract Status",
+     "name_ar": "حالة عقد الدعم",
+     "description_en": "Determining the status of the support contract for the infrastructure service (active, expired)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 8,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Determining the operational support mechanism for the infrastructure service (e.g.: in-house team, service provider)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 9,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the infrastructure service upon installation, which includes: cost of the technical service and professional services required for",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 10,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "installation and configuration, if any. Determining the annual operating cost of the infrastructure service (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "peripheral_device",
+   "name_en": "Peripheral Device",
+   "name_ar": "جهاز ملحق",
+   "domain": "technology",
+   "active": true,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the peripheral device at the entity",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "device_name",
+     "order": 2,
+     "name_en": "Device Name",
+     "name_ar": "اسم الجهاز",
+     "description_en": "Specifies the Fully Qualified Domain Name (FQDN) for the peripheral device, if any",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "manufacturer",
+     "order": 3,
+     "name_en": "Manufacturer",
+     "name_ar": "الشركة المصنعة",
+     "description_en": "Specifying the name of the peripheral device manufacturer",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "model",
+     "order": 4,
+     "name_en": "Model",
+     "name_ar": "الطراز",
+     "description_en": "The peripheral device model is determined as per the manufacturer’s list",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "location",
+     "order": 5,
+     "name_en": "Location",
+     "name_ar": "الموقع",
+     "description_en": "Name of the location that hosts this peripheral device, which may be the entity’s headquarters or one of its branches",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "function",
+     "order": 6,
+     "name_en": "Function",
+     "name_ar": "الوظيفة",
+     "description_en": "Specifies the function of this accessory device or peripheral",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_system_or_firmware",
+     "order": 7,
+     "name_en": "Operating System Or Firmware",
+     "name_ar": "نظام التشغيل أو البرنامج الثابت",
+     "description_en": "device (e.g.: laptop, desktop, printer, sensor, scanner) Identifies the operating system or firmware used for this peripheral device and its version",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_end_date",
+     "order": 8,
+     "name_en": "Support End Date",
+     "name_ar": "تاريخ نهاية الدعم",
+     "description_en": "Support end date for the peripheral device as per the manufacturer",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_contract_status",
+     "order": 9,
+     "name_en": "Support Contract Status",
+     "name_ar": "حالة عقد الدعم",
+     "description_en": "Determining the status of the support contract for the infrastructure management tool (active, expired)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 10,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Determining the operational support mechanism for the peripheral device (e.g.: in-house team, service provider)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 11,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the peripheral device upon installation, which includes: cost of the device and professional services required for installation and configuration, if any.",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 12,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of the peripheral device (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "device_name"
+  },
+  {
+   "code": "security_hardware",
+   "name_en": "Security Hardware",
+   "name_ar": "جهاز أمن",
+   "domain": "security",
+   "active": true,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the security hardware",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Specifying the name assigned to the security hardware",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "manufacturer",
+     "order": 3,
+     "name_en": "Manufacturer",
+     "name_ar": "الشركة المصنعة",
+     "description_en": "Specifying the name of the manufacturer of the security hardware",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "model",
+     "order": 4,
+     "name_en": "Model",
+     "name_ar": "الطراز",
+     "description_en": "Description of the security hardware model as per the manufacturer’s list",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "network_segment",
+     "order": 5,
+     "name_en": "Network Segment",
+     "name_ar": "مقطع الشبكة",
+     "description_en": "Determining the network segment to which this security hardware belongs (e.g.: DMZ, Extranet, Internet, WAN, LAN, Air Gapped, data center)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "function",
+     "order": 6,
+     "name_en": "Function",
+     "name_ar": "الوظيفة",
+     "description_en": "Determining the function of the security hardware in the network (e.g.: internet firewall, WAN firewall, data center firewall, WAF, IPS, IDS)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "firmware_version",
+     "order": 7,
+     "name_en": "Firmware Version",
+     "name_ar": "إصدار البرنامج الثابت",
+     "description_en": "Determining the firmware version installed on the security hardware",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_end_date",
+     "order": 9,
+     "name_en": "Support End Date",
+     "name_ar": "تاريخ انتهاء الدعم",
+     "description_en": "Support end date for the security hardware as per the manufacturer",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_contract_status",
+     "order": 10,
+     "name_en": "Support Contract Status",
+     "name_ar": "حالة عقد الدعم",
+     "description_en": "Determining the status of the support contract for the security hardware (active, expired)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 11,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Determining the operational support mechanism for the security hardware (e.g.: in-house team, service provider, other)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 12,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the security hardware upon installation, which includes: cost of the security hardware and professional services required for installation and configuration, if any",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 13,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of the infrastructure service (where applicable)",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "security_software",
+   "name_en": "Security Software",
+   "name_ar": "برمجية أمن",
+   "domain": "security",
+   "active": true,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for security software",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "name",
+     "order": 2,
+     "name_en": "Name",
+     "name_ar": "الاسم",
+     "description_en": "Specifying the name of the security software according to what is customary at the entity",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "manufacturer",
+     "order": 3,
+     "name_en": "Manufacturer",
+     "name_ar": "الشركة المصنعة",
+     "description_en": "Specifying the name of the manufacturer of the security software",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "version",
+     "order": 4,
+     "name_en": "Version",
+     "name_ar": "الإصدار",
+     "description_en": "Determining the version of the information security software as per the manufacturer’s list",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "function",
+     "order": 5,
+     "name_en": "Function",
+     "name_ar": "الوظيفة",
+     "description_en": "Description of the function of information security software (e.g.: DLP, IAM, PAM, SIEM, vulnerability management, endpoint protection)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_end_date",
+     "order": 6,
+     "name_en": "Support End Date",
+     "name_ar": "تاريخ نهاية الدعم",
+     "description_en": "Determining the support end date for security software as per the software source",
+     "type": "date",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "support_contract_status",
+     "order": 7,
+     "name_en": "Support Contract Status",
+     "name_ar": "حالة عقد الدعم",
+     "description_en": "Determining the status of the support contract for the security software (e.g.: active, expired)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 8,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Determining the operational support mechanism for the security software (e.g.: in-house team, service provider, other)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 9,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the security software upon installation, which includes: cost of the security software and professional services required for installation and configuration, if any",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 10,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of the security software (where applicable).",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "name"
+  },
+  {
+   "code": "security_service",
+   "name_en": "Security Service",
+   "name_ar": "خدمة أمن",
+   "domain": "security",
+   "active": true,
+   "attributes": [
+    {
+     "key": "code",
+     "order": 1,
+     "name_en": "Code",
+     "name_ar": "الرمز",
+     "description_en": "Approved code for the security service",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "service_name",
+     "order": 2,
+     "name_en": "Service Name",
+     "name_ar": "اسم الخدمة",
+     "description_en": "Specifying the service name according to what is customary at the entity",
+     "type": "text",
+     "required": true,
+     "options": []
+    },
+    {
+     "key": "function",
+     "order": 3,
+     "name_en": "Function",
+     "name_ar": "الوظيفة",
+     "description_en": "Description of the security service function (e.g. penetration test, anti- DDoS as a service, security risk assessment, SOC as a service, security code review, etc.)",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "description",
+     "order": 4,
+     "name_en": "Description",
+     "name_ar": "الوصف",
+     "description_en": "Brief description of the nature of the security service and its scope of coverage",
+     "type": "text",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "status_of_the_service_provision_contract",
+     "order": 5,
+     "name_en": "Status of the Service Provision Contract",
+     "name_ar": "حالة عقد توفير الخدمة",
+     "description_en": "Determining the status of the service provision contract that covers the security service (e.g.: active, expired)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "type_of_operation",
+     "order": 6,
+     "name_en": "Type of Operation",
+     "name_ar": "نوع التشغيل",
+     "description_en": "Determining the operational support mechanism for the security service (e.g.: in-house team, service provider, other)",
+     "type": "enum",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "capital_cost",
+     "order": 7,
+     "name_en": "Capital Cost",
+     "name_ar": "التكلفة الرأسمالية",
+     "description_en": "Determining the capital cost of the security service, which includes: cost of the security service and professional services required for installation and configuration, if any",
+     "type": "number",
+     "required": false,
+     "options": []
+    },
+    {
+     "key": "operating_cost",
+     "order": 8,
+     "name_en": "Operating Cost",
+     "name_ar": "التكلفة التشغيلية",
+     "description_en": "Determining the annual operating cost of the security service (where applicable).",
+     "type": "number",
+     "required": false,
+     "options": []
+    }
+   ],
+   "title_key": "service_name"
+  }
+ ],
+ "relations": [
+  {
+   "source": "vision",
+   "verb": "Leads",
+   "target": "mission",
+   "description_en": "Explaining the connection between the entity’ vision and the entity’s mission"
+  },
+  {
+   "source": "vision",
+   "verb": "Contributes",
+   "target": "vision",
+   "description_en": "Defining the vision that contributes to realization of another vision"
+  },
+  {
+   "source": "vision",
+   "verb": "Owned",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit that supports the realization of the vision"
+  },
+  {
+   "source": "mission",
+   "verb": "Contributes",
+   "target": "vision",
+   "description_en": "Determining the mission that contributes to the realization of the entity’s approved vision"
+  },
+  {
+   "source": "mission",
+   "verb": "Contributes",
+   "target": "mission",
+   "description_en": "Identifying the mission that contributes to achieving another mission"
+  },
+  {
+   "source": "mission",
+   "verb": "Translates To",
+   "target": "objective",
+   "description_en": "Determining the link between the entity’s mission and the objectives that embody the mission"
+  },
+  {
+   "source": "objective",
+   "verb": "Belongs To",
+   "target": "pillar",
+   "description_en": "Determining the link between the objective and the strategic pillars, where each objective belongs to at least one pillar"
+  },
+  {
+   "source": "objective",
+   "verb": "Contributes",
+   "target": "objective",
+   "description_en": "Identifying the objective that contributes to the achievement of another objective"
+  },
+  {
+   "source": "objective",
+   "verb": "Achieved Through",
+   "target": "initiative",
+   "description_en": "Identifying the initiative that contributes to achieving an objective"
+  },
+  {
+   "source": "objective",
+   "verb": "Contributes",
+   "target": "mission",
+   "description_en": "Determining the relationship between the objectives and the entity’s mission, as each defined objective must contribute to achieving the entity’s mission"
+  },
+  {
+   "source": "objective",
+   "verb": "Belongs To",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational units that are ultimately accountable for achieving the objective"
+  },
+  {
+   "source": "objective",
+   "verb": "Measured",
+   "target": "key_performance_indicator",
+   "description_en": "Identifying key performance indicators related to measuring the success of each of the approved objectives"
+  },
+  {
+   "source": "pillar",
+   "verb": "Contains",
+   "target": "initiative",
+   "description_en": "Identifying a set of initiatives that contribute to building and activating the pillar"
+  },
+  {
+   "source": "pillar",
+   "verb": "Contains",
+   "target": "objective",
+   "description_en": "Determining the pillar’s contribution to achieving one or more of the entity’s objectives"
+  },
+  {
+   "source": "initiative",
+   "verb": "Contains",
+   "target": "project",
+   "description_en": "Identifying the projects included in the initiative"
+  },
+  {
+   "source": "initiative",
+   "verb": "Contributes To",
+   "target": "pillar",
+   "description_en": "Identifying initiatives linked to strategic pillars"
+  },
+  {
+   "source": "initiative",
+   "verb": "Achieves",
+   "target": "objective",
+   "description_en": "Determining the objective that the initiative seeks to achieve"
+  },
+  {
+   "source": "initiative",
+   "verb": "Belongs To",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit that supervises or owns the approved initiatives"
+  },
+  {
+   "source": "initiative",
+   "verb": "Measured",
+   "target": "key_performance_indicator",
+   "description_en": "Measuring the success of each initiative using an approved key performance indicator"
+  },
+  {
+   "source": "initiative",
+   "verb": "Owned",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for implementing the project as the project business owner"
+  },
+  {
+   "source": "initiative",
+   "verb": "Executed By",
+   "target": "organizational_unit",
+   "description_en": "Determining if the project is executed internally by an organizational unit"
+  },
+  {
+   "source": "project",
+   "verb": "Falls Under",
+   "target": "initiative",
+   "description_en": "Identifying the strategic initiative under which the project falls"
+  },
+  {
+   "source": "project",
+   "verb": "Measured",
+   "target": "key_performance_indicator",
+   "description_en": "Identifying key performance indicators that measure project success"
+  },
+  {
+   "source": "project",
+   "verb": "Executed By",
+   "target": "service_provider",
+   "description_en": "Determining if the project is being executed by a service provider"
+  },
+  {
+   "source": "key_performance_indicator",
+   "verb": "Measures",
+   "target": "objective",
+   "description_en": "Identifying the objective associated with the key performance indicator"
+  },
+  {
+   "source": "key_performance_indicator",
+   "verb": "Measures",
+   "target": "initiative",
+   "description_en": "Identifying the initiative whose success or progress rate is measured by the key performance indicator"
+  },
+  {
+   "source": "key_performance_indicator",
+   "verb": "Measures",
+   "target": "project",
+   "description_en": "Identifying the project whose success or progress rate is measured by the key performance indicator"
+  },
+  {
+   "source": "key_performance_indicator",
+   "verb": "Linked",
+   "target": "key_performance_indicator",
+   "description_en": "Determining the link between the operational indicator and a strategic indicator, as each strategic performance indicator must be associated with one or more operational performance indicators"
+  },
+  {
+   "source": "key_performance_indicator",
+   "verb": "Belongs To",
+   "target": "organizational_unit",
+   "description_en": "Specifying the indicator that belongs to a defined organizational unit"
+  },
+  {
+   "source": "key_performance_indicator",
+   "verb": "Measures",
+   "target": "service",
+   "description_en": "Determining the indicator that measures the efficiency of the defined service"
+  },
+  {
+   "source": "key_performance_indicator",
+   "verb": "Measures",
+   "target": "business_process",
+   "description_en": "Identifying the indicator that measures the efficiency of the defined business process"
+  },
+  {
+   "source": "business_capability",
+   "verb": "Achieved Through",
+   "target": "organizational_unit",
+   "description_en": "Determining the business capability achieved by a defined organizational unit"
+  },
+  {
+   "source": "business_capability",
+   "verb": "Implemented Through",
+   "target": "processes_group",
+   "description_en": "Determining the business capability that is implemented through a processes group"
+  },
+  {
+   "source": "business_capability",
+   "verb": "Owns",
+   "target": "data_entity",
+   "description_en": "Determining the business capability that contains a data entity"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Owns",
+   "target": "vision",
+   "description_en": "Identifying the unit responsible for achieving the defined vision"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Owns",
+   "target": "objective",
+   "description_en": "Identifying the unit responsible for achieving the defined objective"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Owns",
+   "target": "initiative",
+   "description_en": "Identifying the unit responsible for achieving the objective of the defined initiative"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Owns",
+   "target": "project",
+   "description_en": "Identifying the unit responsible for achieving the objective of the defined project"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Executed",
+   "target": "project",
+   "description_en": "Identifying the organizational unit responsible for executing the defined project"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Owns",
+   "target": "business_capability",
+   "description_en": "Identifying the unit responsible for the defined business capability"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Owns",
+   "target": "service",
+   "description_en": "Identifying the unit responsible for executing work related to the service"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Owns",
+   "target": "key_performance_indicator",
+   "description_en": "Identifying the unit responsible for measuring the performance of the business indicator"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Owns",
+   "target": "data_entity",
+   "description_en": "Specifying which organizational unit owns data entities"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Contains",
+   "target": "position",
+   "description_en": "Identifying the organizational unit that contains defined job positions"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Enters Into Contracts With",
+   "target": "service_provider",
+   "description_en": "Identifying the organizational unit that enters into contracts with a specific service provider"
+  },
+  {
+   "source": "organizational_unit",
+   "verb": "Interacts With",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit that reports to/or interacts"
+  },
+  {
+   "source": "service_provider",
+   "verb": "Linked",
+   "target": "organizational_unit",
+   "description_en": "Identifying the service provider linked to the business of an organizational unit"
+  },
+  {
+   "source": "service_provider",
+   "verb": "Contributes To",
+   "target": "service",
+   "description_en": "Identifying the service provider that contributes to the provision of the service"
+  },
+  {
+   "source": "service_provider",
+   "verb": "Contributes To",
+   "target": "project",
+   "description_en": "Identifying the service provider that contributes to the execution of project mandates"
+  },
+  {
+   "source": "service",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Specifying a service that is owned by an organizational unit"
+  },
+  {
+   "source": "service",
+   "verb": "Provided Through",
+   "target": "business_process",
+   "description_en": "Determining the service that is provided through the execution of a business process"
+  },
+  {
+   "source": "service",
+   "verb": "Provided To",
+   "target": "beneficiary",
+   "description_en": "Determining the service provided to a beneficiary"
+  },
+  {
+   "source": "service",
+   "verb": "Provided Through",
+   "target": "service_provider",
+   "description_en": "Determining the service that is provided by a service provider"
+  },
+  {
+   "source": "service",
+   "verb": "Uses",
+   "target": "model_template",
+   "description_en": "Specifying which service uses the defined model/template"
+  },
+  {
+   "source": "service",
+   "verb": "Measured",
+   "target": "key_performance_indicator",
+   "description_en": "Determining the service whose efficiency is measured by a key performance indicator"
+  },
+  {
+   "source": "service",
+   "verb": "Produces",
+   "target": "product",
+   "description_en": "Identifying the service that produces a product Defining the service that is automated using a defined application"
+  },
+  {
+   "source": "processes_group",
+   "verb": "Consists Of",
+   "target": "business_process",
+   "description_en": "Defining a processes group that consists of one or more business processes"
+  },
+  {
+   "source": "processes_group",
+   "verb": "Executed By",
+   "target": "position",
+   "description_en": "Specifying the group that is being executed by a position"
+  },
+  {
+   "source": "processes_group",
+   "verb": "Achieves",
+   "target": "business_capability",
+   "description_en": "Identifying a processes group that achieves a business capability"
+  },
+  {
+   "source": "business_process",
+   "verb": "Belongs To",
+   "target": "processes_group",
+   "description_en": "Specifying the business process that belongs to a processes group"
+  },
+  {
+   "source": "business_process",
+   "verb": "Executed",
+   "target": "service",
+   "description_en": "Specifying the business process that executes a service"
+  },
+  {
+   "source": "business_process",
+   "verb": "Uses",
+   "target": "model_template",
+   "description_en": "Identifying the business process that uses a model/template"
+  },
+  {
+   "source": "business_process",
+   "verb": "Executed By",
+   "target": "role",
+   "description_en": "Specifying the business process that is executed by a defined role"
+  },
+  {
+   "source": "business_process",
+   "verb": "Governed Through",
+   "target": "policy",
+   "description_en": "Specifying the process that governs through a defined policy"
+  },
+  {
+   "source": "business_process",
+   "verb": "Measured",
+   "target": "key_performance_indicator",
+   "description_en": "Identifying the business process that is measured by a key performance indicator"
+  },
+  {
+   "source": "business_process",
+   "verb": "Produces",
+   "target": "product",
+   "description_en": "Identifying the business process that produces a product"
+  },
+  {
+   "source": "business_process",
+   "verb": "Provided Through",
+   "target": "activity",
+   "description_en": "Identifying the business process that is provided through an activity"
+  },
+  {
+   "source": "business_process",
+   "verb": "Automated",
+   "target": "application",
+   "description_en": "Defining the business process that is automated through an application"
+  },
+  {
+   "source": "activity",
+   "verb": "Belongs To",
+   "target": "business_process",
+   "description_en": "Identifying the activity that belongs to a business process"
+  },
+  {
+   "source": "activity",
+   "verb": "Executed By",
+   "target": "role",
+   "description_en": "Determining the activity that is executed by a role"
+  },
+  {
+   "source": "activity",
+   "verb": "Governs Through",
+   "target": "policy",
+   "description_en": "Determining the activity that is governed through a policy"
+  },
+  {
+   "source": "product",
+   "verb": "Deliverable",
+   "target": "service",
+   "description_en": "Specifying the product that is the deliverable of a service"
+  },
+  {
+   "source": "product",
+   "verb": "Deliverable",
+   "target": "business_process",
+   "description_en": "Specifying the product that is the deliverable of a business process"
+  },
+  {
+   "source": "product",
+   "verb": "Provided To",
+   "target": "beneficiary",
+   "description_en": "Determining the product that is provided to a beneficiary"
+  },
+  {
+   "source": "product",
+   "verb": "Provided Through",
+   "target": "organizational_unit",
+   "description_en": "Specifying the product that is provided through a defined organizational unit"
+  },
+  {
+   "source": "product",
+   "verb": "Provided Through",
+   "target": "application",
+   "description_en": "Determining the product that is provided through an application"
+  },
+  {
+   "source": "position",
+   "verb": "Provided",
+   "target": "processes_group",
+   "description_en": "Identifying the position that provides a processes group"
+  },
+  {
+   "source": "position",
+   "verb": "Executed",
+   "target": "role",
+   "description_en": "Identifying the position that has one or more"
+  },
+  {
+   "source": "position",
+   "verb": "Belongs To",
+   "target": "organizational_unit",
+   "description_en": "Identifying the position that belongs to an organizational unit"
+  },
+  {
+   "source": "role",
+   "verb": "Represented By",
+   "target": "position",
+   "description_en": "Determining the role represented by a position"
+  },
+  {
+   "source": "role",
+   "verb": "Performs",
+   "target": "business_process",
+   "description_en": "Determining the role that will perform the business process"
+  },
+  {
+   "source": "role",
+   "verb": "Performs",
+   "target": "activity",
+   "description_en": "Determining the role that will perform an activity"
+  },
+  {
+   "source": "role",
+   "verb": "Responsible For",
+   "target": "data_entity",
+   "description_en": "Defining the role responsible for data entities (through a Business Data Administrator and a Business Data Specialist)"
+  },
+  {
+   "source": "policy",
+   "verb": "Governs",
+   "target": "business_process",
+   "description_en": "Determining the policy that governs the execution of the business process"
+  },
+  {
+   "source": "policy",
+   "verb": "Applies To",
+   "target": "data_entity",
+   "description_en": "Specifying the policy that applies to the data entity"
+  },
+  {
+   "source": "model_template",
+   "verb": "Input / Deliverable",
+   "target": "service",
+   "description_en": "Specifying a model/template, which shall be an input/deliverable in the completion of the work related to the service"
+  },
+  {
+   "source": "model_template",
+   "verb": "Input / Deliverable",
+   "target": "business_process",
+   "description_en": "Specifying a model/template that is the input/deliverable in the execution of business process activities"
+  },
+  {
+   "source": "model_template",
+   "verb": "Uses",
+   "target": "data_entity",
+   "description_en": "A model/template uses one or more data entities"
+  },
+  {
+   "source": "beneficiary",
+   "verb": "Benefits From",
+   "target": "service",
+   "description_en": "Identifying services related to the beneficiary"
+  },
+  {
+   "source": "beneficiary",
+   "verb": "Interacts With",
+   "target": "service_provider",
+   "description_en": "Identifying the service provider and their interaction with the beneficiary"
+  },
+  {
+   "source": "beneficiary",
+   "verb": "Interacts With",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit and its interaction with the beneficiary"
+  },
+  {
+   "source": "beneficiary_journey",
+   "verb": "Includes",
+   "target": "phase",
+   "description_en": "The beneficiary journey includes several phases"
+  },
+  {
+   "source": "beneficiary",
+   "verb": "Owns",
+   "target": "beneficiary_journey",
+   "description_en": "The persona owns the journey of one or more beneficiaries"
+  },
+  {
+   "source": "step",
+   "verb": "Part Of",
+   "target": "phase",
+   "description_en": "Identifying the steps involved in one of the phases of the beneficiary journey"
+  },
+  {
+   "source": "phase",
+   "verb": "Constitutes",
+   "target": "beneficiary_journey",
+   "description_en": "Identifying the phases that together constitute the beneficiary journey"
+  },
+  {
+   "source": "phase",
+   "verb": "Includes",
+   "target": "step",
+   "description_en": "Identifying the phases that include a list of steps"
+  },
+  {
+   "source": "data_entity",
+   "verb": "Described Through",
+   "target": "data_attributes",
+   "description_en": "Identifying the core attributes that describe the data entity"
+  },
+  {
+   "source": "data_entity",
+   "verb": "Stored In",
+   "target": "data_vault",
+   "description_en": "Specifying the location for storing data entities"
+  },
+  {
+   "source": "data_entity",
+   "verb": "Responsibility",
+   "target": "role",
+   "description_en": "Defining the responsibility for identifying, managing, updating, and maintaining data entities for the role of “Business Data Administrator” and “Business Data Specialist”"
+  },
+  {
+   "source": "data_entity",
+   "verb": "Subject To",
+   "target": "policy",
+   "description_en": "Determining the data policies that govern data entities in accordance with the terms of the data policies and their related requirements"
+  },
+  {
+   "source": "data_entity",
+   "verb": "Linked To",
+   "target": "business_capability",
+   "description_en": "Identifying the association of data entities with a specific business capability"
+  },
+  {
+   "source": "data_entity",
+   "verb": "Linked To",
+   "target": "organizational_unit",
+   "description_en": "Determining the organizational unit’s ownership of the data entity"
+  },
+  {
+   "source": "data_entity",
+   "verb": "Constitutes",
+   "target": "model_template",
+   "description_en": "Identifying data entities that constitute a model for business processes or services"
+  },
+  {
+   "source": "data_entity",
+   "verb": "Used In",
+   "target": "application",
+   "description_en": "Specifying the application that deals with the data entity"
+  },
+  {
+   "source": "data_attributes",
+   "verb": "Describes",
+   "target": "data_entity",
+   "description_en": "Identifying the core data entity attributes that describe data entities"
+  },
+  {
+   "source": "data_vault",
+   "verb": "Contains",
+   "target": "data_entity",
+   "description_en": "Defining the association of the data vault with data entities"
+  },
+  {
+   "source": "data_vault",
+   "verb": "Hosted In",
+   "target": "storage",
+   "description_en": "Identifying the technical equipment that hosts the data vault"
+  },
+  {
+   "source": "data_vault",
+   "verb": "Hosted",
+   "target": "server",
+   "description_en": "Identifying the technical equipment that hosts the data vault"
+  },
+  {
+   "source": "data_vault",
+   "verb": "Provided Through",
+   "target": "security_hardware",
+   "description_en": "Identifying the security hardware that secures the data vault"
+  },
+  {
+   "source": "data_vault",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying the security software that secures the data vault"
+  },
+  {
+   "source": "data_vault",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Specifying the security service that secures the data vault"
+  },
+  {
+   "source": "application",
+   "verb": "Contains",
+   "target": "application_modules",
+   "description_en": "Identifying the functional and non-functional modules of the application"
+  },
+  {
+   "source": "application",
+   "verb": "Provides",
+   "target": "technical_integration_interface",
+   "description_en": "Defining the application interface points"
+  },
+  {
+   "source": "application",
+   "verb": "Serves",
+   "target": "beneficiary",
+   "description_en": "Identifying beneficiaries of the application services, as each application serves a group of beneficiaries"
+  },
+  {
+   "source": "application",
+   "verb": "Managed By",
+   "target": "role",
+   "description_en": "Identifying the role responsible for technical management of the application"
+  },
+  {
+   "source": "application",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Determining the organizational unit that owns the application"
+  },
+  {
+   "source": "application",
+   "verb": "Automated",
+   "target": "business_process",
+   "description_en": "Defining the business processes automated by the application"
+  },
+  {
+   "source": "application",
+   "verb": "Provided",
+   "target": "service",
+   "description_en": "Identifying the business services or set of services provided by the application"
+  },
+  {
+   "source": "application",
+   "verb": "Handles",
+   "target": "data_entity",
+   "description_en": "Identifying the data entities processed or handled by the application"
+  },
+  {
+   "source": "application",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying the security software used to protect the application"
+  },
+  {
+   "source": "application",
+   "verb": "Provided Through",
+   "target": "security_hardware",
+   "description_en": "Identifying the security hardware used to protect the application"
+  },
+  {
+   "source": "application",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Identifying the security service used to protect the application"
+  },
+  {
+   "source": "application",
+   "verb": "Hosted By",
+   "target": "server",
+   "description_en": "Specifying the server or servers that host the application"
+  },
+  {
+   "source": "application_modules",
+   "verb": "Belongs To",
+   "target": "application",
+   "description_en": "Identifying the application module which usually belongs to one application or more"
+  },
+  {
+   "source": "application_modules",
+   "verb": "Contains",
+   "target": "application_function",
+   "description_en": "Defining the set of application functions provided by a single module"
+  },
+  {
+   "source": "application_modules",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying the security software used to protect the application module"
+  },
+  {
+   "source": "application_modules",
+   "verb": "Provided Through",
+   "target": "security_hardware",
+   "description_en": "Identifying the security hardware used to protect the application module"
+  },
+  {
+   "source": "application_modules",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Identifying the security service used to protect the application module"
+  },
+  {
+   "source": "application_function",
+   "verb": "Belongs To",
+   "target": "application_modules",
+   "description_en": "Specifying which application functions belong to one application module or more"
+  },
+  {
+   "source": "application_function",
+   "verb": "Provided Through",
+   "target": "technical_integration_interface",
+   "description_en": "Identifying application functions that can be delivered through a Technical Integration Interface"
+  },
+  {
+   "source": "application_function",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying the security software used to protect a specific application function"
+  },
+  {
+   "source": "application_function",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Identifying the security service used to protect a specific application function"
+  },
+  {
+   "source": "technical_integration_interface",
+   "verb": "Consumed By",
+   "target": "application",
+   "description_en": "Identifying the consumer application of the Technical Integration Interface"
+  },
+  {
+   "source": "technical_integration_interface",
+   "verb": "Provided",
+   "target": "application_function",
+   "description_en": "Specifying one or more functions of the application that are provided through the Technical Integration Interface"
+  },
+  {
+   "source": "technical_integration_interface",
+   "verb": "Provided / Delivered",
+   "target": "data_entity",
+   "description_en": "Specifying the data entities provided by the Technical Integration Interface for the purpose of exchange"
+  },
+  {
+   "source": "technical_integration_interface",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying the security software used to protect the Technical Integration Interface"
+  },
+  {
+   "source": "technical_integration_interface",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Identifying the security service used to protect the Technical Integration Interface"
+  },
+  {
+   "source": "data_center",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Identifying a data center service provider and data center artifacts"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "infrastructure_service",
+   "description_en": "Identifying the data center that hosts the infrastructure service"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "peripheral_device",
+   "description_en": "Determining which data center hosts the peripheral device"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "physical_host",
+   "description_en": "Determining which data center hosts physical host devices"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "server",
+   "description_en": "Determining which data center hosts the servers"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "network_device",
+   "description_en": "Determining which data center hosts the network devices"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "storage",
+   "description_en": "Determining which data center hosts the storage devices"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "containerization_engine",
+   "description_en": "Identifying the data center that hosts the containerization engine"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying the data center that hosts infrastructure artifacts management applications"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "network_link",
+   "description_en": "Identifying the data center that hosts the network connectivity circuits"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "security_hardware",
+   "description_en": "Determining the data center that hosts the security hardware"
+  },
+  {
+   "source": "data_center",
+   "verb": "Hosts",
+   "target": "security_software",
+   "description_en": "Identifying the data center that hosts the security software"
+  },
+  {
+   "source": "physical_host",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Determining the hosting location of the physical host device"
+  },
+  {
+   "source": "physical_host",
+   "verb": "Hosts",
+   "target": "server",
+   "description_en": "Specifying the physical host that hosts the servers"
+  },
+  {
+   "source": "physical_host",
+   "verb": "Managed By",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying the infrastructure artifacts management applications that manage and monitor the physical host device"
+  },
+  {
+   "source": "physical_host",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Specifying the licenses used by the physical host device (specific licenses or subscriptions)"
+  },
+  {
+   "source": "physical_host",
+   "verb": "Linked Through",
+   "target": "network_link",
+   "description_en": "Specifying the network link used to link the physical host to the network"
+  },
+  {
+   "source": "physical_host",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Identifying the service provider that provides the physical host device"
+  },
+  {
+   "source": "physical_host",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the physical host"
+  },
+  {
+   "source": "physical_host",
+   "verb": "Provided Through",
+   "target": "security_hardware",
+   "description_en": "Identifying the security devices and artifacts associated with the physical host device"
+  },
+  {
+   "source": "physical_host",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying security software associated with the physical host device"
+  },
+  {
+   "source": "physical_host",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Identifying security services associated with the physical host device"
+  },
+  {
+   "source": "server",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Determining where the server will be hosted (a data center owned by the entity or a data center owned by a hosting service provider)"
+  },
+  {
+   "source": "server",
+   "verb": "Hosted In",
+   "target": "physical_host",
+   "description_en": "Identifying the physical host responsible for hosting the server"
+  },
+  {
+   "source": "server",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Determining software licenses and subscriptions by the server"
+  },
+  {
+   "source": "server",
+   "verb": "Managed By",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying one or more infrastructure management tools responsible for managing or monitoring the server"
+  },
+  {
+   "source": "server",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Specifying a provider or company to provide the server"
+  },
+  {
+   "source": "server",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the server"
+  },
+  {
+   "source": "server",
+   "verb": "Hosts",
+   "target": "application",
+   "description_en": "Specifying the application or applications hosted on the server"
+  },
+  {
+   "source": "server",
+   "verb": "Hosts",
+   "target": "data_vault",
+   "description_en": "Identifying the data vault hosted on the server"
+  },
+  {
+   "source": "server",
+   "verb": "Provided Through",
+   "target": "security_hardware",
+   "description_en": "Identifying the security hardware responsible for securing the server"
+  },
+  {
+   "source": "server",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying security software responsible for securing the server"
+  },
+  {
+   "source": "server",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Specifying one or more security services responsible for securing the server"
+  },
+  {
+   "source": "network_device",
+   "verb": "Managed By",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying the infrastructure management tool used to manage and monitor network devices"
+  },
+  {
+   "source": "network_device",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Identifying the data center that hosts the network device"
+  },
+  {
+   "source": "network_device",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Determining the licenses and subscriptions used by the network device"
+  },
+  {
+   "source": "network_device",
+   "verb": "Linked Through",
+   "target": "network_link",
+   "description_en": "Identifying the network link responsible for linking the network device to the rest of the network elements or to other devices"
+  },
+  {
+   "source": "network_device",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Identifying the provider or company that supplied the network device"
+  },
+  {
+   "source": "network_device",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the network device"
+  },
+  {
+   "source": "network_device",
+   "verb": "Provided Through",
+   "target": "security_hardware",
+   "description_en": "Identifying one or more physical security hardware that secure the network device"
+  },
+  {
+   "source": "network_device",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying one or more security software that secure the network device"
+  },
+  {
+   "source": "network_device",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Identifying one or more security services that secure the network device"
+  },
+  {
+   "source": "network_link",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the network link"
+  },
+  {
+   "source": "network_link",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Identifying service providers for the network connectivity circuits"
+  },
+  {
+   "source": "network_link",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Identifying the data center that hosts the network link or network connectivity circuits"
+  },
+  {
+   "source": "network_link",
+   "verb": "Managed By",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying the infrastructure management tool that manages and monitors the network connectivity circuits"
+  },
+  {
+   "source": "network_link",
+   "verb": "Links",
+   "target": "peripheral_device",
+   "description_en": "Specifying the network link to connect the peripheral device to the network"
+  },
+  {
+   "source": "network_link",
+   "verb": "Links",
+   "target": "physical_host",
+   "description_en": "Specifying the network link responsible for connecting the peripheral device to the network"
+  },
+  {
+   "source": "network_link",
+   "verb": "Links",
+   "target": "storage",
+   "description_en": "Specifying the network link responsible for connecting the storage device to the network"
+  },
+  {
+   "source": "network_link",
+   "verb": "Links",
+   "target": "network_device",
+   "description_en": "Identifying the network link responsible for connecting the network device to the network"
+  },
+  {
+   "source": "network_link",
+   "verb": "Links",
+   "target": "security_hardware",
+   "description_en": "Identifying the network link for connecting the security hardware to the network"
+  },
+  {
+   "source": "network_link",
+   "verb": "Provided Through",
+   "target": "security_hardware",
+   "description_en": "Identifying one or more physical security hardware that secure the network connectivity circuit"
+  },
+  {
+   "source": "network_link",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying one or more security software programs that secure the network connectivity circuit"
+  },
+  {
+   "source": "network_link",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Specifying one or more security services that secure the network connectivity circuit"
+  },
+  {
+   "source": "storage",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Identifying a specific data center for the entity or for a service provider that hosts the storage equipment and tools"
+  },
+  {
+   "source": "storage",
+   "verb": "Managed By",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring storage equipment and tools"
+  },
+  {
+   "source": "storage",
+   "verb": "Linked Through",
+   "target": "network_link",
+   "description_en": "Identifying the network link responsible for connecting the storage device to the rest of the network elements or to other devices"
+  },
+  {
+   "source": "storage",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Determining the licenses and subscriptions used by the storage device"
+  },
+  {
+   "source": "storage",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Identifying the service provider supplying storage devices and equipment"
+  },
+  {
+   "source": "storage",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for storage devices and equipment"
+  },
+  {
+   "source": "storage",
+   "verb": "Provided Through",
+   "target": "security_hardware",
+   "description_en": "Identifying one or more physical security"
+  },
+  {
+   "source": "storage",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying one or more security software programs that secure the storage device"
+  },
+  {
+   "source": "storage",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Specifying one or more security services that secure the storage device"
+  },
+  {
+   "source": "storage",
+   "verb": "Hosts",
+   "target": "data_vault",
+   "description_en": "Identifying the data vault hosted on the storage device"
+  },
+  {
+   "source": "containerization_engine",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Identifying a specific data center for the entity or cloud service provider to host the containerization engine"
+  },
+  {
+   "source": "containerization_engine",
+   "verb": "Managed By",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring the containerization engine"
+  },
+  {
+   "source": "containerization_engine",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Determining the licenses and subscriptions used by the containerization engine"
+  },
+  {
+   "source": "containerization_engine",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Identifying the service provider or manufacturer of the containerization engine"
+  },
+  {
+   "source": "containerization_engine",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the containerization engine"
+  },
+  {
+   "source": "containerization_engine",
+   "verb": "Provided Through",
+   "target": "security_hardware",
+   "description_en": "Identifying one or more physical security hardware that secure the containerization engine"
+  },
+  {
+   "source": "containerization_engine",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Identifying one or more security software programs that secure the containerization engine"
+  },
+  {
+   "source": "containerization_engine",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Identifying one or more security services that secure the containerization engine"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Identifying the data center responsible for hosting the infrastructure management tool"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Manages",
+   "target": "physical_host",
+   "description_en": "The infrastructure management tool manages or monitors the physical host devices"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Manages",
+   "target": "server",
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring the servers"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Manages",
+   "target": "network_device",
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring network devices"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Manages",
+   "target": "storage",
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring storage devices"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Manages",
+   "target": "containerization_engine",
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring containerization engines"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Manages",
+   "target": "peripheral_device",
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring a peripheral device"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Manages",
+   "target": "infrastructure_service",
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring an infrastructure service"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Manages",
+   "target": "network_link",
+   "description_en": "Identifying the infrastructure management tool responsible for managing and monitoring network connectivity circuits"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Determining the licenses for the infrastructure management tool"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the infrastructure management tool"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Identifying the license or service provider for the infrastructure management tool"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Secured Through",
+   "target": "security_hardware",
+   "description_en": "Identifying one or more physical security hardware that secure the infrastructure management tool"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Secured Through",
+   "target": "security_software",
+   "description_en": "Identifying one or more security software programs that secure the infrastructure management tool"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Secured Through",
+   "target": "security_service",
+   "description_en": "Identifying one or more security services that secure the infrastructure management tool"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Supports",
+   "target": "technical_integration_interface",
+   "description_en": "Specifying the Technical Integration Interface that is supported by the infrastructure management tool"
+  },
+  {
+   "source": "infrastructure_management_tool",
+   "verb": "Supports",
+   "target": "application",
+   "description_en": "Determining the application that supports the use of the infrastructure management tool"
+  },
+  {
+   "source": "license",
+   "verb": "Used In",
+   "target": "physical_host",
+   "description_en": "Determining the license installed on physical host devices"
+  },
+  {
+   "source": "license",
+   "verb": "Used In",
+   "target": "server",
+   "description_en": "Determining the license installed on server hardware"
+  },
+  {
+   "source": "license",
+   "verb": "Used In",
+   "target": "infrastructure_management_tool",
+   "description_en": "Determining the license for the infrastructure management tool"
+  },
+  {
+   "source": "license",
+   "verb": "Used In",
+   "target": "infrastructure_service",
+   "description_en": "Determining the license of the infrastructure service"
+  },
+  {
+   "source": "license",
+   "verb": "Used In",
+   "target": "containerization_engine",
+   "description_en": "Specifying the license used for the containerization engine"
+  },
+  {
+   "source": "license",
+   "verb": "Used In",
+   "target": "network_device",
+   "description_en": "Determining the license used for network devices"
+  },
+  {
+   "source": "license",
+   "verb": "Used In",
+   "target": "storage",
+   "description_en": "Determining the license used for storage devices"
+  },
+  {
+   "source": "license",
+   "verb": "Used In",
+   "target": "peripheral_device",
+   "description_en": "Determining the license used in the peripheral device"
+  },
+  {
+   "source": "license",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Determining the license owned by an organizational unit"
+  },
+  {
+   "source": "license",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Determining the license provided by a provider or a company"
+  },
+  {
+   "source": "license",
+   "verb": "Used In",
+   "target": "security_hardware",
+   "description_en": "Determining the license used in a security hardware"
+  },
+  {
+   "source": "license",
+   "verb": "Used In",
+   "target": "security_software",
+   "description_en": "Determining the license used in a security software"
+  },
+  {
+   "source": "peripheral_device",
+   "verb": "Managed By",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying the peripheral device that is managed by an infrastructure management tool"
+  },
+  {
+   "source": "peripheral_device",
+   "verb": "Linked Through",
+   "target": "network_link",
+   "description_en": "Specifying the network link responsible for connecting the peripheral device to the network"
+  },
+  {
+   "source": "peripheral_device",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Determining the licenses and subscriptions used by the peripheral device"
+  },
+  {
+   "source": "peripheral_device",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Specifying the provider of the peripheral device"
+  },
+  {
+   "source": "peripheral_device",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the peripheral device"
+  },
+  {
+   "source": "peripheral_device",
+   "verb": "Provided Through",
+   "target": "security_hardware",
+   "description_en": "Determining the peripheral device secured by one or more security hardware"
+  },
+  {
+   "source": "peripheral_device",
+   "verb": "Provided Through",
+   "target": "security_software",
+   "description_en": "Determining the peripheral device secured by one or more security software"
+  },
+  {
+   "source": "peripheral_device",
+   "verb": "Provided Through",
+   "target": "security_service",
+   "description_en": "Determining the peripheral device secured by one or more security services"
+  },
+  {
+   "source": "infrastructure_service",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Determining the infrastructure service hosted in a data center"
+  },
+  {
+   "source": "infrastructure_service",
+   "verb": "Managed By",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying the infrastructure service that is managed by an infrastructure management tool"
+  },
+  {
+   "source": "infrastructure_service",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Identifying the infrastructure service that uses specific licenses or subscriptions"
+  },
+  {
+   "source": "infrastructure_service",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Identifying the infrastructure service provided by a provider or manufacturer"
+  },
+  {
+   "source": "infrastructure_service",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the infrastructure service"
+  },
+  {
+   "source": "infrastructure_service",
+   "verb": "Secured Through",
+   "target": "security_hardware",
+   "description_en": "Identifying one or more physical security hardware that secure the infrastructure service"
+  },
+  {
+   "source": "infrastructure_service",
+   "verb": "Secured Through",
+   "target": "security_software",
+   "description_en": "Identifying one or more security software programs that secure the infrastructure service"
+  },
+  {
+   "source": "infrastructure_service",
+   "verb": "Secured Through",
+   "target": "security_service",
+   "description_en": "Identifying one or more security services that secure an infrastructure service"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Determining the licenses and subscriptions used by the security hardware"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "physical_host",
+   "description_en": "Identifying one or more physical security hardware that secure a physical host"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "server",
+   "description_en": "Identifying one or more physical security hardware that secure a server"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "network_device",
+   "description_en": "Identifying one or more physical security hardware that secure a network device"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "storage",
+   "description_en": "Identifying one or more physical security hardware that secure a storage device"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "containerization_engine",
+   "description_en": "Identifying one or more physical security hardware that secure a containerization engine"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "peripheral_device",
+   "description_en": "Identifying one or more physical security hardware that secure a peripheral device"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying one or more physical security hardware that secure the infrastructure management tool"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "infrastructure_service",
+   "description_en": "Identifying one or more physical security hardware that secure the infrastructure service"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "network_link",
+   "description_en": "Identifying one or more physical security hardware that secure a network link"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Identifying a service provider providing the security hardware"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the security hardware"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "data_vault",
+   "description_en": "Identifying one or more physical security hardware that secure a data vault"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "technical_integration_interface",
+   "description_en": "Identifying one or more physical security hardware that secure the Technical Integration Interface"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "application_function",
+   "description_en": "Identifying one or more physical security hardware that secure the application function"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "application_modules",
+   "description_en": "Identifying one or more physical security hardware that secure the application module"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Secures",
+   "target": "application",
+   "description_en": "Identifying one or more physical security hardware that secure an application"
+  },
+  {
+   "source": "security_software",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Determining the hosting location of the security software"
+  },
+  {
+   "source": "security_software",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Determining the licenses and subscriptions used by the security software"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "physical_host",
+   "description_en": "Identifying one or more security software programs that secure a physical host"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "server",
+   "description_en": "Identifying one or more security software programs that secure a server"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "network_device",
+   "description_en": "Identifying one or more security software programs that secure a network device"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "storage",
+   "description_en": "Identifying one or more security software programs that secure storage equipment and tools"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "containerization_engine",
+   "description_en": "Identifying one or more security software programs that secure a containerization engine"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "peripheral_device",
+   "description_en": "Identifying one or more security software programs that secure a peripheral device"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying one or more security software programs that secure the infrastructure management tool"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "infrastructure_service",
+   "description_en": "Identifying one or more security software programs that secure the infrastructure service"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "network_link",
+   "description_en": "Identifying one or more security software programs that secure a network link"
+  },
+  {
+   "source": "security_software",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Identifying a security software service provider"
+  },
+  {
+   "source": "security_software",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the security software"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "data_vault",
+   "description_en": "Identifying one or more security software programs that secure a data vault"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "application",
+   "description_en": "Identifying one or more security software programs that secure an application"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "application_modules",
+   "description_en": "Identifying one or more security software programs that secure an application module"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "technical_integration_interface",
+   "description_en": "Identifying one or more security software programs that secure the Technical Integration Interface"
+  },
+  {
+   "source": "security_software",
+   "verb": "Secures",
+   "target": "application_function",
+   "description_en": "Identifying one or more security software programs that secure the application function"
+  },
+  {
+   "source": "security_service",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Identifying the data center that hosts the security service"
+  },
+  {
+   "source": "security_service",
+   "verb": "Uses",
+   "target": "license",
+   "description_en": "Identifying specific licenses or subscriptions used by the security service"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "physical_host",
+   "description_en": "Identifying one or more security services that secure a physical host"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "server",
+   "description_en": "Identifying one or more security services that secure a server"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "network_device",
+   "description_en": "Specifying one or more security services that secure a network device"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "storage",
+   "description_en": "Specifying one or more security services that secure the storage equipment"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "containerization_engine",
+   "description_en": "Identifying one or more security services that secure a containerization engine"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "peripheral_device",
+   "description_en": "Specifying one or more security services that secure a peripheral device"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "infrastructure_management_tool",
+   "description_en": "Identifying one or more security services that secure the infrastructure management tool"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "infrastructure_service",
+   "description_en": "Identifying one or more security services that secure an infrastructure service"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "network_link",
+   "description_en": "Specifying one or more security services that secure a network link"
+  },
+  {
+   "source": "security_service",
+   "verb": "Provided By",
+   "target": "service_provider",
+   "description_en": "Determining the provider of the security service"
+  },
+  {
+   "source": "security_service",
+   "verb": "Owned By",
+   "target": "organizational_unit",
+   "description_en": "Identifying the organizational unit responsible for the security service"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "data_vault",
+   "description_en": "Identifying one or more security services that secure a data vault"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "application",
+   "description_en": "Identifying one or more security services that secure an application"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "application_modules",
+   "description_en": "Identifying one or more security services that secure the application module"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "application_function",
+   "description_en": "Identifying one or more security services that secure the application function"
+  },
+  {
+   "source": "security_service",
+   "verb": "Secures",
+   "target": "technical_integration_interface",
+   "description_en": "Identifying one or more security services that secure the Technical Integration Interface"
+  },
+  {
+   "source": "persona",
+   "verb": "Represents",
+   "target": "beneficiary",
+   "description_en": "A persona represents a beneficiary segment."
+  }
+ ],
+ "notes": "Enum attributes without options act as free text with suggestions until an entity EA owner (R2) configures the list."
+}
