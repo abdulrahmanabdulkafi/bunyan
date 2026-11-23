@@ -1,4 +1,6 @@
-import { BadRequestException, Controller, ForbiddenException, Get, Param, Query } from '@nestjs/common';
+import { BadRequestException, Controller, ForbiddenException, Get, Param, Query, Res } from '@nestjs/common';
+import ExcelJS from 'exceljs';
+import type { Response } from 'express';
 import { pool, withActor } from '../common/db.js';
 import { CurrentUser, Perm, SessionUser, actorOf } from '../auth/auth.js';
 import { can, inScope } from '../auth/permissions.js';
@@ -22,6 +24,45 @@ export class ViewpointsController {
       const readable = (b: string) => { const d = model.blocks.find((x) => x.code === b); return !!d && inScope(u.roles, u.scope ?? {}, 'records.read', d.code, d.domain_code); };
       return VIEWPOINTS.map(({ spec, ...vp }) => ({ ...vp, kind: spec.kind, missing: missingBlocks({ spec, ...vp }, { model, readable }) }));
     });
+  }
+
+  /** Excel export of a viewpoint (FR-07-07): tables as they appear on screen, in the chosen language. */
+  @Perm('reports.export')
+  @Get('run/:code/xlsx')
+  async exportOne(@CurrentUser() u: SessionUser, @Param('code') code: string, @Query('level') level: string, @Query('lang') lang: string, @Res() res: Response) {
+    const vp = VIEWPOINTS.find((v) => v.code === code);
+    if (!vp) throw new NotFoundException();
+    const en = lang === 'en';
+    const data = await this.runOne(u, code, level) as Record<string, any>;
+    if (data.missing) throw new BadRequestException('لا توجد وحدات بناء متاحة');
+    const model = await withActor(actorOf(u), loadModel);
+    const bn = (c: string) => { const b = model.blocks.find((x) => x.code === c); return b ? (en ? b.name_en : b.name_ar) : c; };
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet((en ? vp.name_en : vp.name_ar).replace(/[\\/?*[\]:]/g, ' ').slice(0, 31), { views: [{ rightToLeft: !en }] });
+    const safe = (v: unknown) => (typeof v === 'string' && /^[=+\-@]/.test(v) ? `'${v}` : Array.isArray(v) ? v.join('; ') : v);
+    if (data.kind === 'list') {
+      ws.addRow([en ? 'Name' : 'الاسم', ...data.columns.map((c: any) => (en ? c.name_en : c.name_ar))]);
+      for (const r of data.rows) ws.addRow([safe(r.name), ...data.columns.map((c: any) => safe(r.attrs[c.key]))]);
+    } else if (data.kind === 'matrix') {
+      ws.addRow(['', ...data.cols.map((c: any) => safe(c.name))]);
+      for (const r of data.rows) ws.addRow([safe(r.name), ...data.cols.map((c: any) => (data.cells.some((x: any) => x.row === r.id && x.col === c.id) ? '●' : ''))]);
+    } else if (data.kind === 'group') {
+      ws.addRow([en ? 'Group' : 'المجموعة', en ? 'Item' : 'العنصر', en ? 'Building block' : 'وحدة البناء']);
+      for (const g of data.groups) for (const i of g.items) ws.addRow([safe(en ? g.label_en : g.label_ar), safe(i.name), bn(i.block_code)]);
+    } else if (data.kind === 'nest') {
+      ws.addRow([en ? 'Container' : 'الحاوية', en ? 'Item' : 'العنصر', en ? 'Building block' : 'وحدة البناء']);
+      for (const c of data.containers) for (const i of c.children) ws.addRow([safe(c.name), safe(i.name), bn(i.block_code)]);
+    } else {
+      ws.addRow([en ? 'From' : 'من', en ? 'Relationship' : 'العلاقة', en ? 'To' : 'إلى']);
+      const name = new Map(data.nodes.map((n: any) => [n.id, n.name]));
+      for (const e of data.edges) ws.addRow([safe(name.get(e.source_id)), safe(en ? e.verb : e.name_ar ?? e.verb), safe(name.get(e.target_id))]);
+    }
+    ws.getRow(1).font = { bold: true };
+    ws.columns.forEach((c) => (c.width = 28));
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', `attachment; filename="${code}.xlsx"`);
+    await wb.xlsx.write(res);
+    res.end();
   }
 
   @Perm('records.read')

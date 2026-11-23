@@ -34,7 +34,8 @@ export class ExcelController {
   /** FR: download the data-entry template (optionally with current records) for one or more building blocks. */
   @Perm('records.read')
   @Get('export')
-  async export(@CurrentUser() u: SessionUser, @Query('blocks') blocks: string, @Query('withData') withData: string, @Res() res: Response) {
+  async export(@CurrentUser() u: SessionUser, @Query('blocks') blocks: string, @Query('withData') withData: string, @Query('lang') lang: string, @Res() res: Response) {
+    const en = lang === 'en';
     const codes = (blocks ?? '').split(',').filter(Boolean);
     const wb = new ExcelJS.Workbook();
     wb.creator = 'Bunyan';
@@ -46,10 +47,10 @@ export class ExcelController {
       if (!chosen.length) throw new BadRequestException('لا توجد وحدات بناء متاحة');
       for (const b of chosen) {
         const attrs = b.attributes.filter((a) => a.active && (can(u.roles, 'cost.read') || !COST_KEYS.test(a.key)));
-        const name = `${b.name_ar}`.replace(/[\\/?*[\]:]/g, ' ').slice(0, 31);
-        const ws = wb.addWorksheet(name, { views: [{ rightToLeft: true, state: 'frozen', ySplit: HEADER_ROWS }] });
+        const name = `${en ? b.name_en : b.name_ar}`.replace(/[\\/?*[\]:]/g, ' ').slice(0, 31);
+        const ws = wb.addWorksheet(name, { views: [{ rightToLeft: !en, state: 'frozen', ySplit: HEADER_ROWS }] });
         meta.addRow([name, b.code]);
-        ws.addRow(['المعرّف (لا تعدّله)', ...attrs.map((a) => `${a.name_ar}${a.required ? ' *' : ''}`)]);
+        ws.addRow([en ? 'ID (do not edit)' : 'المعرّف (لا تعدّله)', ...attrs.map((a) => `${en ? a.name_en : a.name_ar}${a.required ? ' *' : ''}`)]);
         ws.addRow(['id', ...attrs.map((a) => a.key)]).hidden = true;
         ws.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' } };
         ws.getRow(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1F4E5F' } };
@@ -58,7 +59,7 @@ export class ExcelController {
         attrs.forEach((a, i) => {
           const col = ws.getColumn(i + 2);
           if (a.type === 'date') col.numFmt = 'yyyy-mm-dd';
-          const note = [a.name_en, a.description ?? '', a.multiple || a.type === 'multi_text' ? 'يمكن إدخال أكثر من قيمة مفصولة بـ ; — Separate multiple values with ;' : '']
+          const note = [en ? a.name_ar : a.name_en, a.description ?? '', a.multiple || a.type === 'multi_text' ? (en ? 'Separate multiple values with ;' : 'يمكن إدخال أكثر من قيمة مفصولة بـ ;') : '']
             .filter(Boolean).join('\n');
           if (note) ws.getCell(1, i + 2).note = note;
           // A dropdown only for single-value lists; strict lists block other values, open lists just suggest.

@@ -46,6 +46,10 @@ describe('authentication', () => {
     const r = await api('', 'POST', '/auth/login', { email: 'ea@a.local', password: 'wrong' });
     assert.equal(r.status, 401);
   });
+  it('answers in English when the client asks for it', async () => {
+    const res = await fetch(`${base}/auth/login`, { method: 'POST', headers: { 'content-type': 'application/json', 'accept-language': 'en' }, body: JSON.stringify({ email: 'ea@a.local', password: 'x' }) });
+    assert.equal((await res.json()).message, 'Incorrect email or password');
+  });
   it('rejects requests without a token', async () => {
     assert.equal((await api('', 'GET', '/metamodel')).status, 401);
   });

@@ -23,6 +23,7 @@ services:
       NODE_ENV: production
       DATABASE_URL: postgres://bunyan_app:${DB_APP_PASSWORD:-change-me-app}@db:5432/bunyan
       JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+      CONNECTOR_KEY: ${CONNECTOR_KEY:?set CONNECTOR_KEY}
       OIDC_ISSUER: ${OIDC_ISSUER:-}
       OIDC_AUDIENCE: ${OIDC_AUDIENCE:-}
     depends_on: { setup: { condition: service_completed_successfully } }

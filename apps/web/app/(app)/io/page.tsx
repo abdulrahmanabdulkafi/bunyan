@@ -2,11 +2,13 @@
 import { useState } from 'react';
 import { api, ApiError, canInScope, download } from '@/lib/api';
 import { useSession } from '@/lib/session';
+import { useI18n } from '@/lib/i18n';
 
 interface Report { dryRun: boolean; created: number; updated: number; errors: { sheet: string; row: number; key?: string; message: string }[] }
 
 export default function ImportExport() {
   const { user, model, reloadModel } = useSession();
+  const { t, nm } = useI18n();
   const [chosen, setChosen] = useState<string[]>([]);
   const [file, setFile] = useState<File | null>(null);
   const [report, setReport] = useState<Report | null>(null);
@@ -14,9 +16,9 @@ export default function ImportExport() {
   const [err, setErr] = useState('');
   if (!model) return null;
   const blocks = model.blocks.filter((b) => b.active && canInScope(user, 'records.import', b));
-  const attrName = (sheet: string, key?: string) => {
+  const attrName = (key?: string) => {
     if (!key) return '';
-    for (const b of model.blocks) { const a = b.attributes.find((x) => x.key === key); if (a && sheet.startsWith(b.name_ar.slice(0, 20))) return a.name_ar; }
+    for (const b of model.blocks) { const a = b.attributes.find((x) => x.key === key); if (a) return nm(a); }
     return key;
   };
 
@@ -36,48 +38,48 @@ export default function ImportExport() {
   return (
     <>
       <div className="page-head"><div>
-        <h1>الاستيراد والتصدير</h1>
-        <p>نزّل القالب المطابق للنموذج المعتمد في جهتك، عبّئه، ثم ارفعه. لا يُحفظ أي سجل إن وُجد خطأ في أي صف.</p>
+        <h1>{t('io.title')}</h1>
+        <p>{t('io.subtitle')}</p>
       </div></div>
 
       <section className="section">
-        <h2>١. تنزيل القالب</h2>
-        <p className="hint" style={{ marginBottom: 'var(--s-3)' }}>اختر وحدات البناء؛ كل وحدة في ورقة مستقلة بأسماء السمات العربية وقوائم القيم المعتمدة.</p>
+        <h2>{t('io.step1')}</h2>
+        <p className="hint" style={{ marginBottom: 'var(--s-3)' }}>{t('io.step1Hint')}</p>
         <div className="row" style={{ marginBottom: 'var(--s-3)' }}>
           {blocks.map((b) => (
             <label key={b.code} className="row" style={{ gap: 6, fontSize: 14, minWidth: 200 }}>
               <input type="checkbox" checked={chosen.includes(b.code)} onChange={(e) => setChosen(e.target.checked ? [...chosen, b.code] : chosen.filter((c) => c !== b.code))} />
-              {b.name_ar}
+              {nm(b)}
             </label>
           ))}
         </div>
         <div className="row">
-          <button className="btn" disabled={!chosen.length} onClick={() => download(`/io/export?blocks=${chosen.join(',')}`, 'bunyan-template.xlsx')}>تنزيل قالب فارغ</button>
-          <button className="btn" disabled={!chosen.length} onClick={() => download(`/io/export?blocks=${chosen.join(',')}&withData=true`, 'bunyan-data.xlsx')}>تنزيل مع البيانات الحالية</button>
+          <button className="btn" disabled={!chosen.length} onClick={() => download(`/io/export?blocks=${chosen.join(',')}`, 'bunyan-template.xlsx')}>{t('io.blank')}</button>
+          <button className="btn" disabled={!chosen.length} onClick={() => download(`/io/export?blocks=${chosen.join(',')}&withData=true`, 'bunyan-data.xlsx')}>{t('io.withData')}</button>
         </div>
       </section>
 
       <section className="section">
-        <h2>٢. رفع الملف</h2>
-        <p className="hint" style={{ marginBottom: 'var(--s-3)' }}>الصفوف التي تحمل معرّفاً تُحدّث سجلاتها، والصفوف الجديدة تُنشأ مسودات بانتظار الاعتماد.</p>
+        <h2>{t('io.step2')}</h2>
+        <p className="hint" style={{ marginBottom: 'var(--s-3)' }}>{t('io.step2Hint')}</p>
         <div className="row">
-          <input type="file" accept=".xlsx" onChange={(e) => { setFile(e.target.files?.[0] ?? null); setReport(null); }} style={{ maxWidth: 360 }} aria-label="ملف Excel" />
-          <button className="btn" disabled={!file || busy} onClick={() => upload(true)}>فحص دون حفظ</button>
-          <button className="btn primary" disabled={!file || busy} onClick={() => upload(false)}>استيراد</button>
+          <input type="file" accept=".xlsx" onChange={(e) => { setFile(e.target.files?.[0] ?? null); setReport(null); }} style={{ maxWidth: 360 }} aria-label={t('io.file')} />
+          <button className="btn" disabled={!file || busy} onClick={() => upload(true)}>{t('io.check')}</button>
+          <button className="btn primary" disabled={!file || busy} onClick={() => upload(false)}>{t('io.import')}</button>
         </div>
         {err && <div className="banner error" style={{ marginTop: 'var(--s-3)' }}>{err}</div>}
         {report && (
           <div style={{ marginTop: 'var(--s-4)' }}>
             {report.errors.length ? (
               <>
-                <div className="banner error">لم يُحفظ أي سجل: {report.errors.length} خطأ. صحّحها في الملف ثم أعد رفعه.</div>
+                <div className="banner error">{t('io.failed', { n: report.errors.length })}</div>
                 <div className="table-wrap"><table>
-                  <thead><tr><th>الورقة</th><th className="num">الصف</th><th>السمة</th><th>الخطأ</th></tr></thead>
-                  <tbody>{report.errors.map((e, i) => <tr key={i}><td>{e.sheet}</td><td className="num">{e.row}</td><td>{attrName(e.sheet, e.key)}</td><td>{e.message}</td></tr>)}</tbody>
+                  <thead><tr><th>{t('io.sheet')}</th><th className="num">{t('io.row')}</th><th>{t('io.attribute')}</th><th>{t('io.error')}</th></tr></thead>
+                  <tbody>{report.errors.map((e, i) => <tr key={i}><td>{e.sheet}</td><td className="num">{e.row}</td><td>{attrName(e.key)}</td><td>{e.message}</td></tr>)}</tbody>
                 </table></div>
               </>
             ) : (
-              <div className="banner ok">{report.dryRun ? `الملف سليم: سيُنشأ ${report.created} ويُحدَّث ${report.updated} سجل.` : `استُورد الملف: أُنشئ ${report.created} وحُدّث ${report.updated} سجل.`}</div>
+              <div className="banner ok">{t(report.dryRun ? 'io.dryOk' : 'io.done', { c: report.created, u: report.updated })}</div>
             )}
           </div>
         )}

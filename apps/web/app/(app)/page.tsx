@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { api, can } from '@/lib/api';
 import { useSession } from '@/lib/session';
+import { useI18n } from '@/lib/i18n';
 
 interface Dash {
   blocks: { code: string; name_ar: string; domain: string; total: number; approved: number; pending: number; completeness: number; orphans: number }[];
@@ -12,50 +13,51 @@ interface Dash {
 
 export default function Dashboard() {
   const { user, model } = useSession();
+  const { t, nm, pct } = useI18n();
   const router = useRouter();
   const [d, setD] = useState<Dash | null>(null);
 
   useEffect(() => {
     if (!user) return;
-    if (!can(user, 'records.read')) { router.replace(can(user, 'dashboard.national') ? '/national' : '/studio'); return; }
+    if (!can(user, 'records.read')) { router.replace(can(user, 'dashboard.national') ? '/national' : can(user, 'integrations.manage') ? '/integrations' : '/studio'); return; }
     api<Dash>('/viewpoints/dashboard').then(setD);
   }, [user, router]);
 
-  if (!d || !model) return <p className="hint">جارٍ التحميل…</p>;
+  if (!d || !model) return <p className="hint">{t('common.loading')}</p>;
   const total = d.blocks.reduce((s, b) => s + b.total, 0);
   const approved = d.blocks.reduce((s, b) => s + b.approved, 0);
   const pending = d.blocks.reduce((s, b) => s + b.pending, 0);
   const filled = d.blocks.filter((b) => b.total);
   const avg = filled.length ? filled.reduce((s, b) => s + b.completeness, 0) / filled.length : 0;
-  const blockName = (c: string) => model.blocks.find((b) => b.code === c)?.name_ar ?? c;
+  const block = (c: string) => model.blocks.find((b) => b.code === c);
 
   return (
     <>
       <div className="page-head">
         <div>
-          <h1>لوحة البنية المؤسسية</h1>
-          <p>حالة مستودع الجهة في مجالات التطبيقات والتقنية والأمن السيبراني.</p>
+          <h1>{t('dash.title')}</h1>
+          <p>{t('dash.subtitle')}</p>
         </div>
       </div>
 
       <div className="figures">
-        <div className="figure"><b>{total}</b><span>سجل في المستودع</span></div>
-        <div className="figure"><b>{total ? Math.round((approved / total) * 100) : 0}٪</b><span>معتمد نهائياً</span></div>
-        <div className="figure"><b>{pending}</b><span>بانتظار الاعتماد</span></div>
-        <div className="figure"><b>{Math.round(avg * 100)}٪</b><span>متوسط اكتمال السمات</span></div>
+        <div className="figure"><b>{total}</b><span>{t('dash.records')}</span></div>
+        <div className="figure"><b>{total ? pct(approved / total) : pct(0)}</b><span>{t('dash.approved')}</span></div>
+        <div className="figure"><b>{pending}</b><span>{t('dash.pending')}</span></div>
+        <div className="figure"><b>{pct(avg)}</b><span>{t('dash.completeness')}</span></div>
       </div>
 
       <section className="section">
-        <h2>تنبيهات دورة الحياة</h2>
-        {d.alerts.length === 0 ? <p className="hint">لا توجد عناصر انتهى دعمها أو اقترب انتهاؤه خلال ١٨٠ يوماً.</p> : (
+        <h2>{t('dash.alerts')}</h2>
+        {d.alerts.length === 0 ? <p className="hint">{t('dash.noAlerts', { days: 180 })}</p> : (
           <div className="table-wrap"><table>
-            <thead><tr><th>العنصر</th><th>الوحدة</th><th>التاريخ</th><th>الحالة</th></tr></thead>
+            <thead><tr><th>{t('dash.item')}</th><th>{t('common.block')}</th><th>{t('common.date')}</th><th>{t('common.status')}</th></tr></thead>
             <tbody>{d.alerts.map((a) => (
               <tr key={a.id + a.date}>
                 <td><Link href={`/records/${a.id}`}>{a.name}</Link></td>
-                <td>{blockName(a.block)}</td>
+                <td>{nm(block(a.block))}</td>
                 <td dir="ltr" style={{ textAlign: 'end' }}>{a.date}</td>
-                <td className={`alert-${a.kind}`}>{a.kind === 'expired' ? 'انتهى الدعم أو الترخيص' : 'ينتهي قريباً'}</td>
+                <td className={`alert-${a.kind}`}>{t(a.kind === 'expired' ? 'dash.expired' : 'dash.expiring')}</td>
               </tr>))}
             </tbody>
           </table></div>
@@ -63,17 +65,17 @@ export default function Dashboard() {
       </section>
 
       <section className="section">
-        <h2>المخزون حسب وحدة البناء</h2>
+        <h2>{t('dash.inventory')}</h2>
         <div className="table-wrap"><table>
-          <thead><tr><th>وحدة البناء</th><th className="num">السجلات</th><th className="num">معتمد</th><th className="num">بانتظار الاعتماد</th><th className="num">بلا علاقات</th><th>الاكتمال</th></tr></thead>
+          <thead><tr><th>{t('common.block')}</th><th className="num">{t('dash.colRecords')}</th><th className="num">{t('status.approved')}</th><th className="num">{t('dash.pending')}</th><th className="num">{t('dash.orphans')}</th><th>{t('common.completeness')}</th></tr></thead>
           <tbody>{d.blocks.map((b) => (
             <tr key={b.code}>
-              <td><span className="dom-dot" style={{ ['--c' as string]: `var(--d-${b.domain})` }} /><Link href={`/repo/${b.code}`}>{b.name_ar}</Link></td>
+              <td><span className="dom-dot" style={{ ['--c' as string]: `var(--d-${b.domain})` }} /><Link href={`/repo/${b.code}`}>{nm(block(b.code))}</Link></td>
               <td className="num">{b.total}</td>
               <td className="num">{b.approved}</td>
               <td className="num">{b.pending || '—'}</td>
               <td className="num">{b.orphans || '—'}</td>
-              <td>{b.total ? <>{Math.round(b.completeness * 100)}٪<span className={`gauge${b.completeness < 0.5 ? ' low' : ''}`}><i style={{ width: `${b.completeness * 100}%` }} /></span></> : <span className="hint">لا توجد سجلات</span>}</td>
+              <td>{b.total ? <>{pct(b.completeness)}<span className={`gauge${b.completeness < 0.5 ? ' low' : ''}`}><i style={{ width: `${b.completeness * 100}%` }} /></span></> : <span className="hint">{t('dash.noRecords')}</span>}</td>
             </tr>))}
           </tbody>
         </table></div>

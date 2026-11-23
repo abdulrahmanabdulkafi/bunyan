@@ -4,6 +4,7 @@ import { APP_GUARD, NestFactory } from '@nestjs/core';
 import { ZodError } from 'zod';
 import { config } from './common/config.js';
 import { pool } from './common/db.js';
+import { langOf, trBody } from './common/i18n.js';
 import { AuthController, AuthGuard } from './auth/auth.js';
 import { TenantsController, TenantsService } from './tenants/tenants.js';
 import { MetamodelController, MetamodelService } from './metamodel/metamodel.js';
@@ -16,16 +17,19 @@ import { IntegrationsController, IntegrationsService, startScheduler } from './i
 @Catch()
 class ErrorFilter implements ExceptionFilter {
   catch(err: unknown, host: ArgumentsHost) {
-    const res = host.switchToHttp().getResponse();
-    if (err instanceof HttpException) return res.status(err.getStatus()).json(err.getResponse());
-    if (err instanceof ZodError) return res.status(400).json({ message: 'مدخلات غير صالحة', errors: err.issues.map((i) => ({ key: i.path.join('.'), message: i.message })) });
+    const http = host.switchToHttp();
+    const res = http.getResponse();
+    const lang = langOf(http.getRequest().headers['accept-language']);
+    const send = (status: number, body: unknown) => res.status(status).json(trBody(body, lang));
+    if (err instanceof HttpException) return send(err.getStatus(), err.getResponse());
+    if (err instanceof ZodError) return send(400, { message: 'مدخلات غير صالحة', errors: err.issues.map((i) => ({ key: i.path.join('.'), message: i.message })) });
     const code = (err as { code?: string }).code;
-    if (code === '23505') return res.status(409).json({ message: 'القيمة موجودة مسبقاً' });
-    if (code === '23503') return res.status(400).json({ message: 'مرجع غير موجود' });
-    if (code === '42501') return res.status(403).json({ message: 'غير مصرح' }); // RLS violation
-    if (code === '22P02') return res.status(400).json({ message: 'معرّف غير صالح' });
+    if (code === '23505') return send(409, { message: 'القيمة موجودة مسبقاً' });
+    if (code === '23503') return send(400, { message: 'مرجع غير موجود' });
+    if (code === '42501') return send(403, { message: 'غير مصرح' }); // RLS violation
+    if (code === '22P02') return send(400, { message: 'معرّف غير صالح' });
     console.error(err);
-    return res.status(500).json({ message: 'خطأ داخلي' });
+    return send(500, { message: 'خطأ داخلي' });
   }
 }
 

@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 import {
-  BadRequestException, Body, Controller, Delete, Get, Injectable, NotFoundException, Param, Patch, Post, Query,
+  BadRequestException, Body, Controller, Delete, Get, Headers, Injectable, NotFoundException, Param, Patch, Post, Query,
 } from '@nestjs/common';
 import { z } from 'zod';
 import { config } from '../common/config.js';
@@ -10,6 +10,7 @@ import { loadModel } from '../metamodel/metamodel.js';
 import { validateAttrs } from '../records/validate.js';
 import { CONNECTOR_TYPES, ConnectorType, FieldMap, applyTransform } from './connectors.js';
 import { pick } from './http.js';
+import { langOf, trBody } from '../common/i18n.js';
 
 // ───────────── Credentials at rest: AES-256-GCM (FR-05-10) ─────────────
 function key(): Buffer {
@@ -288,8 +289,10 @@ export class IntegrationsController {
 
   @Perm('integrations.manage')
   @Post(':id/run')
-  run(@CurrentUser() u: SessionUser, @Param('id') id: string, @Query('dryRun') dryRun: string) {
-    return this.svc.sync(actorOf(u), id, dryRun === 'true' ? 'dry_run' : 'manual');
+  async run(@CurrentUser() u: SessionUser, @Param('id') id: string, @Query('dryRun') dryRun: string, @Headers('accept-language') al?: string) {
+    const sum = await this.svc.sync(actorOf(u), id, dryRun === 'true' ? 'dry_run' : 'manual');
+    const lang = langOf(al);
+    return { ...sum, details: sum.details.map((d) => trBody(d, lang)) };
   }
 
   @Perm('integrations.manage')

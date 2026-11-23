@@ -49,11 +49,11 @@ if (demo) {
   const { applyTemplate } = await import(path.join(root, 'apps/api/dist/tenants/tenants.js'));
   await db.query('begin');
   await db.query(`select set_config('app.platform','on',true)`);
-  const T = async (code, name_ar, kind, parent) =>
-    (await db.query(`insert into tenants (code,name_ar,kind,parent_id) values ($1,$2,$3,$4) on conflict (code) do update set name_ar=excluded.name_ar returning id`, [code, name_ar, kind, parent])).rows[0].id;
-  const sector = await T('sector-economy', 'المكتب القطاعي — الاقتصاد', 'sector', null);
-  const ea = await T('entity-a', 'الجهة التجريبية (أ)', 'entity', sector);
-  const eb = await T('entity-b', 'الجهة التجريبية (ب)', 'entity', sector);
+  const T = async (code, name_ar, name_en, kind, parent) =>
+    (await db.query(`insert into tenants (code,name_ar,name_en,kind,parent_id) values ($1,$2,$3,$4,$5) on conflict (code) do update set name_ar=excluded.name_ar, name_en=excluded.name_en returning id`, [code, name_ar, name_en, kind, parent])).rows[0].id;
+  const sector = await T('sector-economy', 'المكتب القطاعي — الاقتصاد', 'Sector office — Economy', 'sector', null);
+  const ea = await T('entity-a', 'الجهة التجريبية (أ)', 'Demo entity A', 'entity', sector);
+  const eb = await T('entity-b', 'الجهة التجريبية (ب)', 'Demo entity B', 'entity', sector);
   for (const t of [ea, eb]) await applyTemplate(db, t);
   const pw = await bcrypt.hash(process.env.DEMO_PASSWORD ?? 'Bunyan@2026', 10);
   const U = async (email, name, tenant, roles, scope = {}) =>
