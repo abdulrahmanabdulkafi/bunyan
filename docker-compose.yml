@@ -10,7 +10,8 @@ services:
 
   setup:
     build: { context: ., dockerfile: apps/api/Dockerfile }
-    command: ["node", "scripts/db-setup.mjs", "--demo"]
+    # Demo data only when SETUP_FLAGS=--demo; a real installation starts empty (then run admin:create).
+    command: ["node", "scripts/db-setup.mjs", "${SETUP_FLAGS:---no-demo}"]
     environment:
       ADMIN_DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-change-me}@db:5432/postgres
       DB_OWNER_PASSWORD: ${DB_OWNER_PASSWORD:-change-me-owner}
@@ -26,6 +27,13 @@ services:
       CONNECTOR_KEY: ${CONNECTOR_KEY:?set CONNECTOR_KEY}
       OIDC_ISSUER: ${OIDC_ISSUER:-}
       OIDC_AUDIENCE: ${OIDC_AUDIENCE:-}
+      MFA_REQUIRED_ROLES: ${MFA_REQUIRED_ROLES:-R0,R1,R2}
+      SESSION_IDLE_MINUTES: ${SESSION_IDLE_MINUTES:-30}
+      SESSION_MAX_HOURS: ${SESSION_MAX_HOURS:-12}
+      LOCKOUT_ATTEMPTS: ${LOCKOUT_ATTEMPTS:-5}
+      LOCKOUT_MINUTES: ${LOCKOUT_MINUTES:-15}
+      PASSWORD_MIN_LENGTH: ${PASSWORD_MIN_LENGTH:-12}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
     depends_on: { setup: { condition: service_completed_successfully } }
 
   web:

@@ -49,7 +49,7 @@ for (const f of fs.readdirSync(path.join(root, 'db')).filter((f) => f.endsWith('
 {
   await db.query('begin');
   await db.query(`select set_config('app.platform','on',true)`);
-  for (const f of fs.readdirSync(path.join(root, 'packages/seed')).filter((x) => x.startsWith('nca-') && x.endsWith('.json'))) {
+  for (const f of fs.readdirSync(path.join(root, 'packages/seed')).filter((x) => /^(nca|ndmo|dga)-.*\.json$/.test(x))) {
     const fw = JSON.parse(fs.readFileSync(path.join(root, 'packages/seed', f), 'utf8'));
     const id = (await db.query(`insert into compliance_frameworks (code, version, name_ar, name_en, issuer_ar, issuer_en) values ($1,$2,$3,$4,$5,$6)
       on conflict (code, version) do update set name_ar = excluded.name_ar returning id`, [fw.code, fw.version, fw.name_ar, fw.name_en, fw.issuer_ar, fw.issuer_en])).rows[0].id;

@@ -476,7 +476,7 @@ const integrations: M = {
 };
 
 const compliance: M = {
-  'nav.compliance': { ar: 'الامتثال الأمني', en: 'Security compliance' },
+  'nav.compliance': { ar: 'الامتثال', en: 'Compliance' },
   'nav.library': { ar: 'مكتبات الضوابط', en: 'Control libraries' },
   'record.controls': { ar: 'الضوابط المرتبطة', en: 'Linked controls' },
   'cmp.title': { ar: 'الامتثال الأمني', en: 'Security compliance' },

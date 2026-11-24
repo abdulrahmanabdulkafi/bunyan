@@ -1,0 +1,137 @@
+{
+ "code": "NDMO-DMPDP",
+ "version": "1.5",
+ "name_ar": "ضوابط ومواصفات إدارة البيانات الوطنية وحوكمتها وحماية البيانات الشخصية",
+ "name_en": "National Data Management and Personal Data Protection Standards",
+ "issuer_ar": "مكتب إدارة البيانات الوطنية",
+ "issuer_en": "National Data Management Office",
+ "counts": {
+  "domain": 15,
+  "subdomain": 0,
+  "control": 0,
+  "subcontrol": 0
+ },
+ "note": "Structure only: the 15 domains of the NDMO standards. Controls and specifications are loaded by the platform admin from the official document (Library → load control texts).",
+ "items": [
+  {
+   "code": "DG",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "حوكمة البيانات",
+   "title_en": "Data Governance",
+   "sort": 0
+  },
+  {
+   "code": "MCM",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "فهرس البيانات والبيانات الوصفية",
+   "title_en": "Data Catalog and Metadata",
+   "sort": 1
+  },
+  {
+   "code": "DQ",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "جودة البيانات",
+   "title_en": "Data Quality",
+   "sort": 2
+  },
+  {
+   "code": "DO",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "عمليات البيانات",
+   "title_en": "Data Operations",
+   "sort": 3
+  },
+  {
+   "code": "DCM",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "إدارة الوثائق والمحتوى",
+   "title_en": "Document and Content Management",
+   "sort": 4
+  },
+  {
+   "code": "DAM",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "هيكلة البيانات ونمذجتها",
+   "title_en": "Data Architecture and Modelling",
+   "sort": 5
+  },
+  {
+   "code": "RMD",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "إدارة البيانات المرجعية والرئيسية",
+   "title_en": "Reference and Master Data Management",
+   "sort": 6
+  },
+  {
+   "code": "BIA",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "ذكاء الأعمال والتحليلات",
+   "title_en": "Business Intelligence and Analytics",
+   "sort": 7
+  },
+  {
+   "code": "DSI",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "مشاركة البيانات وقابلية التشغيل البيني",
+   "title_en": "Data Sharing and Interoperability",
+   "sort": 8
+  },
+  {
+   "code": "DVR",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "تحقيق القيمة من البيانات",
+   "title_en": "Data Value Realization",
+   "sort": 9
+  },
+  {
+   "code": "OD",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "البيانات المفتوحة",
+   "title_en": "Open Data",
+   "sort": 10
+  },
+  {
+   "code": "FOI",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "حرية المعلومات",
+   "title_en": "Freedom of Information",
+   "sort": 11
+  },
+  {
+   "code": "DC",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "تصنيف البيانات",
+   "title_en": "Data Classification",
+   "sort": 12
+  },
+  {
+   "code": "PDP",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "حماية البيانات الشخصية",
+   "title_en": "Personal Data Protection",
+   "sort": 13
+  },
+  {
+   "code": "DS",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "أمن البيانات وحمايتها",
+   "title_en": "Data Security and Protection",
+   "sort": 14
+  }
+ ]
+}
