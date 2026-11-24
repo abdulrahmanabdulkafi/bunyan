@@ -1,0 +1,789 @@
+{
+ "code": "DCC",
+ "version": "1:2022",
+ "name_ar": "ضوابط الأمن السيبراني للبيانات",
+ "name_en": "Data Cybersecurity Controls",
+ "issuer_ar": "الهيئة الوطنية للأمن السيبراني",
+ "issuer_en": "National Cybersecurity Authority",
+ "counts": {
+  "domain": 3,
+  "subdomain": 11,
+  "control": 19,
+  "subcontrol": 47
+ },
+ "note": "From the official NCA DCC assessment and compliance tool V1.0 (Arabic and English texts); matches the document totals (11 subdomains, 19 controls, 47 subcontrols).",
+ "items": [
+  {
+   "code": "1",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "حوكمة الأمن السيبراني",
+   "title_en": "Cybersecurity Governance",
+   "sort": 0
+  },
+  {
+   "code": "1-1",
+   "level": "subdomain",
+   "parent": "1",
+   "title_ar": "المراجعة والتدقيق الدوري للأمن السيبراني",
+   "title_en": "Periodical Cybersecurity Review and Audit",
+   "sort": 1
+  },
+  {
+   "code": "1-1-1",
+   "level": "control",
+   "parent": "1-1",
+   "title_ar": "رجوعًا للضابط ١-٨-١ في الضوابط الأساسية للأمن السيبراني، فإنه يجب على الإدارة المعنية بالأمن السيبراني في الجهة مراجعة تطبيق ضوابط الأمن…",
+   "title_en": "With reference to ECC control 1-8-1, the cybersecurity function in the organization must review the implementation of the Data…",
+   "text_ar": "رجوعًا للضابط ١-٨-١ في الضوابط الأساسية للأمن السيبراني، فإنه يجب على الإدارة المعنية بالأمن السيبراني في الجهة مراجعة تطبيق ضوابط الأمن السيبراني للبيانات حسب المدة المحددة لكل مستوى.",
+   "text_en": "With reference to ECC control 1-8-1, the cybersecurity function in the organization must review the implementation of the Data Cybersecurity Controls periodically as specified for each data classification level.",
+   "sort": 2
+  },
+  {
+   "code": "1-1-2",
+   "level": "control",
+   "parent": "1-1",
+   "title_ar": "رجوعًا للضابط ١-٨-٢ في الضوابط الأساسية للأمن السيبراني، فإنه يجب أن تتم مراجعة تطبيق ضوابط الأمن السيبراني للبيانات من قبل أطراف مستقلة عن…",
+   "title_en": "With reference to ECC control 1-8-2, cybersecurity review and audit must be conducted periodically by independent parties outside the…",
+   "text_ar": "رجوعًا للضابط ١-٨-٢ في الضوابط الأساسية للأمن السيبراني، فإنه يجب أن تتم مراجعة تطبيق ضوابط الأمن السيبراني للبيانات من قبل أطراف مستقلة عن الإدارة المعنية بالأمن السيبراني من داخل الجهة حسب المدة المحددة لكل مستوى.",
+   "text_en": "With reference to ECC control 1-8-2, cybersecurity review and audit must be conducted periodically by independent parties outside the organization’s cybersecurity function as specified for each data classification level.",
+   "sort": 3
+  },
+  {
+   "code": "1-2",
+   "level": "subdomain",
+   "parent": "1",
+   "title_ar": "الأمن السيبراني المتعلق بالموارد البشرية",
+   "title_en": "Cybersecurity in Human Resources",
+   "sort": 4
+  },
+  {
+   "code": "1-2-1",
+   "level": "control",
+   "parent": "1-2",
+   "title_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ١-٩-٣ في الضوابط الأساسية للأمن السيبراني يجب أن تغطي متطلبات الأمن السيبراني المتعلق بالموارد البشرية…",
+   "title_en": "In addition to the subcontrols in the ECC control 1-9-3, cybersecurity requirements in human resources prior to employment, during…",
+   "text_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ١-٩-٣ في الضوابط الأساسية للأمن السيبراني يجب أن تغطي متطلبات الأمن السيبراني المتعلق بالموارد البشرية لتشمل خلال وبعد إنتهاء/إنهاء العلاقة الوظيفية في الجهة بحد أدنى ما يلي:",
+   "text_en": "In addition to the subcontrols in the ECC control 1-9-3, cybersecurity requirements in human resources prior to employment, during employment and after termination/separation must include at least the following:",
+   "sort": 5
+  },
+  {
+   "code": "1-2-1-1",
+   "level": "subcontrol",
+   "parent": "1-2-1",
+   "title_ar": "إجراء المسح الأمني (Screening and vetting) للعاملين في الوظائف ذات العلاقة بالتعامل مع البيانات.",
+   "title_en": "Screening and vetting candidates in jobs related to data handling.",
+   "text_ar": "إجراء المسح الأمني (Screening and vetting) للعاملين في الوظائف ذات العلاقة بالتعامل مع البيانات.",
+   "text_en": "Screening and vetting candidates in jobs related to data handling.",
+   "sort": 6
+  },
+  {
+   "code": "1-2-1-2",
+   "level": "subcontrol",
+   "parent": "1-2-1",
+   "title_ar": "تعهد العاملين في الجهة بعدم استخدام تطبيقات التراسل أو التواصل الإجتماعي أو خدمات التخزين السحابية الشخصية لإنشاء أو تخزين أو مشاركة…",
+   "title_en": "A signed agreement by personnel pledging to not use social media, communication applications or personal cloud storage to create, store or…",
+   "text_ar": "تعهد العاملين في الجهة بعدم استخدام تطبيقات التراسل أو التواصل الإجتماعي أو خدمات التخزين السحابية الشخصية لإنشاء أو تخزين أو مشاركة البيانات الخاصة بالجهة، باستثناء تطبيقات التراسل الآمنة المعتمدة من الجهات ذات العلاقة.",
+   "text_en": "A signed agreement by personnel pledging to not use social media, communication applications or personal cloud storage to create, store or share the organization’s data, with the exception of secure communication applications approved by relevant authorities.",
+   "sort": 7
+  },
+  {
+   "code": "1-3",
+   "level": "subdomain",
+   "parent": "1",
+   "title_ar": "برنامج التوعية والتدريب بالأمن السيبراني",
+   "title_en": "Cybersecurity Awareness and Training Program",
+   "sort": 8
+  },
+  {
+   "code": "1-3-1",
+   "level": "control",
+   "parent": "1-3",
+   "title_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ١-١٠-٣ في الضوابط الأساسية للأمن السيبراني، فإنه يجب أن يغطي برنامج التوعية بالأمن السيبراني المحاور…",
+   "title_en": "In addition to the subcontrols in ECC control 1-10-3, the cybersecurity awareness program must cover topics related to data protection,…",
+   "text_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ١-١٠-٣ في الضوابط الأساسية للأمن السيبراني، فإنه يجب أن يغطي برنامج التوعية بالأمن السيبراني المحاور المتعلقة بحماية البيانات، بما في ذلك:",
+   "text_en": "In addition to the subcontrols in ECC control 1-10-3, the cybersecurity awareness program must cover topics related to data protection, including the following:",
+   "sort": 9
+  },
+  {
+   "code": "1-3-1-1",
+   "level": "subcontrol",
+   "parent": "1-3-1",
+   "title_ar": "مخاطر التسريب والوصول غير المصرح به للبيانات خلال دورة حياتها.",
+   "title_en": "Risks of data leakage and unauthorized access to data during its lifecycle.",
+   "text_ar": "مخاطر التسريب والوصول غير المصرح به للبيانات خلال دورة حياتها.",
+   "text_en": "Risks of data leakage and unauthorized access to data during its lifecycle.",
+   "sort": 10
+  },
+  {
+   "code": "1-3-1-2",
+   "level": "subcontrol",
+   "parent": "1-3-1",
+   "title_ar": "التعامل الآمن مع البيانات المصنفة خلال السفر والتواجد خارج مكان العمل.",
+   "title_en": "Secure handling of classified data while traveling and outside the workplace.",
+   "text_ar": "التعامل الآمن مع البيانات المصنفة خلال السفر والتواجد خارج مكان العمل.",
+   "text_en": "Secure handling of classified data while traveling and outside the workplace.",
+   "sort": 11
+  },
+  {
+   "code": "1-3-1-3",
+   "level": "subcontrol",
+   "parent": "1-3-1",
+   "title_ar": "التعامل الآمن مع البيانات خلال الاجتماعات (الافتراضية والحضورية).",
+   "title_en": "Secure handling of data during meetings (virtual and in-person).",
+   "text_ar": "التعامل الآمن مع البيانات خلال الاجتماعات (الافتراضية والحضورية).",
+   "text_en": "Secure handling of data during meetings (virtual and in-person).",
+   "sort": 12
+  },
+  {
+   "code": "1-3-1-4",
+   "level": "subcontrol",
+   "parent": "1-3-1",
+   "title_ar": "الاستخدام الآمن للطابعات والماسحات الضوئية وآلات التصوير.",
+   "title_en": "Secure use of printers, scanners and copy machines.",
+   "text_ar": "الاستخدام الآمن للطابعات والماسحات الضوئية وآلات التصوير.",
+   "text_en": "Secure use of printers, scanners and copy machines.",
+   "sort": 13
+  },
+  {
+   "code": "1-3-1-5",
+   "level": "subcontrol",
+   "parent": "1-3-1",
+   "title_ar": "إجراءات الإتلاف الآمن للبيانات.",
+   "title_en": "Procedures for secure data disposal.",
+   "text_ar": "إجراءات الإتلاف الآمن للبيانات.",
+   "text_en": "Procedures for secure data disposal.",
+   "sort": 14
+  },
+  {
+   "code": "1-3-1-6",
+   "level": "subcontrol",
+   "parent": "1-3-1",
+   "title_ar": "مخاطر مشاركة الوثائق والمعلومات من خلال قنوات تواصل غير مؤمنة.",
+   "title_en": "Risks of sharing documents and information through non-secure channels.",
+   "text_ar": "مخاطر مشاركة الوثائق والمعلومات من خلال قنوات تواصل غير مؤمنة.",
+   "text_en": "Risks of sharing documents and information through non-secure channels.",
+   "sort": 15
+  },
+  {
+   "code": "1-3-1-7",
+   "level": "subcontrol",
+   "parent": "1-3-1",
+   "title_ar": "المخاطر السيبرانية المتعلقة باستخدام وسائط التخزين الخارجية.",
+   "title_en": "Cybersecurity risks related to the use of external storage media.",
+   "text_ar": "المخاطر السيبرانية المتعلقة باستخدام وسائط التخزين الخارجية.",
+   "text_en": "Cybersecurity risks related to the use of external storage media.",
+   "sort": 16
+  },
+  {
+   "code": "2",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "تعزيز الأمن السيبراني",
+   "title_en": "Cybersecurity Defense",
+   "sort": 17
+  },
+  {
+   "code": "2-1",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "إدارة هويات الدخول والصلاحيات",
+   "title_en": "Identity and Access Management",
+   "sort": 18
+  },
+  {
+   "code": "2-1-1",
+   "level": "control",
+   "parent": "2-1",
+   "title_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ٢-٢-٣ في الضوابط الأساسية للأمن السيبراني، يجب أن تغطي متطلبات الأمن السيبراني المتعلقة بإدارة هويات…",
+   "title_en": "In addition to the subcontrols in ECC control 2-2-3, cybersecurity requirements for identity and access management must cover at least the…",
+   "text_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ٢-٢-٣ في الضوابط الأساسية للأمن السيبراني، يجب أن تغطي متطلبات الأمن السيبراني المتعلقة بإدارة هويات الدخول والصلاحيات، بحد أدنى، ما يلي",
+   "text_en": "In addition to the subcontrols in ECC control 2-2-3, cybersecurity requirements for identity and access management must cover at least the following:",
+   "sort": 19
+  },
+  {
+   "code": "2-1-1-1",
+   "level": "subcontrol",
+   "parent": "2-1-1",
+   "title_ar": "التقييد الحازم بالسماح للحد الأدنى من العاملين للوصول والاطلاع ومشاركة البيانات بناءً على قوائم صلاحيات مقتصرة على موظفين سعوديين إلا بموجب…",
+   "title_en": "Strict restriction to allow only the minimum number of personnel accessing, viewing and sharing data based on lists of privileges limited…",
+   "text_ar": "التقييد الحازم بالسماح للحد الأدنى من العاملين للوصول والاطلاع ومشاركة البيانات بناءً على قوائم صلاحيات مقتصرة على موظفين سعوديين إلا بموجب استثناء من قبل صاحب الصلاحية (رئيس الجهة أو من يفوضه) وعلى أن يتم إعتماد هذه القوائم من قبل صاحب الصلاحية.",
+   "text_en": "Strict restriction to allow only the minimum number of personnel accessing, viewing and sharing data based on lists of privileges limited to Saudi-national employees unless exempted by the Authorizing Official (the head of the organization or his/her delegate) and those lists are approved by the Authorizing Official.",
+   "sort": 20
+  },
+  {
+   "code": "2-1-1-2",
+   "level": "subcontrol",
+   "parent": "2-1-1",
+   "title_ar": "منع مشاركة قوائم الصلاحيات المعتمدة مع الأشخاص غير المصرح لهم.",
+   "title_en": "Prohibiting the sharing of approved lists of privileges with unauthorized persons.",
+   "text_ar": "منع مشاركة قوائم الصلاحيات المعتمدة مع الأشخاص غير المصرح لهم.",
+   "text_en": "Prohibiting the sharing of approved lists of privileges with unauthorized persons.",
+   "sort": 21
+  },
+  {
+   "code": "2-1-2",
+   "level": "control",
+   "parent": "2-1",
+   "title_ar": "إدارة هويات الدخول وصلاحيات الاطلاع على البيانات باستخدام أنظمة إدارة الصلاحيات الهامة والحساسة (Privileged Access Management).",
+   "title_en": "Managing identities and access rights to view data using Privileged Access Management systems.",
+   "text_ar": "إدارة هويات الدخول وصلاحيات الاطلاع على البيانات باستخدام أنظمة إدارة الصلاحيات الهامة والحساسة (Privileged Access Management).",
+   "text_en": "Managing identities and access rights to view data using Privileged Access Management systems.",
+   "sort": 22
+  },
+  {
+   "code": "2-1-3",
+   "level": "control",
+   "parent": "2-1",
+   "title_ar": "بالإضافة للضابط الفرعي ٢-٢-٣-٥ في الضوابط الأساسية للأمن السيبراني، يجب مراجعة قوائم الصلاحيات المعتمدة والصلاحيات المستخدمة للتعامل مع…",
+   "title_en": "In addition to ECC subcontrol 2-2-3-5, the approved lists of privileges and privileges used to handle data must be reviewed as specified…",
+   "text_ar": "بالإضافة للضابط الفرعي ٢-٢-٣-٥ في الضوابط الأساسية للأمن السيبراني، يجب مراجعة قوائم الصلاحيات المعتمدة والصلاحيات المستخدمة للتعامل مع البيانات حسب المدة المحددة لكل مستوى.",
+   "text_en": "In addition to ECC subcontrol 2-2-3-5, the approved lists of privileges and privileges used to handle data must be reviewed as specified for each data classification level.",
+   "sort": 23
+  },
+  {
+   "code": "2-2",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "حماية الأنظمة وأجهزة معالجة المعلومات",
+   "title_en": "Information System and Information Processing Facilities Protection",
+   "sort": 24
+  },
+  {
+   "code": "2-2-1",
+   "level": "control",
+   "parent": "2-2",
+   "title_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ٢-٣-٣ في الضوابط الأساسية للأمن السيبراني، يجب أن تشمل متطلبات الأمن السيبراني لحماية الأنظمة وأجهزة…",
+   "title_en": "In addition to the subcontrols in ECC control 2-3-3, cybersecurity requirements for Information System and Information Processing…",
+   "text_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ٢-٣-٣ في الضوابط الأساسية للأمن السيبراني، يجب أن تشمل متطلبات الأمن السيبراني لحماية الأنظمة وأجهزة معالجة المعلومات، بحد أدنى، ما يلي:",
+   "text_en": "In addition to the subcontrols in ECC control 2-3-3, cybersecurity requirements for Information System and Information Processing Facilities Protection must include at least the following:",
+   "sort": 25
+  },
+  {
+   "code": "2-2-1-1",
+   "level": "subcontrol",
+   "parent": "2-2-1",
+   "title_ar": "تطبيق حزم التحديثات، والإصلاحات الأمنية من وقت إطلاقها للأنظمة المستخدمة للتعامل مع البيانات حسب المدة المحددة لكل مستوى.",
+   "title_en": "Applying security patches and updates from the time of announcement on systems used to handle data as specified for each data…",
+   "text_ar": "تطبيق حزم التحديثات، والإصلاحات الأمنية من وقت إطلاقها للأنظمة المستخدمة للتعامل مع البيانات حسب المدة المحددة لكل مستوى.",
+   "text_en": "Applying security patches and updates from the time of announcement on systems used to handle data as specified for each data classification level.",
+   "sort": 26
+  },
+  {
+   "code": "2-2-1-2",
+   "level": "subcontrol",
+   "parent": "2-2-1",
+   "title_ar": "مراجعة إعدادات الحماية والتحصين للأنظمة المستخدمة للتعامل مع البيانات (Security Configuration and Hardening) حسب المدة المحددة لكل مستوى.",
+   "title_en": "Reviewing the security configuration and hardening of systems used to handle data as specified for each data classification level.",
+   "text_ar": "مراجعة إعدادات الحماية والتحصين للأنظمة المستخدمة للتعامل مع البيانات (Security Configuration and Hardening) حسب المدة المحددة لكل مستوى.",
+   "text_en": "Reviewing the security configuration and hardening of systems used to handle data as specified for each data classification level.",
+   "sort": 27
+  },
+  {
+   "code": "2-2-1-3",
+   "level": "subcontrol",
+   "parent": "2-2-1",
+   "title_ar": "مراجعة وتحصين الإعدادات المصنعية (مثل كلمات المرور الثابتة، والخلفية الافتراضية) للأصول التقنية المستخدمة للتعامل مع البيانات.",
+   "title_en": "Reviewing and hardening the default configuration (e.g., default passwords and backgrounds) of the technology assets used to handle the…",
+   "text_ar": "مراجعة وتحصين الإعدادات المصنعية (مثل كلمات المرور الثابتة، والخلفية الافتراضية) للأصول التقنية المستخدمة للتعامل مع البيانات.",
+   "text_en": "Reviewing and hardening the default configuration (e.g., default passwords and backgrounds) of the technology assets used to handle the data.",
+   "sort": 28
+  },
+  {
+   "code": "2-2-1-4",
+   "level": "subcontrol",
+   "parent": "2-2-1",
+   "title_ar": "تعطيل خاصية تصوير الشاشة (Print Screen or Screen Capture) للأجهزة التي تنشئ أو تعالج الوثائق.",
+   "title_en": "Disabling the Print Screen or Screen Capture features on the devices that create or process documents.",
+   "text_ar": "تعطيل خاصية تصوير الشاشة (Print Screen or Screen Capture) للأجهزة التي تنشئ أو تعالج الوثائق.",
+   "text_en": "Disabling the Print Screen or Screen Capture features on the devices that create or process documents.",
+   "sort": 29
+  },
+  {
+   "code": "2-3",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "أمن الأجهزة المحمولة",
+   "title_en": "Mobile Devices Security",
+   "sort": 30
+  },
+  {
+   "code": "2-3-1",
+   "level": "control",
+   "parent": "2-3",
+   "title_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ٢-٦-٣ في الضوابط الأساسية للأمن السيبراني، يجب أن تغطي متطلبات الأمن السيبراني الخاصة بأمن الأجهزة…",
+   "title_en": "In addition to the subcontrols in ECC control 2-6-3, cybersecurity requirements for mobile devices must cover at least the following:",
+   "text_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ٢-٦-٣ في الضوابط الأساسية للأمن السيبراني، يجب أن تغطي متطلبات الأمن السيبراني الخاصة بأمن الأجهزة المحمولة، بحد أدنى، ما يلي:",
+   "text_en": "In addition to the subcontrols in ECC control 2-6-3, cybersecurity requirements for mobile devices must cover at least the following:",
+   "sort": 31
+  },
+  {
+   "code": "2-3-1-1",
+   "level": "subcontrol",
+   "parent": "2-3-1",
+   "title_ar": "إدارة الأجهزة المحمولة المملوكة للجهة مركزيًا باستخدام نظام إدارة الأجهزة المحمولة (Mobile Device Management – MDM) وتفعيل خاصية الحذف عن…",
+   "title_en": "Centrally managing the organization’s owned mobile devices using Mobile Device Management (MDM) system and activating the remote wipe…",
+   "text_ar": "إدارة الأجهزة المحمولة المملوكة للجهة مركزيًا باستخدام نظام إدارة الأجهزة المحمولة (Mobile Device Management – MDM) وتفعيل خاصية الحذف عن بعد.",
+   "text_en": "Centrally managing the organization’s owned mobile devices using Mobile Device Management (MDM) system and activating the remote wipe feature.",
+   "sort": 32
+  },
+  {
+   "code": "2-3-1-2",
+   "level": "subcontrol",
+   "parent": "2-3-1",
+   "title_ar": "إدارة أجهزة (BYOD) مركزيًا باستخدام نظام إدارة الأجهزة المحمولة (Mobile Device Management – MDM) وتفعيل خاصية الحذف عن بعد.",
+   "title_en": "Centrally managing BYOD devices using Mobile Device Management (MDM) system and activating the remote wipe feature.",
+   "text_ar": "إدارة أجهزة (BYOD) مركزيًا باستخدام نظام إدارة الأجهزة المحمولة (Mobile Device Management – MDM) وتفعيل خاصية الحذف عن بعد.",
+   "text_en": "Centrally managing BYOD devices using Mobile Device Management (MDM) system and activating the remote wipe feature.",
+   "sort": 33
+  },
+  {
+   "code": "2-4",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "حماية البيانات والمعلومات",
+   "title_en": "Data and Information Protection",
+   "sort": 34
+  },
+  {
+   "code": "2-4-1",
+   "level": "control",
+   "parent": "2-4",
+   "title_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ٢-٧-٣ في الضوابط الأساسية للأمن السيبراني، يجب أن تغطي متطلبات الأمن السيبراني الخاصة بحماية البيانات…",
+   "title_en": "In addition to the subcontrols in ECC control 2-7-3, cybersecurity requirements for data and information protection must cover at least the…",
+   "text_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ٢-٧-٣ في الضوابط الأساسية للأمن السيبراني، يجب أن تغطي متطلبات الأمن السيبراني الخاصة بحماية البيانات والمعلومات، بحد أدنى، ما يلي:",
+   "text_en": "In addition to the subcontrols in ECC control 2-7-3, cybersecurity requirements for data and information protection must cover at least the following:",
+   "sort": 35
+  },
+  {
+   "code": "2-4-1-1",
+   "level": "subcontrol",
+   "parent": "2-4-1",
+   "title_ar": "استخدام خاصية العلامات المائية لترميز كامل الوثيقة عند الإنشاء والتخزين والطباعة وعلى الشاشة وعلى كل نسخة بحيث يكون الرمز يمكن تتبعه على…",
+   "title_en": "Using Watermark feature to label the whole document when creating, storing, printing, on the screen and on each copy so that the symbol can…",
+   "text_ar": "استخدام خاصية العلامات المائية لترميز كامل الوثيقة عند الإنشاء والتخزين والطباعة وعلى الشاشة وعلى كل نسخة بحيث يكون الرمز يمكن تتبعه على مستوى المستخدم أو الجهاز.",
+   "text_en": "Using Watermark feature to label the whole document when creating, storing, printing, on the screen and on each copy so that the symbol can be traced to the user or device level.",
+   "sort": 36
+  },
+  {
+   "code": "2-4-1-2",
+   "level": "subcontrol",
+   "parent": "2-4-1",
+   "title_ar": "استخدام تقنيات منع تسريب البيانات (Data Leakage Prevention) وتقنيات إدارة الصلاحيات (Rights Management).",
+   "title_en": "Using Data Leakage Prevention technologies and Rights Management technologies.",
+   "text_ar": "استخدام تقنيات منع تسريب البيانات (Data Leakage Prevention) وتقنيات إدارة الصلاحيات (Rights Management).",
+   "text_en": "Using Data Leakage Prevention technologies and Rights Management technologies.",
+   "sort": 37
+  },
+  {
+   "code": "2-4-1-3",
+   "level": "subcontrol",
+   "parent": "2-4-1",
+   "title_ar": "حظر استخدام البيانات في أي بيئة غير بيئة الإنتاج (Production Environment) إلا بعد إجراء تقييم للمخاطر وتطبيق ضوابط لحماية تلك البيانات، مثل…",
+   "title_en": "Prohibiting the use of data in any environment other than the production environment, except after conducting a risk assessment and…",
+   "text_ar": "حظر استخدام البيانات في أي بيئة غير بيئة الإنتاج (Production Environment) إلا بعد إجراء تقييم للمخاطر وتطبيق ضوابط لحماية تلك البيانات، مثل تقنيات تعتيم البيانات (Data Masking) أو تقنيات مزج البيانات (Data Scrambling)>",
+   "text_en": "Prohibiting the use of data in any environment other than the production environment, except after conducting a risk assessment and applying controls to protect that data, such as: data masking or data scrambling techniques.",
+   "sort": 38
+  },
+  {
+   "code": "2-4-1-4",
+   "level": "subcontrol",
+   "parent": "2-4-1",
+   "title_ar": "استخدام خدمة حماية العلامة التجارية لحماية هوية الجهة من الانتحال(Brand Protection)",
+   "title_en": "Using brand protection service to protect the organization's identity from impersonation.",
+   "text_ar": "استخدام خدمة حماية العلامة التجارية لحماية هوية الجهة من الانتحال(Brand Protection)",
+   "text_en": "Using brand protection service to protect the organization's identity from impersonation.",
+   "sort": 39
+  },
+  {
+   "code": "2-5",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "التشفير",
+   "title_en": "Cryptography",
+   "sort": 40
+  },
+  {
+   "code": "2-5-1",
+   "level": "control",
+   "parent": "2-5",
+   "title_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ٢-٨-٣ في الضوابط الأساسية للأمن السيبراني، يجب أن تغطي متطلبات الأمن السيبراني للتشفير في الجهة، بحد…",
+   "title_en": "In addition to the subcontrols in ECC control 2-8-3, cybersecurity requirements for cryptography must cover at least the following:",
+   "text_ar": "بالإضافة للضوابط الفرعية ضمن الضابط ٢-٨-٣ في الضوابط الأساسية للأمن السيبراني، يجب أن تغطي متطلبات الأمن السيبراني للتشفير في الجهة، بحد أدنى، ما يلي:",
+   "text_en": "In addition to the subcontrols in ECC control 2-8-3, cybersecurity requirements for cryptography must cover at least the following:",
+   "sort": 41
+  },
+  {
+   "code": "2-5-1-1",
+   "level": "subcontrol",
+   "parent": "2-5-1",
+   "title_ar": "استخدام طرق وخوارزميات محدثة وآمنة للتشفير عند الإنشاء والتخزين والمشاركة وعلى كامل الاتصال الشبكي المستخدم لنقل البيانات وفقًا للمستوى…",
+   "title_en": "Using secure and up-to-date cryptographic methods and algorithms when creating, storing, transmitting data, and for overall network…",
+   "text_ar": "استخدام طرق وخوارزميات محدثة وآمنة للتشفير عند الإنشاء والتخزين والمشاركة وعلى كامل الاتصال الشبكي المستخدم لنقل البيانات وفقًا للمستوى المتقدم (Advanced) ضمن المعايير الوطنية للتشــــــفير (NCS – 1:2020).",
+   "text_en": "Using secure and up-to-date cryptographic methods and algorithms when creating, storing, transmitting data, and for overall network communication medium; as per the requirements of the “advanced level” in the National Cryptographic Standards (NCS-1:2020).",
+   "sort": 42
+  },
+  {
+   "code": "2-5-1-2",
+   "level": "subcontrol",
+   "parent": "2-5-1",
+   "title_ar": "استخدام طرق وخوارزميات محدثة وآمنة للتشفير عند الإنشاء والتخزين والمشاركة وعلى كامل الاتصال الشبكي المستخدم لنقل البيانات وفقًا للمستوى…",
+   "title_en": "Using secure and up-to-date cryptographic methods and algorithms when creating, storing, transmitting data, and for overall network…",
+   "text_ar": "استخدام طرق وخوارزميات محدثة وآمنة للتشفير عند الإنشاء والتخزين والمشاركة وعلى كامل الاتصال الشبكي المستخدم لنقل البيانات وفقًا للمستوى المتوسط (Moderate) ضمن المعايير الوطنية للتشــــــفير (NCS – 1:2020)",
+   "text_en": "Using secure and up-to-date cryptographic methods and algorithms when creating, storing, transmitting data, and for overall network communication medium; as per the requirements of the “moderate level” in the National Cryptographic Standards (NCS-1:2020).",
+   "sort": 43
+  },
+  {
+   "code": "2-6",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "الإتلاف الآمن للبيانات",
+   "title_en": "Secure Data Disposal",
+   "sort": 44
+  },
+  {
+   "code": "2-6-1",
+   "level": "control",
+   "parent": "2-6",
+   "title_ar": "يجب أن تغطي متطلبات الإتلاف الآمن للبيانات في الجهة بحد أدنى، ما يلي:",
+   "title_en": "Cybersecurity requirements for secure data disposal must cover at least the following:",
+   "text_ar": "يجب أن تغطي متطلبات الإتلاف الآمن للبيانات في الجهة بحد أدنى، ما يلي:",
+   "text_en": "Cybersecurity requirements for secure data disposal must cover at least the following:",
+   "sort": 45
+  },
+  {
+   "code": "2-6-1-1",
+   "level": "subcontrol",
+   "parent": "2-6-1",
+   "title_ar": "تحديد التقنيات والأدوات والإجراءات لتنفيذ عمليات الإتلاف الآمن للبيانات حسب مستوى تصنيف البيانات.",
+   "title_en": "Identification of technologies, tools and procedures for the implementation of secure data disposal according to the data classification…",
+   "text_ar": "تحديد التقنيات والأدوات والإجراءات لتنفيذ عمليات الإتلاف الآمن للبيانات حسب مستوى تصنيف البيانات.",
+   "text_en": "Identification of technologies, tools and procedures for the implementation of secure data disposal according to the data classification level.",
+   "sort": 46
+  },
+  {
+   "code": "2-6-1-2",
+   "level": "subcontrol",
+   "parent": "2-6-1",
+   "title_ar": "عند انتهاء الحاجة لاستخدام وسائط التخزين بشكل نهائي، يجب أن يتم الإتلاف الآمن (Secure Disposal) لوسائط التخزين وذلك باستخدام التقنيات…",
+   "title_en": "When storage media is no longer needed, it must be securely disposed by using the technologies, tools and procedures identified in…",
+   "text_ar": "عند انتهاء الحاجة لاستخدام وسائط التخزين بشكل نهائي، يجب أن يتم الإتلاف الآمن (Secure Disposal) لوسائط التخزين وذلك باستخدام التقنيات والأدوات وبإتباع الإجراءات التي تم تحديدها في الضابط رقم ٢-٦-١-١.",
+   "text_en": "When storage media is no longer needed, it must be securely disposed by using the technologies, tools and procedures identified in subcontrol 2-6-1-1.",
+   "sort": 47
+  },
+  {
+   "code": "2-6-1-3",
+   "level": "subcontrol",
+   "parent": "2-6-1",
+   "title_ar": "عند الحاجة لإعادة استخدام وسائط التخزين، يجب أن يتم الحذف الآمن للبيانات (Secure Erasure)، بحيث لا يمكن استرجاعها.",
+   "title_en": "When storage media needs to be re-used, data must be securely erased (secure erasure) in a manner it cannot be recovered.",
+   "text_ar": "عند الحاجة لإعادة استخدام وسائط التخزين، يجب أن يتم الحذف الآمن للبيانات (Secure Erasure)، بحيث لا يمكن استرجاعها.",
+   "text_en": "When storage media needs to be re-used, data must be securely erased (secure erasure) in a manner it cannot be recovered.",
+   "sort": 48
+  },
+  {
+   "code": "2-6-1-4",
+   "level": "subcontrol",
+   "parent": "2-6-1",
+   "title_ar": "يجب أن يتم التحقق من تنفيذ عمليات الإتلاف أو الحذف الآمن للبيانات المشار إليها في الضابطين رقم ٢-٦-١-٢ و٢-٦-١-٣.",
+   "title_en": "Implementation of secure data disposal or erasure operations referred to in sub-controls 2-6-1-2 and 2-6-1-3 must be verified.",
+   "text_ar": "يجب أن يتم التحقق من تنفيذ عمليات الإتلاف أو الحذف الآمن للبيانات المشار إليها في الضابطين رقم ٢-٦-١-٢ و٢-٦-١-٣.",
+   "text_en": "Implementation of secure data disposal or erasure operations referred to in sub-controls 2-6-1-2 and 2-6-1-3 must be verified.",
+   "sort": 49
+  },
+  {
+   "code": "2-6-1-5",
+   "level": "subcontrol",
+   "parent": "2-6-1",
+   "title_ar": "الاحتفاظ بسجل لعمليات الإتلاف أو الحذف الآمن للبيانات التي تم تنفيذها.",
+   "title_en": "Keeping a record of all secure data disposal and erasure operations that have been conducted.",
+   "text_ar": "الاحتفاظ بسجل لعمليات الإتلاف أو الحذف الآمن للبيانات التي تم تنفيذها.",
+   "text_en": "Keeping a record of all secure data disposal and erasure operations that have been conducted.",
+   "sort": 50
+  },
+  {
+   "code": "2-6-2",
+   "level": "control",
+   "parent": "2-6",
+   "title_ar": "يجب مراجعة تطبيق متطلبات الإتلاف الآمن للبيانات في الجهة حسب المدة المحددة لكل مستوى.",
+   "title_en": "The implementation of the secure data disposal requirements must be reviewed as specified for each data classification level.",
+   "text_ar": "يجب مراجعة تطبيق متطلبات الإتلاف الآمن للبيانات في الجهة حسب المدة المحددة لكل مستوى.",
+   "text_en": "The implementation of the secure data disposal requirements must be reviewed as specified for each data classification level.",
+   "sort": 51
+  },
+  {
+   "code": "2-7",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "الأمن السيبراني للطابعات والماسحات الضوئية وآلات التصوير",
+   "title_en": "Cybersecurity for Printers and Scanners and Copy Machines",
+   "sort": 52
+  },
+  {
+   "code": "2-7-1",
+   "level": "control",
+   "parent": "2-7",
+   "title_ar": "يجب تحديد وتوثيق واعتماد متطلبات الأمن السيبراني لحماية الطابعات والماسحات الضوئية وآلات التصوير في الجهة.",
+   "title_en": "Cybersecurity requirements for protecting printers, scanners and copy machines must be defined, documented and approved.",
+   "text_ar": "يجب تحديد وتوثيق واعتماد متطلبات الأمن السيبراني لحماية الطابعات والماسحات الضوئية وآلات التصوير في الجهة.",
+   "text_en": "Cybersecurity requirements for protecting printers, scanners and copy machines must be defined, documented and approved.",
+   "sort": 53
+  },
+  {
+   "code": "2-7-2",
+   "level": "control",
+   "parent": "2-7",
+   "title_ar": "يجب تطبيق متطلبات الأمن السيبراني للطابعات والماسحات الضوئية وآلات التصوير في الجهة.",
+   "title_en": "Cybersecurity requirements for printers, scanners and copy machines must be implemented.",
+   "text_ar": "يجب تطبيق متطلبات الأمن السيبراني للطابعات والماسحات الضوئية وآلات التصوير في الجهة.",
+   "text_en": "Cybersecurity requirements for printers, scanners and copy machines must be implemented.",
+   "sort": 54
+  },
+  {
+   "code": "2-7-3",
+   "level": "control",
+   "parent": "2-7",
+   "title_ar": "يجب أن تغطي متطلبات الأمن السيبراني للطابعات والماسحات الضوئية وآلات التصوير بحد أدنى، ما يلي:",
+   "title_en": "Cybersecurity requirements for printers, scanners and copy machines must cover at least the following:",
+   "text_ar": "يجب أن تغطي متطلبات الأمن السيبراني للطابعات والماسحات الضوئية وآلات التصوير بحد أدنى، ما يلي:",
+   "text_en": "Cybersecurity requirements for printers, scanners and copy machines must cover at least the following:",
+   "sort": 55
+  },
+  {
+   "code": "2-7-3-1",
+   "level": "subcontrol",
+   "parent": "2-7-3",
+   "title_ar": "تعطيل خاصية التخزين المؤقت.",
+   "title_en": "Disabling the temporary storage feature.",
+   "text_ar": "تعطيل خاصية التخزين المؤقت.",
+   "text_en": "Disabling the temporary storage feature.",
+   "sort": 56
+  },
+  {
+   "code": "2-7-3-2",
+   "level": "subcontrol",
+   "parent": "2-7-3",
+   "title_ar": "تفعيل خاصية التحقق من الهوية في الطابعات والماسحات الضوئية والآت التصوير المركزية قبل بدء عمليات الطباعة والتصوير والمسح الضوئي.",
+   "title_en": "Enabling authentication on centralized printers, scanners and copy machines and requiring it before usage.",
+   "text_ar": "تفعيل خاصية التحقق من الهوية في الطابعات والماسحات الضوئية والآت التصوير المركزية قبل بدء عمليات الطباعة والتصوير والمسح الضوئي.",
+   "text_en": "Enabling authentication on centralized printers, scanners and copy machines and requiring it before usage.",
+   "sort": 57
+  },
+  {
+   "code": "2-7-3-3",
+   "level": "subcontrol",
+   "parent": "2-7-3",
+   "title_ar": "الاحتفاظ بطريقة آمنة بسجل الكتروني للعمليات الخاصة باستخدام الطابعات والماسحات الضوئية والآت التصوير، لفترة لا تقل عن 12 شهرًا.",
+   "title_en": "Securely retaining (for a period not less than 12 months) logs of printers, scanners and copy machines usage.",
+   "text_ar": "الاحتفاظ بطريقة آمنة بسجل الكتروني للعمليات الخاصة باستخدام الطابعات والماسحات الضوئية والآت التصوير، لفترة لا تقل عن 12 شهرًا.",
+   "text_en": "Securely retaining (for a period not less than 12 months) logs of printers, scanners and copy machines usage.",
+   "sort": 58
+  },
+  {
+   "code": "2-7-3-4",
+   "level": "subcontrol",
+   "parent": "2-7-3",
+   "title_ar": "تفعيل وحماية سجلات المراقبة لأنظمة CCTV على مواقع أجهزة الطباعة المركزية والماسحات الضوئية والآت التصوير.",
+   "title_en": "Enabling and protecting CCTV logs which are used to monitor centralized printers, scanners and copy machines areas.",
+   "text_ar": "تفعيل وحماية سجلات المراقبة لأنظمة CCTV على مواقع أجهزة الطباعة المركزية والماسحات الضوئية والآت التصوير.",
+   "text_en": "Enabling and protecting CCTV logs which are used to monitor centralized printers, scanners and copy machines areas.",
+   "sort": 59
+  },
+  {
+   "code": "2-7-3-5",
+   "level": "subcontrol",
+   "parent": "2-7-3",
+   "title_ar": "استخدام أجهزة تمزيق الوثائق الورقية (Cross Shredding)، لإتلاف الوثائق في حال الانتهاء من استخدامها نهائيًا.",
+   "title_en": "Using cross-shredding devices, to securely dispose documents when no longer needed.",
+   "text_ar": "استخدام أجهزة تمزيق الوثائق الورقية (Cross Shredding)، لإتلاف الوثائق في حال الانتهاء من استخدامها نهائيًا.",
+   "text_en": "Using cross-shredding devices, to securely dispose documents when no longer needed.",
+   "sort": 60
+  },
+  {
+   "code": "2-7-4",
+   "level": "control",
+   "parent": "2-7",
+   "title_ar": "يجب مراجعة تطبيق متطلبات الأمن السيبراني للطابعات والماسحات الضوئية وآلات التصوير في الجهة حسب المدة المحددة لكل مستوى.",
+   "title_en": "Implementation of cybersecurity requirements for printers, scanners and copy machines must be reviewed as specified for each data…",
+   "text_ar": "يجب مراجعة تطبيق متطلبات الأمن السيبراني للطابعات والماسحات الضوئية وآلات التصوير في الجهة حسب المدة المحددة لكل مستوى.",
+   "text_en": "Implementation of cybersecurity requirements for printers, scanners and copy machines must be reviewed as specified for each data classification level.",
+   "sort": 61
+  },
+  {
+   "code": "3",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "الأمن السيبراني المتعلق بالأطراف الخارجية والحوسبة السحابية",
+   "title_en": "Third-Party and Cloud Computing Cybersecurity",
+   "sort": 62
+  },
+  {
+   "code": "3-1",
+   "level": "subdomain",
+   "parent": "3",
+   "title_ar": "الأمن السيبراني المتعلق بالأطراف الخارجية",
+   "title_en": "Third-Party Cybersecurity",
+   "sort": 63
+  },
+  {
+   "code": "3-1-1",
+   "level": "control",
+   "parent": "3-1",
+   "title_ar": "بالإضافة للضوابط ضمن المكون الفرعي ٤-١ في الضوابط الأساسية للأمن السيبراني، يجب أن تشمل متطلبات الأمن السيبراني المتعلقة بالأطراف الخارجية،…",
+   "title_en": "In addition to the controls in ECC subdomain 4-1, cybersecurity requirements for third-parties cybersecurity must include at least the…",
+   "text_ar": "بالإضافة للضوابط ضمن المكون الفرعي ٤-١ في الضوابط الأساسية للأمن السيبراني، يجب أن تشمل متطلبات الأمن السيبراني المتعلقة بالأطراف الخارجية، بحد أدنى، ما يلي:",
+   "text_en": "In addition to the controls in ECC subdomain 4-1, cybersecurity requirements for third-parties cybersecurity must include at least the following:",
+   "sort": 64
+  },
+  {
+   "code": "3-1-1-1",
+   "level": "subcontrol",
+   "parent": "3-1-1",
+   "title_ar": "إجراء المسح الأمني (Screening and Vetting) لموظفي الأطراف الخارجية الذين لديهم صلاحيات الاطلاع على البيانات.",
+   "title_en": "Screening or vetting third-party employees who have access to the data.",
+   "text_ar": "إجراء المسح الأمني (Screening and Vetting) لموظفي الأطراف الخارجية الذين لديهم صلاحيات الاطلاع على البيانات.",
+   "text_en": "Screening or vetting third-party employees who have access to the data.",
+   "sort": 65
+  },
+  {
+   "code": "3-1-1-2",
+   "level": "subcontrol",
+   "parent": "3-1-1",
+   "title_ar": "وجود ضمانات تعاقدية للقدرة على حذف بيانات الجهة بطرق آمنة لدى الطرف الخارجي عند الانتهاء/إنهاء العلاقة التعاقدية مع تقديم الأدلة على ذلك.",
+   "title_en": "Requiring contractual commitment by third-parties to securely dispose the organization’s data at the end of the contract or in case of…",
+   "text_ar": "وجود ضمانات تعاقدية للقدرة على حذف بيانات الجهة بطرق آمنة لدى الطرف الخارجي عند الانتهاء/إنهاء العلاقة التعاقدية مع تقديم الأدلة على ذلك.",
+   "text_en": "Requiring contractual commitment by third-parties to securely dispose the organization’s data at the end of the contract or in case of contract termination, including providing evidences of such disposal to the organization.",
+   "sort": 66
+  },
+  {
+   "code": "3-1-1-3",
+   "level": "subcontrol",
+   "parent": "3-1-1",
+   "title_ar": "توثيق كافة عمليات مشاركة البيانات مع الأطراف الخارجية، على أن يشمل ذلك مبررات مشاركة البيانات.",
+   "title_en": "Documenting all data sharing operations within third-parties, including data sharing justification.",
+   "text_ar": "توثيق كافة عمليات مشاركة البيانات مع الأطراف الخارجية، على أن يشمل ذلك مبررات مشاركة البيانات.",
+   "text_en": "Documenting all data sharing operations within third-parties, including data sharing justification.",
+   "sort": 67
+  },
+  {
+   "code": "3-1-1-4",
+   "level": "subcontrol",
+   "parent": "3-1-1",
+   "title_ar": "عند مشاركة البيانات خارج المملكة يجب التحقق من قدرة الجهة المستضيفة على حماية تلك البيانات والحصول على موافقة صاحب الصلاحية بالإضافة إلى…",
+   "title_en": "When transferring data outside the kingdom, the capability of the hosting organization abroad to safeguard data must be verified, approval…",
+   "text_ar": "عند مشاركة البيانات خارج المملكة يجب التحقق من قدرة الجهة المستضيفة على حماية تلك البيانات والحصول على موافقة صاحب الصلاحية بالإضافة إلى الالتزام بالمتطلبات التشريعية والتنظيمية ذات العلاقة.",
+   "text_en": "When transferring data outside the kingdom, the capability of the hosting organization abroad to safeguard data must be verified, approval of the Authorizing Official must be obtained and complying with related laws and regulations.",
+   "sort": 68
+  },
+  {
+   "code": "3-1-1-5",
+   "level": "subcontrol",
+   "parent": "3-1-1",
+   "title_ar": "إلزام الأطراف الخارجية بإبلاغ الجهة مباشرةً عند حدوث حادثة أمن سيبراني قد تؤثر على البيانات التي تمت مشاركتها أو إنشائها.",
+   "title_en": "Requiring third-parties to notify the organization immediately in case of cybersecurity incident that may affect data that has been shared…",
+   "text_ar": "إلزام الأطراف الخارجية بإبلاغ الجهة مباشرةً عند حدوث حادثة أمن سيبراني قد تؤثر على البيانات التي تمت مشاركتها أو إنشائها.",
+   "text_en": "Requiring third-parties to notify the organization immediately in case of cybersecurity incident that may affect data that has been shared or created.",
+   "sort": 69
+  },
+  {
+   "code": "3-1-1-6",
+   "level": "subcontrol",
+   "parent": "3-1-1",
+   "title_ar": "إعادة تصنيف البيانات إلى أقل مستوى يحقق الهدف، قبل مشاركتها مع الأطراف الخارجية وذلك باستخدام تقنيات تعتيم البيانات (Data Masking) أو…",
+   "title_en": "Reclassifying data to the least level to achieve the objective before sharing it with third-parties using data masking or data scrambling…",
+   "text_ar": "إعادة تصنيف البيانات إلى أقل مستوى يحقق الهدف، قبل مشاركتها مع الأطراف الخارجية وذلك باستخدام تقنيات تعتيم البيانات (Data Masking) أو تقنيات مزج البيانات (Data Scrambling).",
+   "text_en": "Reclassifying data to the least level to achieve the objective before sharing it with third-parties using data masking or data scrambling techniques.",
+   "sort": 70
+  },
+  {
+   "code": "3-1-2",
+   "level": "control",
+   "parent": "3-1",
+   "title_ar": "بما يتوافق مع المتطلبات التشريعية والتنظيمية ذات العلاقة، وبالإضافة إلى ما ينطبق من الضوابط الأساسية للأمن السيبراني والضوابط ضمن المكونات…",
+   "title_en": "In alignment with related laws and regulations, and in addition to the applicable controls in ECC and controls within DCC domain (1), (2),…",
+   "text_ar": "بما يتوافق مع المتطلبات التشريعية والتنظيمية ذات العلاقة، وبالإضافة إلى ما ينطبق من الضوابط الأساسية للأمن السيبراني والضوابط ضمن المكونات الرئيسية رقم (١) و (٢) و (٣) من هذه الوثيقة، يجب أن تغطي متطلبات الأمن السيبراني عند التعامل مع الجهات الاستشارية للمشاريع الاستراتيجية ذات الحساسية العالية على المستوى الوطني بحد أدنى، ما يلي:",
+   "text_en": "In alignment with related laws and regulations, and in addition to the applicable controls in ECC and controls within DCC domain (1), (2), and (3); cybersecurity requirements when dealing with consultancy services that works on high-sensitivity strategic projects at the national level must cover at least the following:",
+   "sort": 71
+  },
+  {
+   "code": "3-1-2-1",
+   "level": "subcontrol",
+   "parent": "3-1-2",
+   "title_ar": "إجراء المسح الأمني (Screening or Vetting) لموظفي شركات الخدمات الاستشارية الذين لديهم صلاحيات الاطلاع على البيانات.",
+   "title_en": "Screening or vetting consultancy services employees who have access to the data.",
+   "text_ar": "إجراء المسح الأمني (Screening or Vetting) لموظفي شركات الخدمات الاستشارية الذين لديهم صلاحيات الاطلاع على البيانات.",
+   "text_en": "Screening or vetting consultancy services employees who have access to the data.",
+   "sort": 72
+  },
+  {
+   "code": "3-1-2-2",
+   "level": "subcontrol",
+   "parent": "3-1-2",
+   "title_ar": "وجود ضمانات تعاقدية تشمل إلزام موظفي الخدمات الاستشارية بعدم إفشاء المعلومات وكذلك القدرة على حذف بيانات الجهة بطرق آمنة لدى شركات الخدمات…",
+   "title_en": "Requiring contractual commitment by consultancy services including employees non-disclosure agreements and secure disposal the…",
+   "text_ar": "وجود ضمانات تعاقدية تشمل إلزام موظفي الخدمات الاستشارية بعدم إفشاء المعلومات وكذلك القدرة على حذف بيانات الجهة بطرق آمنة لدى شركات الخدمات الاستشارية عند الانتهاء/إنهاء العلاقة التعاقدية مع تقديم الأدلة على ذلك.",
+   "text_en": "Requiring contractual commitment by consultancy services including employees non-disclosure agreements and secure disposal the organization’s data at the end of the contract or in case of contract termination, including providing evidences of such disposal to the organization.",
+   "sort": 73
+  },
+  {
+   "code": "3-1-2-3",
+   "level": "subcontrol",
+   "parent": "3-1-2",
+   "title_ar": "توثيق كافة عمليات مشاركة البيانات مع شركات الخدمات الاستشارية، على أن يشمل ذلك مبررات مشاركة البيانات.",
+   "title_en": "Documenting all data sharing operations within consultancy services, including data sharing justification.",
+   "text_ar": "توثيق كافة عمليات مشاركة البيانات مع شركات الخدمات الاستشارية، على أن يشمل ذلك مبررات مشاركة البيانات.",
+   "text_en": "Documenting all data sharing operations within consultancy services, including data sharing justification.",
+   "sort": 74
+  },
+  {
+   "code": "3-1-2-4",
+   "level": "subcontrol",
+   "parent": "3-1-2",
+   "title_ar": "إلزام شركات الخدمات الاستشارية بإبلاغ الجهة مباشرةً عند حدوث حادثة أمن سيبراني قد تؤثر على البيانات التي تمت مشاركتها أو إنشائها.",
+   "title_en": "Requiring consultancy services to notify the organization immediately in case of cybersecurity incident that may affect data that has been…",
+   "text_ar": "إلزام شركات الخدمات الاستشارية بإبلاغ الجهة مباشرةً عند حدوث حادثة أمن سيبراني قد تؤثر على البيانات التي تمت مشاركتها أو إنشائها.",
+   "text_en": "Requiring consultancy services to notify the organization immediately in case of cybersecurity incident that may affect data that has been shared or created.",
+   "sort": 75
+  },
+  {
+   "code": "3-1-2-5",
+   "level": "subcontrol",
+   "parent": "3-1-2",
+   "title_ar": "إعادة تصنيف البيانات إلى أقل مستوى يحقق الهدف، قبل مشاركتها مع شركات الخدمات الاستشارية وذلك باستخدام تقنيات تعتيم البيانات (Data Masking)…",
+   "title_en": "Reclassifying data to the least level to achieve the objective before sharing it with consultancy services using data masking or data…",
+   "text_ar": "إعادة تصنيف البيانات إلى أقل مستوى يحقق الهدف، قبل مشاركتها مع شركات الخدمات الاستشارية وذلك باستخدام تقنيات تعتيم البيانات (Data Masking) أو تقنيات مزج البيانات (Data Scrambling).",
+   "text_en": "Reclassifying data to the least level to achieve the objective before sharing it with consultancy services using data masking or data scrambling techniques.",
+   "sort": 76
+  },
+  {
+   "code": "3-1-2-6",
+   "level": "subcontrol",
+   "parent": "3-1-2",
+   "title_ar": "تخصيص قاعة مغلقة لموظفي شركات الخدمات الاستشارية لأداء أعمالهم، مع توفير أجهزة مخصصة مملوكة للجهة يتم من خلالها مشاركة البيانات ومعالجتها.",
+   "title_en": "Dedicating a closed room for the consultancy services employees to perform their work, in addition to providing dedicated organization…",
+   "text_ar": "تخصيص قاعة مغلقة لموظفي شركات الخدمات الاستشارية لأداء أعمالهم، مع توفير أجهزة مخصصة مملوكة للجهة يتم من خلالها مشاركة البيانات ومعالجتها.",
+   "text_en": "Dedicating a closed room for the consultancy services employees to perform their work, in addition to providing dedicated organization owned devices to share and process data.",
+   "sort": 77
+  },
+  {
+   "code": "3-1-2-7",
+   "level": "subcontrol",
+   "parent": "3-1-2",
+   "title_ar": "تفعيل أنظمة التحكم بالدخول والخروج من القاعة المغلقة، على أن يكون للمصرح لهم فقط.",
+   "title_en": "Activating access control system to allow only authorized access to the closed room.",
+   "text_ar": "تفعيل أنظمة التحكم بالدخول والخروج من القاعة المغلقة، على أن يكون للمصرح لهم فقط.",
+   "text_en": "Activating access control system to allow only authorized access to the closed room.",
+   "sort": 78
+  },
+  {
+   "code": "3-1-2-8",
+   "level": "subcontrol",
+   "parent": "3-1-2",
+   "title_ar": "منع خروج الأجهزة ووحدات التخزين والوثائق من القاعة المغلقة، ومنع إدخال أي أجهزة إلكترونية للقاعة.",
+   "title_en": "Preventing carrying out of devices, storage media and documents outside the closed room, as well as the entry of any other electronic…",
+   "text_ar": "منع خروج الأجهزة ووحدات التخزين والوثائق من القاعة المغلقة، ومنع إدخال أي أجهزة إلكترونية للقاعة.",
+   "text_en": "Preventing carrying out of devices, storage media and documents outside the closed room, as well as the entry of any other electronic devices.",
+   "sort": 79
+  }
+ ]
+}

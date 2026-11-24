@@ -383,19 +383,31 @@ describe('integrations (vCenter)', () => {
 
 describe('compliance (NCA ECC)', () => {
   let ecc = '';
-  it('ships the ECC-2:2024 structure: 4 domains, 28 subdomains', async () => {
-    const f = (await api(T.ea, 'GET', '/compliance/frameworks')).body.find((x: { code: string }) => x.code === 'ECC');
+  it('ships the NCA libraries with the totals their documents state', async () => {
+    const list = (await api(T.ea, 'GET', '/compliance/frameworks')).body;
+    const f = list.find((x: { code: string }) => x.code === 'ECC');
     ecc = f.id;
     assert.equal(f.version, '2:2024');
     assert.equal(f.enabled, true);
-    const tree = (await api(T.ea, 'GET', `/compliance/frameworks/${ecc}/tree`)).body;
-    assert.equal(tree.filter((i: { level: string }) => i.level === 'domain').length, 4);
-    assert.equal(tree.filter((i: { level: string }) => i.level === 'subdomain').length, 28);
+    const count = async (code: string) => {
+      const fw = list.find((x: { code: string }) => x.code === code);
+      const tree = (await api(T.ea, 'GET', `/compliance/frameworks/${fw.id}/tree`)).body;
+      return ['domain', 'subdomain', 'control', 'subcontrol'].map((l) => tree.filter((i: { level: string }) => i.level === l).length);
+    };
+    assert.deepEqual(await count('ECC'), [4, 28, 108, 92]);
+    assert.deepEqual(await count('OTCC'), [4, 23, 47, 122]);
+    assert.deepEqual(await count('DCC'), [3, 11, 19, 47]);
+    assert.deepEqual(await count('TCC'), [3, 16, 21, 42]);
+    assert.deepEqual(await count('CSCC'), [4, 21, 33, 73]);
+    assert.deepEqual(await count('CCC'), [4, 24, 0, 0]);
+    const item = (await api(T.ea, 'GET', `/compliance/frameworks/${ecc}/tree`)).body.find((i: { code: string }) => i.code === '2-15-3-1');
+    const detail = (await api(T.ea, 'GET', `/compliance/items/${item.id}`)).body;
+    assert.match(detail.item.text_ar, /جدار الحماية لتطبيقات الويب/);
   });
   it('summarises coverage, status and unprotected assets', async () => {
     const s = (await api(T.ea, 'GET', '/compliance/summary')).body;
     const f = s.frameworks[0];
-    assert.equal(f.total, 28, 'without loaded controls, subdomains are the assessable items');
+    assert.equal(f.total, 176, 'assessable items are subcontrols plus controls without subcontrols');
     assert.equal(f.covered, 3);
     assert.equal(f.counts.compliant, 3);
     assert.equal(f.counts.partial, 1);
@@ -405,18 +417,18 @@ describe('compliance (NCA ECC)', () => {
   });
   it('maps an asset, records evidence, and shows it on the record', async () => {
     const tree = (await api(T.ea, 'GET', `/compliance/frameworks/${ecc}/tree`)).body;
-    const backup = tree.find((i: { code: string }) => i.code === '2-9');
+    const backup = tree.find((i: { code: string }) => i.code === '2-9-3-1');
     const srv = (await api(T.ea, 'GET', '/records?block=server&q=SRV-ERP-01')).body.items[0];
     const r = await api(T.arch, 'PUT', `/compliance/items/${backup.id}/assessment`, { record_id: srv.id, status: 'partial', evidence: 'نسخ يومي دون اختبار استعادة' });
     assert.equal(r.status, 200, JSON.stringify(r.body));
     const forRec = (await api(T.ea, 'GET', `/compliance/records/${srv.id}`)).body;
-    assert.ok(forRec.some((x: { code: string; status: string }) => x.code === '2-9' && x.status === 'partial'));
+    assert.ok(forRec.some((x: { code: string; status: string }) => x.code === '2-9-3-1' && x.status === 'partial'));
     const again = await api(T.arch, 'PUT', `/compliance/items/${backup.id}/assessment`, { record_id: srv.id, status: 'compliant' });
     assert.equal(again.body.id, r.body.id, 'one assessment per control and asset');
   });
   it('respects roles: auditor reads, cannot assess; scoped owner only within scope; viewer of library cannot edit it', async () => {
     const tree = (await api(T.ea, 'GET', `/compliance/frameworks/${ecc}/tree`)).body;
-    const it2 = tree.find((i: { code: string }) => i.code === '2-2');
+    const it2 = tree.find((i: { code: string }) => i.code === '2-2-3-1');
     assert.equal((await api(T.auditor, 'GET', '/compliance/summary')).status, 200);
     assert.equal((await api(T.auditor, 'PUT', `/compliance/items/${it2.id}/assessment`, { status: 'compliant' })).status, 403);
     const app = (await api(T.ea, 'GET', '/records?block=application')).body.items[0];
@@ -424,29 +436,31 @@ describe('compliance (NCA ECC)', () => {
     assert.equal((await api(T.owner, 'PUT', `/compliance/items/${it2.id}/assessment`, { status: 'compliant' })).status, 403, 'entity-level status is for the EA owner or architect');
     assert.equal((await api(T.ea, 'POST', '/compliance/frameworks', { code: 'X', version: '1', name_ar: 'س', name_en: 'x' })).status, 403);
   });
-  it('platform admin loads control texts from Excel; controls become the assessable items', async () => {
-    const res = await fetch(`${base}/compliance/frameworks/${ecc}/template`, { headers: { authorization: `Bearer ${T.platform}` } });
+  it('platform admin loads control texts from Excel; new controls become assessable items', async () => {
+    const ccc = (await api(T.platform, 'GET', '/compliance/frameworks')).body.find((x: { code: string }) => x.code === 'CCC');
+    await api(T.ea, 'PUT', `/compliance/frameworks/${ccc.id}/enabled`, { enabled: true });
+    const res = await fetch(`${base}/compliance/frameworks/${ccc.id}/template`, { headers: { authorization: `Bearer ${T.platform}` } });
     const wb = new ExcelJS.Workbook();
     await wb.xlsx.load(await res.arrayBuffer());
     const ws = wb.worksheets[0];
-    assert.equal(ws.rowCount, 33);
-    ws.addRow(['2-9-1', 'control', '2-9', 'ضابط تجريبي للاختبار', 'Test control', '', '']);
-    ws.addRow(['2-9-2', 'control', '2-9', 'ضابط تجريبي ثانٍ', 'Second test control', '', '']);
+    assert.equal(ws.rowCount, 29);
+    ws.addRow(['2-15-P-1', 'control', '2-15', 'ضابط تجريبي للاختبار', 'Test control', '', '']);
+    ws.addRow(['2-15-P-2', 'control', '2-15', 'ضابط تجريبي ثانٍ', 'Second test control', '', '']);
     const fd = new FormData();
     fd.append('file', new Blob([await wb.xlsx.writeBuffer() as ArrayBuffer]), 'x.xlsx');
-    const imp = await fetch(`${base}/compliance/frameworks/${ecc}/import`, { method: 'POST', body: fd, headers: { authorization: `Bearer ${T.platform}` } });
+    const imp = await fetch(`${base}/compliance/frameworks/${ccc.id}/import`, { method: 'POST', body: fd, headers: { authorization: `Bearer ${T.platform}` } });
     const body = await imp.json();
     assert.equal(imp.status, 201, JSON.stringify(body));
     assert.equal(body.created, 2);
     const s = (await api(T.ea, 'GET', '/compliance/summary')).body;
-    assert.equal(s.frameworks[0].total, 29, '27 subdomain leaves + 2 controls');
+    assert.equal(s.frameworks.find((f: { code: string }) => f.code === 'CCC').total, 25, '23 subdomain leaves + 2 controls');
   });
   it('compliance report exports', async () => {
     const res = await fetch(`${base}/compliance/report.xlsx`, { headers: { authorization: `Bearer ${T.ea}` } });
     assert.equal(res.status, 200);
     const wb = new ExcelJS.Workbook();
     await wb.xlsx.load(await res.arrayBuffer());
-    assert.equal(wb.worksheets.length, 2);
+    assert.equal(wb.worksheets.length, 3, 'summary + ECC + CCC');
   });
   it('national dashboard shows coverage as an aggregate only', async () => {
     const n = (await api(T.national, 'GET', '/viewpoints/national')).body;

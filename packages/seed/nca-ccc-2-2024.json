@@ -1,0 +1,241 @@
+{
+ "code": "CCC",
+ "version": "2:2024",
+ "name_ar": "ضوابط الأمن السيبراني للحوسبة السحابية",
+ "name_en": "Cloud Cybersecurity Controls",
+ "issuer_ar": "الهيئة الوطنية للأمن السيبراني",
+ "issuer_en": "National Cybersecurity Authority",
+ "counts": {
+  "domain": 4,
+  "subdomain": 24,
+  "control": 0,
+  "subcontrol": 0
+ },
+ "note": "Structure only (4 domains, 24 subdomains) from figure 2 of the official CCC-2:2024 document. Its control tables are images, so control texts are loaded later from a text source (e.g. the NCA CCC assessment tool).",
+ "items": [
+  {
+   "code": "1",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "حوكمة الأمن السيبراني",
+   "title_en": "Cybersecurity Governance",
+   "sort": 0
+  },
+  {
+   "code": "2",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "تعزيز الأمن السيبراني",
+   "title_en": "Cybersecurity Defense",
+   "sort": 1
+  },
+  {
+   "code": "3",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "صمود الأمن السيبراني",
+   "title_en": "Cybersecurity Resilience",
+   "sort": 2
+  },
+  {
+   "code": "4",
+   "level": "domain",
+   "parent": null,
+   "title_ar": "الأمن السيبراني المتعلق بالأطراف الخارجية",
+   "title_en": "Third-Party Cybersecurity",
+   "sort": 3
+  },
+  {
+   "code": "1-1",
+   "level": "subdomain",
+   "parent": "1",
+   "title_ar": "أدوار ومسؤوليات الأمن السيبراني",
+   "title_en": "Cybersecurity Roles and Responsibilities",
+   "sort": 4
+  },
+  {
+   "code": "1-2",
+   "level": "subdomain",
+   "parent": "1",
+   "title_ar": "إدارة مخاطر الأمن السيبراني",
+   "title_en": "Cybersecurity Risk Management",
+   "sort": 5
+  },
+  {
+   "code": "1-3",
+   "level": "subdomain",
+   "parent": "1",
+   "title_ar": "الالتزام بتشريعات وتنظيمات ومعايير الأمن السيبراني",
+   "title_en": "Compliance with Cybersecurity Standards, Laws and Regulations",
+   "sort": 6
+  },
+  {
+   "code": "1-4",
+   "level": "subdomain",
+   "parent": "1",
+   "title_ar": "الأمن السيبراني المتعلق بالموارد البشرية",
+   "title_en": "Cybersecurity in Human Resources",
+   "sort": 7
+  },
+  {
+   "code": "1-5",
+   "level": "subdomain",
+   "parent": "1",
+   "title_ar": "الأمن السيبراني ضمن إدارة التغيير",
+   "title_en": "Cybersecurity in Change Management",
+   "sort": 8
+  },
+  {
+   "code": "2-1",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "إدارة الأصول",
+   "title_en": "Asset Management",
+   "sort": 9
+  },
+  {
+   "code": "2-2",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "إدارة هويات الدخول والصلاحيات",
+   "title_en": "Identity and Access Management",
+   "sort": 10
+  },
+  {
+   "code": "2-3",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "حماية الأنظمة وأجهزة معالجة المعلومات",
+   "title_en": "Information System and Information Processing Facilities Protection",
+   "sort": 11
+  },
+  {
+   "code": "2-4",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "إدارة أمن الشبكات",
+   "title_en": "Networks Security Management",
+   "sort": 12
+  },
+  {
+   "code": "2-5",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "أمن الأجهزة المحمولة",
+   "title_en": "Mobile Devices Security",
+   "sort": 13
+  },
+  {
+   "code": "2-6",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "حماية البيانات والمعلومات",
+   "title_en": "Data and Information Protection",
+   "sort": 14
+  },
+  {
+   "code": "2-7",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "التشفير",
+   "title_en": "Cryptography",
+   "sort": 15
+  },
+  {
+   "code": "2-8",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "إدارة النسخ الاحتياطية",
+   "title_en": "Backup and Recovery Management",
+   "sort": 16
+  },
+  {
+   "code": "2-9",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "إدارة الثغرات",
+   "title_en": "Vulnerabilities Management",
+   "sort": 17
+  },
+  {
+   "code": "2-10",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "اختبار الاختراق",
+   "title_en": "Penetration Testing",
+   "sort": 18
+  },
+  {
+   "code": "2-11",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "إدارة سجلات الأحداث ومراقبة الأمن السيبراني",
+   "title_en": "Cybersecurity Event Logs and Monitoring Management",
+   "sort": 19
+  },
+  {
+   "code": "2-12",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "إدارة حوادث وتهديدات الأمن السيبراني",
+   "title_en": "Cybersecurity Incident and Threat Management",
+   "sort": 20
+  },
+  {
+   "code": "2-13",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "الأمن المادي",
+   "title_en": "Physical Security",
+   "sort": 21
+  },
+  {
+   "code": "2-14",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "حماية تطبيقات الويب",
+   "title_en": "Web Application Security",
+   "sort": 22
+  },
+  {
+   "code": "2-15",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "إدارة المفاتيح",
+   "title_en": "Key Management",
+   "sort": 23
+  },
+  {
+   "code": "2-16",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "أمن تطوير الأنظمة",
+   "title_en": "System Development Security",
+   "sort": 24
+  },
+  {
+   "code": "2-17",
+   "level": "subdomain",
+   "parent": "2",
+   "title_ar": "أمن وسائط التخزين",
+   "title_en": "Storage Media Security",
+   "sort": 25
+  },
+  {
+   "code": "3-1",
+   "level": "subdomain",
+   "parent": "3",
+   "title_ar": "جوانب صمود الأمن السيبراني في إدارة استمرارية الأعمال",
+   "title_en": "Cybersecurity Resilience aspects of Business Continuity Management (BCM)",
+   "sort": 26
+  },
+  {
+   "code": "4-1",
+   "level": "subdomain",
+   "parent": "4",
+   "title_ar": "الأمن السيبراني المتعلق بسلسلة الإمداد والأطراف الخارجية",
+   "title_en": "Supply Chain and Third-Party Cybersecurity",
+   "sort": 27
+  }
+ ]
+}

@@ -53,11 +53,15 @@ for (const f of fs.readdirSync(path.join(root, 'db')).filter((f) => f.endsWith('
     const fw = JSON.parse(fs.readFileSync(path.join(root, 'packages/seed', f), 'utf8'));
     const id = (await db.query(`insert into compliance_frameworks (code, version, name_ar, name_en, issuer_ar, issuer_en) values ($1,$2,$3,$4,$5,$6)
       on conflict (code, version) do update set name_ar = excluded.name_ar returning id`, [fw.code, fw.version, fw.name_ar, fw.name_en, fw.issuer_ar, fw.issuer_en])).rows[0].id;
+    // Upsert by code: a newer seed refreshes texts without touching entities' assessments (they reference item ids).
     for (const it of fw.items) {
       const parent = it.parent ? (await db.query('select id from compliance_items where framework_id=$1 and code=$2', [id, it.parent])).rows[0].id : null;
-      await db.query(`insert into compliance_items (framework_id, parent_id, code, level, title_ar, title_en, sort) values ($1,$2,$3,$4,$5,$6,$7)
-        on conflict (framework_id, code) do nothing`, [id, parent, it.code, it.level, it.title_ar, it.title_en, it.sort]);
+      await db.query(`insert into compliance_items (framework_id, parent_id, code, level, title_ar, title_en, text_ar, text_en, sort) values ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+        on conflict (framework_id, code) do update set parent_id=excluded.parent_id, level=excluded.level, title_ar=excluded.title_ar,
+          title_en=excluded.title_en, text_ar=excluded.text_ar, text_en=excluded.text_en, sort=excluded.sort`,
+        [id, parent, it.code, it.level, it.title_ar, it.title_en ?? null, it.text_ar ?? null, it.text_en ?? null, it.sort]);
     }
+    console.log(`library ${fw.code}-${fw.version}: ${fw.items.length} items`);
   }
   await db.query('commit');
 }
@@ -151,14 +155,14 @@ if (demo) {
   const A = (code, rec, status, extra = {}) => item(code).then((iid) => db.query(
     `insert into control_assessments (tenant_id, item_id, record_id, status, evidence, assessed_at, remediation, due_date, updated_by) values ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
     [ea, iid, rec, status, extra.evidence ?? null, extra.assessed_at ?? null, extra.remediation ?? null, extra.due_date ?? null, owner]));
-  await A('2-5', fw, 'compliant');
-  await A('2-5', null, 'compliant', { evidence: 'سياسة أمن الشبكات المعتمدة وتقرير مراجعة قواعد الجدار الناري', assessed_at: '2026-10-01' });
-  await A('2-15', waf, 'compliant');
-  await A('2-15', null, 'partial', { evidence: 'جدار حماية تطبيقات الويب يغطي البوابة فقط', remediation: 'توسيع الحماية لتشمل نظام إدارة علاقات العملاء', due_date: '2027-03-31' });
-  await A('2-3', edr, 'compliant');
-  await A('2-3', null, 'compliant', { assessed_at: '2026-09-15' });
-  await A('2-12', null, 'non_compliant', { remediation: 'ربط السجلات بمركز العمليات الأمنية', due_date: '2027-01-31' });
-  await A('1-3', null, 'compliant');
+  await A('2-5-3-1', fw, 'compliant');
+  await A('2-5-3-1', null, 'compliant', { evidence: 'مخطط تقسيم الشبكة المعتمد وتقرير مراجعة قواعد الجدار الناري', assessed_at: '2026-10-01' });
+  await A('2-15-3-1', waf, 'compliant');
+  await A('2-15-3-1', null, 'partial', { evidence: 'جدار حماية تطبيقات الويب يغطي البوابة فقط', remediation: 'توسيع الحماية لتشمل نظام إدارة علاقات العملاء', due_date: '2027-03-31' });
+  await A('2-3-3-1', edr, 'compliant');
+  await A('2-3-3-1', null, 'compliant', { assessed_at: '2026-09-15' });
+  await A('2-12-3-1', null, 'non_compliant', { remediation: 'ربط السجلات بمركز العمليات الأمنية', due_date: '2027-01-31' });
+  await A('1-3-1', null, 'compliant');
   await db.query('commit');
   console.log('demo data loaded (password:', process.env.DEMO_PASSWORD ?? 'Bunyan@2026', ')');
 }
