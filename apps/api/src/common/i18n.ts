@@ -3,6 +3,9 @@
  * (Accept-Language: en), the error filter translates them here. Add a line when you add a message.
  */
 const EN: Record<string, string> = {
+  'تقرير غير معروف': 'Unknown report',
+  'التقارير على مستوى الجهة': 'Reports are per entity',
+  'لا تملك صلاحية الاطلاع على التكاليف': 'You do not have permission to see costs',
   'تعذّر قراءة الملف؛ احفظه بصيغة .xlsx وأعد المحاولة': 'The file could not be read. Save it as .xlsx and try again',
   'لا توجد أوراق في الملف': 'The file has no sheets',
   'الورقة غير موجودة': 'Sheet not found',

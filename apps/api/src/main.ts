@@ -11,6 +11,7 @@ import { MetamodelController, MetamodelService } from './metamodel/metamodel.js'
 import { ApprovalsController, RecordsController, RecordsService } from './records/records.js';
 import { ExcelController } from './io/excel.js';
 import { BulkController, ImportWizardController } from './io/wizard.js';
+import { ReportsController } from './reports/reports.js';
 import { ViewpointsController } from './viewpoints/viewpoints.js';
 import { ComplianceController } from './compliance/compliance.js';
 import { IntegrationsController, IntegrationsService, startScheduler } from './integrations/integrations.js';
@@ -36,7 +37,7 @@ class ErrorFilter implements ExceptionFilter {
 }
 
 @Module({
-  controllers: [AuthController, TenantsController, MetamodelController, RecordsController, ApprovalsController, ExcelController, ImportWizardController, BulkController, ViewpointsController, IntegrationsController, ComplianceController],
+  controllers: [AuthController, TenantsController, MetamodelController, RecordsController, ApprovalsController, ExcelController, ImportWizardController, BulkController, ReportsController, ViewpointsController, IntegrationsController, ComplianceController],
   providers: [TenantsService, MetamodelService, RecordsService, IntegrationsService, { provide: APP_GUARD, useClass: AuthGuard }],
 })
 export class AppModule {}

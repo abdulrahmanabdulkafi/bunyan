@@ -4,6 +4,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import ExcelJS from 'exceljs';
+import { classificationMark } from '../reports/reports.js';
 import type { Response } from 'express';
 import { z } from 'zod';
 import { Tx, audit, withActor } from '../common/db.js';
@@ -348,6 +349,11 @@ export class ComplianceController {
         }
         ws.columns.forEach((c, i) => (c.width = i === 1 ? 60 : 20));
       }
+      // NDMO marking on every sheet, printed or not.
+      const cls = (await tx.query('select classification from tenants where id = app_tenant()')).rows[0]?.classification ?? 'restricted';
+      const mark = classificationMark(cls, en);
+      wb.subject = mark;
+      for (const ws of wb.worksheets) { ws.headerFooter.oddHeader = `&C&B${mark}`; ws.headerFooter.oddFooter = `&L${mark}&R&P / &N`; }
     });
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader('Content-Disposition', `attachment; filename="compliance-report.xlsx"`);

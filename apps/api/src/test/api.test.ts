@@ -668,3 +668,44 @@ describe('import wizard (any spreadsheet)', () => {
     assert.equal(self.body.failed.length, 2);
   });
 });
+
+describe('reports centre', () => {
+  it('builds every report for an architect, within scope, and exports them marked with the classification', async () => {
+    for (const code of ['inventory', 'quality', 'lifecycle', 'relations', 'cost', 'workflow']) {
+      const r = await api(T.ea, 'GET', `/reports/${code}`);
+      assert.equal(r.status, 200, `${code}: ${JSON.stringify(r.body)}`);
+    }
+    const inv = (await api(T.ea, 'GET', '/reports/inventory')).body;
+    assert.ok(inv.total > 0);
+    assert.equal(inv.rows.reduce((a: number, x: { total: number }) => a + x.total, 0), inv.total);
+    const q = (await api(T.ea, 'GET', '/reports/quality')).body;
+    assert.ok(q.score >= 0 && q.score <= 1);
+    assert.ok(q.blocks.every((b: { fill: unknown[] }) => b.fill.length > 0));
+
+    const res = await fetch(`${base}/reports/quality/xlsx?lang=en`, { headers: { authorization: `Bearer ${T.ea}` } });
+    assert.equal(res.status, 200);
+    const wb = new ExcelJS.Workbook();
+    await wb.xlsx.load(await res.arrayBuffer());
+    assert.equal(wb.worksheets[0].name, 'About');
+    assert.match(String(wb.worksheets[0].getCell('B4').value), /Restricted/);
+    assert.ok(wb.worksheets.every((ws) => /Classification: Restricted/.test(ws.headerFooter.oddHeader ?? '')));
+  });
+
+  it('flags a licence that has expired', async () => {
+    const lic = await api(T.ea, 'POST', '/records', { block: 'license', attrs: { license_name: 'رخصة منتهية للتقرير', expiry_date: '2020-01-01' } });
+    assert.equal(lic.status, 201, JSON.stringify(lic.body));
+    const l = (await api(T.ea, 'GET', '/reports/lifecycle')).body;
+    const it = l.items.find((x: { record_id: string }) => x.record_id === lic.body.id);
+    assert.equal(it.bucket, 'expired');
+    assert.ok(l.counts.expired >= 1);
+  });
+
+  it('hides costs from roles without cost access and refuses unknown reports', async () => {
+    assert.equal((await api(T.entry, 'GET', '/reports/cost')).status, 403);
+    // A scoped data-entry user sees only the technology domain.
+    const inv = (await api(T.entry, 'GET', '/reports/inventory')).body;
+    assert.ok(inv.rows.length > 0 && inv.rows.every((r: { domain: string }) => r.domain === 'technology'));
+    assert.equal((await api(T.ea, 'GET', '/reports/nope')).status, 400);
+    assert.equal((await api(T.platform, 'GET', '/reports/inventory')).status, 403);
+  });
+});
