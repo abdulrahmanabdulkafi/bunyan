@@ -264,3 +264,10 @@ html[dir='ltr'] body { font-family: 'IBM Plex Sans Arabic', system-ui, sans-seri
 .tree .t-row button:focus-visible { outline: 2px solid var(--green); }
 .drawer { max-width: 720px; }
 .control-text { background: var(--paper); padding: var(--s-3); border-radius: var(--r-sm); font-size: 14px; white-space: pre-wrap; }
+
+/* NDMO data classification marker, shown on every page of an entity's workspace */
+.cls { font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: var(--r-sm); border: 1px solid currentColor; }
+.cls-top_secret { color: #8b1d1d; background: #f9e3e3; }
+.cls-secret { color: #a8402c; background: var(--red-2); }
+.cls-restricted { color: #7a5410; background: var(--saffron-2); }
+.cls-public { color: var(--green); background: var(--green-2); }

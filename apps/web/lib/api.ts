@@ -1,6 +1,6 @@
 'use client';
 
-export interface User { id: string; tenantId: string | null; email: string; name: string; roles: string[]; scope: { domains?: string[]; blocks?: string[] } }
+export interface User { id: string; tenantId: string | null; email: string; name: string; roles: string[]; scope: { domains?: string[]; blocks?: string[] }; mfaEnabled?: boolean; mfaRequired?: boolean; classification?: string | null; limited?: string }
 export interface Attr { key: string; name_ar: string; name_en: string; type: string; required: boolean; options: { value: string; label_ar?: string; label_en?: string }[]; multiple: boolean; strict: boolean; active: boolean; description: string | null; is_custom: boolean }
 export interface Block { code: string; domain_code: string; name_ar: string; name_en: string; active: boolean; title_key: string | null; is_custom: boolean; attributes: Attr[] }
 export interface Relation { id: string; source_code: string; verb: string; target_code: string; name_ar: string | null; description: string | null; active: boolean }
@@ -34,9 +34,9 @@ export async function api<T = unknown>(path: string, init: RequestInit & { json?
   let body = init.body;
   if (init.json !== undefined) { headers['content-type'] = 'application/json'; body = JSON.stringify(init.json); }
   const res = await fetch(`/api${path}`, { ...init, headers, body });
-  if (res.status === 401 && !path.startsWith('/auth/login')) {
+  if (res.status === 401 && !path.startsWith('/auth/login') && !path.startsWith('/auth/mfa/verify') && !path.startsWith('/auth/password')) {
     setToken(null);
-    if (typeof window !== 'undefined') window.location.href = '/login';
+    if (typeof window !== 'undefined') window.location.href = '/login?expired=1';
   }
   const text = await res.text();
   const data = text ? JSON.parse(text) : null;
@@ -59,6 +59,7 @@ export async function download(path: string, filename: string) {
 
 /** Mirror of the server's permission matrix — used only to hide controls; the API still enforces every rule. */
 const PERMS: Record<string, string[]> = {
+  'tenant.manage': ['R0'], 'reports.export': ['R2', 'R3', 'R4', 'R6', 'R7', 'R8', 'R9'],
   'users.manage': ['R0', 'R1'], 'metamodel.edit': ['R0', 'R2'], 'records.read': ['R2', 'R3', 'R4', 'R5', 'R6', 'R7'],
   'records.write': ['R2', 'R3', 'R4', 'R5'], 'records.import': ['R2', 'R3', 'R4', 'R5'], 'records.review': ['R2', 'R3', 'R4'],
   'records.approve': ['R2'], 'records.archive': ['R2'], 'audit.read': ['R0', 'R1', 'R2', 'R7'],
@@ -76,3 +77,10 @@ export function canInScope(u: User | null, perm: string, b: Block) {
 
 
 export interface VpMeta { code: string; domain: string; name_ar: string; name_en: string; purpose_ar: string; purpose_en: string; phase2?: boolean; kind: string; missing: string[] }
+
+/** After sign-in: a limited session goes to the setup page to finish the owed step. */
+export interface Session { token: string; limited: string | null; expiresInMinutes: number }
+export function startSession(s: Session) {
+  setToken(s.token);
+  window.location.href = s.limited ? '/setup' : '/';
+}

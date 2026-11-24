@@ -29,6 +29,8 @@ function Rail() {
         {can(user, 'integrations.manage') && user?.tenantId && <Link href="/integrations" aria-current={cur('/integrations')}>{t('nav.integrations')}</Link>}
         {can(user, 'dashboard.national') && <Link href="/national" aria-current={cur('/national')}>{t('nav.national')}</Link>}
         {can(user, 'metamodel.edit') && user?.tenantId && <Link href="/studio" aria-current={cur('/studio')}>{t('nav.studio')}</Link>}
+        {can(user, 'tenant.manage') && <Link href="/admin/entities" aria-current={cur('/admin/entities')}>{t('nav.entities')}</Link>}
+        {can(user, 'users.manage') && <Link href="/admin/users" aria-current={cur('/admin/users')}>{t('nav.users')}</Link>}
         {can(user, 'audit.read') && <Link href="/audit" aria-current={cur('/audit')}>{t('nav.audit')}</Link>}
       </div>
       {model && can(user, 'records.read') && (
@@ -61,9 +63,9 @@ function Top() {
   if (!user) return null;
   return (
     <div className="topbar">
-      <span />
+      {user.classification ? <span className={`cls cls-${user.classification}`} title={t('cls.hint')}>{t('cls.label')}: {t(`cls.${user.classification}`)}</span> : <span />}
       <div className="who">
-        <span>{user.name}</span>
+        <Link href="/account">{user.name}</Link>
         <span className="hint">{user.roles.map((r) => t(`role.${r}`)).join(t('list.sep'))}</span>
         <LanguageToggle />
         <button className="btn quiet" onClick={() => { setToken(null); window.location.href = '/login'; }}>{t('nav.signOut')}</button>
