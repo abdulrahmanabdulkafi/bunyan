@@ -181,12 +181,25 @@ export class ViewpointsController {
       t.domains[r.domain_code] = (t.domains[r.domain_code] ?? 0) + Number(r.total);
       tenants.set(r.tenant_id, t);
     }
-    const list = [...tenants.entries()].map(([id, t]) => ({ id, ...t, approvedRatio: t.total ? t.approved / t.total : 0 }));
+    // Control coverage per entity (FR-13-02): share of leaf controls covered by at least one security asset.
+    const comp = (await pool.query('select * from aggregate_compliance($1)', [sector && !national ? u.tenantId : null])).rows;
+    const cov = new Map<string, { leaves: number; covered: number }>();
+    for (const r of comp) {
+      const c = cov.get(r.tenant_id) ?? { leaves: 0, covered: 0 };
+      c.leaves += Number(r.leaves); c.covered += Number(r.covered);
+      cov.set(r.tenant_id, c);
+    }
+    const list = [...tenants.entries()].map(([id, t]) => {
+      const c = cov.get(id);
+      return { id, ...t, approvedRatio: t.total ? t.approved / t.total : 0, coverage: c && c.leaves ? c.covered / c.leaves : null };
+    });
     const avg = list.length ? list.reduce((s, t) => s + t.approvedRatio, 0) / list.length : 0;
+    const withCov = list.filter((t) => t.coverage !== null);
+    const avgCoverage = withCov.length ? withCov.reduce((s, t) => s + (t.coverage ?? 0), 0) / withCov.length : null;
     if (entity) {
       const mine = list.find((t) => t.id === u.tenantId);
-      return { scope: 'entity', average: avg, entities: list.length, mine: mine ?? null };
+      return { scope: 'entity', average: avg, averageCoverage: avgCoverage, entities: list.length, mine: mine ?? null };
     }
-    return { scope: national ? 'national' : 'sector', average: avg, entities: list };
+    return { scope: national ? 'national' : 'sector', average: avg, averageCoverage: avgCoverage, entities: list };
   }
 }

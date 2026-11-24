@@ -1,0 +1,267 @@
+{
+ "code": "ECC",
+ "version": "2:2024",
+ "name_ar": "الضوابط الأساسية للأمن السيبراني",
+ "name_en": "Essential Cybersecurity Controls",
+ "issuer_ar": "الهيئة الوطنية للأمن السيبراني",
+ "issuer_en": "National Cybersecurity Authority",
+ "note": "Structure (4 domains, 28 subdomains) from the official ECC-2:2024 document. The 108 controls and 92 subcontrols are loaded by the platform admin from the approved NCA text (BRD assumption A7).",
+ "items": [
+  {
+   "code": "1",
+   "level": "domain",
+   "parent": null,
+   "title_en": "Cybersecurity Governance",
+   "title_ar": "حوكمة الأمن السيبراني",
+   "sort": 0
+  },
+  {
+   "code": "1-1",
+   "level": "subdomain",
+   "parent": "1",
+   "title_en": "Cybersecurity Strategy",
+   "title_ar": "استراتيجية الأمن السيبراني",
+   "sort": 0
+  },
+  {
+   "code": "1-2",
+   "level": "subdomain",
+   "parent": "1",
+   "title_en": "Cybersecurity Management",
+   "title_ar": "إدارة الأمن السيبراني",
+   "sort": 1
+  },
+  {
+   "code": "1-3",
+   "level": "subdomain",
+   "parent": "1",
+   "title_en": "Cybersecurity Policies and Procedures",
+   "title_ar": "سياسات وإجراءات الأمن السيبراني",
+   "sort": 2
+  },
+  {
+   "code": "1-4",
+   "level": "subdomain",
+   "parent": "1",
+   "title_en": "Cybersecurity Roles and Responsibilities",
+   "title_ar": "أدوار ومسؤوليات الأمن السيبراني",
+   "sort": 3
+  },
+  {
+   "code": "1-5",
+   "level": "subdomain",
+   "parent": "1",
+   "title_en": "Cybersecurity Risk Management",
+   "title_ar": "إدارة مخاطر الأمن السيبراني",
+   "sort": 4
+  },
+  {
+   "code": "1-6",
+   "level": "subdomain",
+   "parent": "1",
+   "title_en": "Cybersecurity in Information and Technology Project Management",
+   "title_ar": "الأمن السيبراني ضمن إدارة مشاريع المعلوماتية والتقنية",
+   "sort": 5
+  },
+  {
+   "code": "1-7",
+   "level": "subdomain",
+   "parent": "1",
+   "title_en": "Compliance with Cybersecurity Standards, Laws and Regulations",
+   "title_ar": "الالتزام بتشريعات وتنظيمات ومعايير الأمن السيبراني",
+   "sort": 6
+  },
+  {
+   "code": "1-8",
+   "level": "subdomain",
+   "parent": "1",
+   "title_en": "Periodical Cybersecurity Review and Audit",
+   "title_ar": "المراجعة والتدقيق الدوري للأمن السيبراني",
+   "sort": 7
+  },
+  {
+   "code": "1-9",
+   "level": "subdomain",
+   "parent": "1",
+   "title_en": "Cybersecurity in Human Resources",
+   "title_ar": "الأمن السيبراني المتعلق بالموارد البشرية",
+   "sort": 8
+  },
+  {
+   "code": "1-10",
+   "level": "subdomain",
+   "parent": "1",
+   "title_en": "Cybersecurity Awareness and Training Program",
+   "title_ar": "برنامج التوعية والتدريب بالأمن السيبراني",
+   "sort": 9
+  },
+  {
+   "code": "2",
+   "level": "domain",
+   "parent": null,
+   "title_en": "Cybersecurity Defense",
+   "title_ar": "تعزيز الأمن السيبراني",
+   "sort": 1
+  },
+  {
+   "code": "2-1",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Asset Management",
+   "title_ar": "إدارة الأصول",
+   "sort": 0
+  },
+  {
+   "code": "2-2",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Identity and Access Management",
+   "title_ar": "إدارة هويات الدخول والصلاحيات",
+   "sort": 1
+  },
+  {
+   "code": "2-3",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Information Systems and Information Processing Facilities Protection",
+   "title_ar": "حماية الأنظمة وأجهزة معالجة المعلومات",
+   "sort": 2
+  },
+  {
+   "code": "2-4",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Email Protection",
+   "title_ar": "حماية البريد الإلكتروني",
+   "sort": 3
+  },
+  {
+   "code": "2-5",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Network Security Management",
+   "title_ar": "إدارة أمن الشبكات",
+   "sort": 4
+  },
+  {
+   "code": "2-6",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Mobile Devices Security",
+   "title_ar": "أمن الأجهزة المحمولة",
+   "sort": 5
+  },
+  {
+   "code": "2-7",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Data and Information Protection",
+   "title_ar": "حماية البيانات والمعلومات",
+   "sort": 6
+  },
+  {
+   "code": "2-8",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Cryptography",
+   "title_ar": "التشفير",
+   "sort": 7
+  },
+  {
+   "code": "2-9",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Backup and Recovery Management",
+   "title_ar": "إدارة النسخ الاحتياطية",
+   "sort": 8
+  },
+  {
+   "code": "2-10",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Vulnerability Management",
+   "title_ar": "إدارة الثغرات",
+   "sort": 9
+  },
+  {
+   "code": "2-11",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Penetration Testing",
+   "title_ar": "اختبار الاختراق",
+   "sort": 10
+  },
+  {
+   "code": "2-12",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Cybersecurity Event Logs and Monitoring Management",
+   "title_ar": "إدارة سجلات الأحداث ومراقبة الأمن السيبراني",
+   "sort": 11
+  },
+  {
+   "code": "2-13",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Cybersecurity Incident and Threat Management",
+   "title_ar": "إدارة حوادث وتهديدات الأمن السيبراني",
+   "sort": 12
+  },
+  {
+   "code": "2-14",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Physical Security",
+   "title_ar": "الأمن المادي",
+   "sort": 13
+  },
+  {
+   "code": "2-15",
+   "level": "subdomain",
+   "parent": "2",
+   "title_en": "Web Application Security",
+   "title_ar": "حماية تطبيقات الويب",
+   "sort": 14
+  },
+  {
+   "code": "3",
+   "level": "domain",
+   "parent": null,
+   "title_en": "Cybersecurity Resilience",
+   "title_ar": "صمود الأمن السيبراني",
+   "sort": 2
+  },
+  {
+   "code": "3-1",
+   "level": "subdomain",
+   "parent": "3",
+   "title_en": "Cybersecurity Resilience Aspects of Business Continuity Management (BCM)",
+   "title_ar": "جوانب صمود الأمن السيبراني في إدارة استمرارية الأعمال",
+   "sort": 0
+  },
+  {
+   "code": "4",
+   "level": "domain",
+   "parent": null,
+   "title_en": "Third-Party and Cloud Computing Cybersecurity",
+   "title_ar": "الأمن السيبراني المتعلق بالأطراف الخارجية والحوسبة السحابية",
+   "sort": 3
+  },
+  {
+   "code": "4-1",
+   "level": "subdomain",
+   "parent": "4",
+   "title_en": "Third-Party Cybersecurity",
+   "title_ar": "الأمن السيبراني المتعلق بالأطراف الخارجية",
+   "sort": 0
+  },
+  {
+   "code": "4-2",
+   "level": "subdomain",
+   "parent": "4",
+   "title_en": "Cloud Computing and Hosting Cybersecurity",
+   "title_ar": "الأمن السيبراني المتعلق بالحوسبة السحابية والاستضافة",
+   "sort": 1
+  }
+ ]
+}

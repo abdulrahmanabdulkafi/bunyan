@@ -37,7 +37,7 @@ before(async () => {
   app = await createApp();
   await app.listen(0);
   base = `${await app.getUrl()}/api`.replace('[::1]', 'localhost');
-  for (const [k, e] of Object.entries({ ea: 'ea@a.local', arch: 'architect@a.local', entry: 'entry@a.local', owner: 'tech-owner@a.local', viewer: 'viewer@a.local', eb: 'ea@b.local', admin: 'admin@a.local' })) T[k] = await login(e);
+  for (const [k, e] of Object.entries({ platform: 'platform@bunyan.local', national: 'national@bunyan.local', auditor: 'auditor@a.local', ea: 'ea@a.local', arch: 'architect@a.local', entry: 'entry@a.local', owner: 'tech-owner@a.local', viewer: 'viewer@a.local', eb: 'ea@b.local', admin: 'admin@a.local' })) T[k] = await login(e);
 });
 after(async () => { await app.close(); await pool.end(); });
 
@@ -377,5 +377,80 @@ describe('integrations (vCenter)', () => {
   it('entity B cannot see entity A connectors', async () => {
     assert.equal((await api(T.eb, 'GET', '/integrations')).body.length, 0);
     assert.equal((await api(T.eb, 'POST', `/integrations/${id}/run`)).status, 404);
+  });
+});
+
+describe('compliance (NCA ECC)', () => {
+  let ecc = '';
+  it('ships the ECC-2:2024 structure: 4 domains, 28 subdomains', async () => {
+    const f = (await api(T.ea, 'GET', '/compliance/frameworks')).body.find((x: { code: string }) => x.code === 'ECC');
+    ecc = f.id;
+    assert.equal(f.version, '2:2024');
+    assert.equal(f.enabled, true);
+    const tree = (await api(T.ea, 'GET', `/compliance/frameworks/${ecc}/tree`)).body;
+    assert.equal(tree.filter((i: { level: string }) => i.level === 'domain').length, 4);
+    assert.equal(tree.filter((i: { level: string }) => i.level === 'subdomain').length, 28);
+  });
+  it('summarises coverage, status and unprotected assets', async () => {
+    const s = (await api(T.ea, 'GET', '/compliance/summary')).body;
+    const f = s.frameworks[0];
+    assert.equal(f.total, 28, 'without loaded controls, subdomains are the assessable items');
+    assert.equal(f.covered, 3);
+    assert.equal(f.counts.compliant, 3);
+    assert.equal(f.counts.partial, 1);
+    assert.equal(f.counts.non_compliant, 1);
+    assert.ok(s.unprotected.some((x: { name: string }) => x.name === 'SRV-DMS-01'));
+    assert.ok(!s.unprotected.some((x: { name: string }) => x.name === 'نظام إدارة علاقات العملاء'), 'the firewall secures it');
+  });
+  it('maps an asset, records evidence, and shows it on the record', async () => {
+    const tree = (await api(T.ea, 'GET', `/compliance/frameworks/${ecc}/tree`)).body;
+    const backup = tree.find((i: { code: string }) => i.code === '2-9');
+    const srv = (await api(T.ea, 'GET', '/records?block=server&q=SRV-ERP-01')).body.items[0];
+    const r = await api(T.arch, 'PUT', `/compliance/items/${backup.id}/assessment`, { record_id: srv.id, status: 'partial', evidence: 'نسخ يومي دون اختبار استعادة' });
+    assert.equal(r.status, 200, JSON.stringify(r.body));
+    const forRec = (await api(T.ea, 'GET', `/compliance/records/${srv.id}`)).body;
+    assert.ok(forRec.some((x: { code: string; status: string }) => x.code === '2-9' && x.status === 'partial'));
+    const again = await api(T.arch, 'PUT', `/compliance/items/${backup.id}/assessment`, { record_id: srv.id, status: 'compliant' });
+    assert.equal(again.body.id, r.body.id, 'one assessment per control and asset');
+  });
+  it('respects roles: auditor reads, cannot assess; scoped owner only within scope; viewer of library cannot edit it', async () => {
+    const tree = (await api(T.ea, 'GET', `/compliance/frameworks/${ecc}/tree`)).body;
+    const it2 = tree.find((i: { code: string }) => i.code === '2-2');
+    assert.equal((await api(T.auditor, 'GET', '/compliance/summary')).status, 200);
+    assert.equal((await api(T.auditor, 'PUT', `/compliance/items/${it2.id}/assessment`, { status: 'compliant' })).status, 403);
+    const app = (await api(T.ea, 'GET', '/records?block=application')).body.items[0];
+    assert.equal((await api(T.owner, 'PUT', `/compliance/items/${it2.id}/assessment`, { record_id: app.id, status: 'compliant' })).status, 403, 'technology owner cannot map an application');
+    assert.equal((await api(T.owner, 'PUT', `/compliance/items/${it2.id}/assessment`, { status: 'compliant' })).status, 403, 'entity-level status is for the EA owner or architect');
+    assert.equal((await api(T.ea, 'POST', '/compliance/frameworks', { code: 'X', version: '1', name_ar: 'س', name_en: 'x' })).status, 403);
+  });
+  it('platform admin loads control texts from Excel; controls become the assessable items', async () => {
+    const res = await fetch(`${base}/compliance/frameworks/${ecc}/template`, { headers: { authorization: `Bearer ${T.platform}` } });
+    const wb = new ExcelJS.Workbook();
+    await wb.xlsx.load(await res.arrayBuffer());
+    const ws = wb.worksheets[0];
+    assert.equal(ws.rowCount, 33);
+    ws.addRow(['2-9-1', 'control', '2-9', 'ضابط تجريبي للاختبار', 'Test control', '', '']);
+    ws.addRow(['2-9-2', 'control', '2-9', 'ضابط تجريبي ثانٍ', 'Second test control', '', '']);
+    const fd = new FormData();
+    fd.append('file', new Blob([await wb.xlsx.writeBuffer() as ArrayBuffer]), 'x.xlsx');
+    const imp = await fetch(`${base}/compliance/frameworks/${ecc}/import`, { method: 'POST', body: fd, headers: { authorization: `Bearer ${T.platform}` } });
+    const body = await imp.json();
+    assert.equal(imp.status, 201, JSON.stringify(body));
+    assert.equal(body.created, 2);
+    const s = (await api(T.ea, 'GET', '/compliance/summary')).body;
+    assert.equal(s.frameworks[0].total, 29, '27 subdomain leaves + 2 controls');
+  });
+  it('compliance report exports', async () => {
+    const res = await fetch(`${base}/compliance/report.xlsx`, { headers: { authorization: `Bearer ${T.ea}` } });
+    assert.equal(res.status, 200);
+    const wb = new ExcelJS.Workbook();
+    await wb.xlsx.load(await res.arrayBuffer());
+    assert.equal(wb.worksheets.length, 2);
+  });
+  it('national dashboard shows coverage as an aggregate only', async () => {
+    const n = (await api(T.national, 'GET', '/viewpoints/national')).body;
+    const a = n.entities.find((e: { tenant: string }) => e.tenant.includes('(أ)'));
+    assert.ok(a.coverage > 0 && a.coverage < 1);
+    assert.equal((await api(T.national, 'GET', '/compliance/summary')).status, 403);
   });
 });

@@ -45,6 +45,23 @@ for (const f of fs.readdirSync(path.join(root, 'db')).filter((f) => f.endsWith('
   console.log('applied', f);
 }
 
+// National compliance content (structure only; control texts are loaded by the platform admin).
+{
+  await db.query('begin');
+  await db.query(`select set_config('app.platform','on',true)`);
+  for (const f of fs.readdirSync(path.join(root, 'packages/seed')).filter((x) => x.startsWith('nca-') && x.endsWith('.json'))) {
+    const fw = JSON.parse(fs.readFileSync(path.join(root, 'packages/seed', f), 'utf8'));
+    const id = (await db.query(`insert into compliance_frameworks (code, version, name_ar, name_en, issuer_ar, issuer_en) values ($1,$2,$3,$4,$5,$6)
+      on conflict (code, version) do update set name_ar = excluded.name_ar returning id`, [fw.code, fw.version, fw.name_ar, fw.name_en, fw.issuer_ar, fw.issuer_en])).rows[0].id;
+    for (const it of fw.items) {
+      const parent = it.parent ? (await db.query('select id from compliance_items where framework_id=$1 and code=$2', [id, it.parent])).rows[0].id : null;
+      await db.query(`insert into compliance_items (framework_id, parent_id, code, level, title_ar, title_en, sort) values ($1,$2,$3,$4,$5,$6,$7)
+        on conflict (framework_id, code) do nothing`, [id, parent, it.code, it.level, it.title_ar, it.title_en, it.sort]);
+    }
+  }
+  await db.query('commit');
+}
+
 if (demo) {
   const { applyTemplate } = await import(path.join(root, 'apps/api/dist/tenants/tenants.js'));
   await db.query('begin');
@@ -126,6 +143,22 @@ if (demo) {
   await L(waf, 'Secures', portal, 'security_hardware', 'application');
   await L(edr, 'Secures', s1, 'security_software', 'server');
   await L(edr, 'Secures', erp, 'security_software', 'application');
+
+  // Compliance demo: entity A adopts ECC and maps a few security assets to subdomains.
+  const ecc = (await db.query(`select id from compliance_frameworks where code='ECC' and version='2:2024'`)).rows[0].id;
+  await db.query('insert into tenant_frameworks (tenant_id, framework_id, enabled) values ($1,$2,true) on conflict do nothing', [ea, ecc]);
+  const item = async (code) => (await db.query('select id from compliance_items where framework_id=$1 and code=$2', [ecc, code])).rows[0].id;
+  const A = (code, rec, status, extra = {}) => item(code).then((iid) => db.query(
+    `insert into control_assessments (tenant_id, item_id, record_id, status, evidence, assessed_at, remediation, due_date, updated_by) values ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+    [ea, iid, rec, status, extra.evidence ?? null, extra.assessed_at ?? null, extra.remediation ?? null, extra.due_date ?? null, owner]));
+  await A('2-5', fw, 'compliant');
+  await A('2-5', null, 'compliant', { evidence: 'سياسة أمن الشبكات المعتمدة وتقرير مراجعة قواعد الجدار الناري', assessed_at: '2026-10-01' });
+  await A('2-15', waf, 'compliant');
+  await A('2-15', null, 'partial', { evidence: 'جدار حماية تطبيقات الويب يغطي البوابة فقط', remediation: 'توسيع الحماية لتشمل نظام إدارة علاقات العملاء', due_date: '2027-03-31' });
+  await A('2-3', edr, 'compliant');
+  await A('2-3', null, 'compliant', { assessed_at: '2026-09-15' });
+  await A('2-12', null, 'non_compliant', { remediation: 'ربط السجلات بمركز العمليات الأمنية', due_date: '2027-01-31' });
+  await A('1-3', null, 'compliant');
   await db.query('commit');
   console.log('demo data loaded (password:', process.env.DEMO_PASSWORD ?? 'Bunyan@2026', ')');
 }

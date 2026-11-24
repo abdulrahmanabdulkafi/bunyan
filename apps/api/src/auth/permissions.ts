@@ -30,6 +30,9 @@ export type Permission =
   | 'reports.export'
   | 'audit.read'
   | 'integrations.manage'
+  | 'compliance.library'
+  | 'compliance.read'
+  | 'compliance.assess'
   | 'dashboard.sector'
   | 'dashboard.national';
 
@@ -47,6 +50,9 @@ const MATRIX: Record<Permission, Role[]> = {
   'reports.export': ['R2', 'R3', 'R4', 'R6', 'R7', 'R8', 'R9'],
   'audit.read': ['R0', 'R1', 'R2', 'R7'],
   'integrations.manage': ['R1', 'R2'],
+  'compliance.library': ['R0'],
+  'compliance.read': ['R2', 'R3', 'R4', 'R6', 'R7'],
+  'compliance.assess': ['R2', 'R3', 'R4'],
   'dashboard.sector': ['R2', 'R6', 'R8', 'R9'],
   'dashboard.national': ['R2', 'R6', 'R8', 'R9'],
 };
