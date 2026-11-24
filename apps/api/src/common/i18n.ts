@@ -3,6 +3,12 @@
  * (Accept-Language: en), the error filter translates them here. Add a line when you add a message.
  */
 const EN: Record<string, string> = {
+  'تعذّر قراءة الملف؛ احفظه بصيغة .xlsx وأعد المحاولة': 'The file could not be read. Save it as .xlsx and try again',
+  'لا توجد أوراق في الملف': 'The file has no sheets',
+  'الورقة غير موجودة': 'Sheet not found',
+  'اربط عموداً بسمة المطابقة': 'Map a column to the matching attribute',
+  'قيمة المطابقة فارغة': 'The matching value is empty',
+  'لا يوجد سجل مطابق؛ تخطّي': 'No matching record; skipped',
   'الحساب مقفل مؤقتاً بسبب محاولات دخول فاشلة': 'The account is temporarily locked after failed sign-in attempts',
   'محاولات كثيرة؛ انتظر قليلاً ثم حاول مجدداً': 'Too many attempts. Wait a little and try again',
   'انتهت صلاحية الطلب؛ سجّل الدخول من جديد': 'This request expired. Sign in again',
@@ -66,6 +72,10 @@ const AR: Record<string, string> = {
 };
 
 const PATTERNS_EN: [RegExp, (m: RegExpMatchArray) => string][] = [
+  [/^مكرر في الملف مع الصف (\d+)؛ يُحدَّث السجل نفسه$/, (m) => `Duplicate of row ${m[1]} in the file; the same record is updated`],
+  [/^لم يُعثر على «(.+)»$/, (m) => `“${m[1]}” not found`],
+  [/^سمة غير معرّفة في هذه الوحدة: (.+)$/, (m) => `Attribute not defined for this block: ${m[1]}`],
+  [/^الحد الأقصى (\d+) صف في الاستيراد الواحد$/, (m) => `At most ${m[1]} rows per import`],
   [/^يجب ألا تقل كلمة المرور عن (\d+) حرفاً$/, (m) => `Use at least ${m[1]} characters`],
   [/^قيمة غير مسموحة؛ القيم المتاحة: (.*)$/, (m) => `Value not allowed. Allowed values: ${m[1].replace(/،/g, ',')}`],
   [/^لا يمكن تنفيذ "(.+)" على سجل حالته (.+)$/, (m) => `Cannot ${m[1]} a record in status ${m[2]}`],

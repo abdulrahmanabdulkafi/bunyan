@@ -271,3 +271,14 @@ html[dir='ltr'] body { font-family: 'IBM Plex Sans Arabic', system-ui, sans-seri
 .cls-secret { color: #a8402c; background: var(--red-2); }
 .cls-restricted { color: #7a5410; background: var(--saffron-2); }
 .cls-public { color: var(--green); background: var(--green-2); }
+
+/* Import wizard */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+table.preview { font-size: 12px; }
+table.preview td, table.preview th { padding: 4px 8px; white-space: nowrap; max-width: 220px; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+table.preview tr.is-header td { background: var(--green-2); color: var(--green); font-weight: 600; }
+table.preview tr.is-above td { color: var(--ink-3, #8a8f8c); }
+table.preview tr:hover td { outline: 1px solid var(--rule); }
+select[aria-invalid='true'] { border-color: var(--red); }
+.bulkbar { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; padding: var(--s-2) var(--s-3); margin-bottom: var(--s-3);
+  background: var(--panel); border: 1px solid var(--green); border-radius: var(--r-sm); font-size: 14px; position: sticky; top: 0; z-index: 2; }

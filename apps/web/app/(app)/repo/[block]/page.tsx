@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { use, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { api, ApiError, canInScope, download, Rec } from '@/lib/api';
+import { api, ApiError, can, canInScope, download, Rec } from '@/lib/api';
 import { useSession } from '@/lib/session';
 import { AttrInput, display } from '@/lib/AttrInput';
 import { useI18n } from '@/lib/i18n';
@@ -24,6 +24,10 @@ export default function Repository({ params }: { params: Promise<{ block: string
   const dlg = useRef<HTMLDialogElement>(null);
   const [draft, setDraft] = useState<Record<string, unknown>>({});
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [sel, setSel] = useState<Set<string>>(new Set());
+  const [allMatching, setAllMatching] = useState(false);
+  const [bulkMsg, setBulkMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  const [reload, setReload] = useState(0);
 
   // Title attribute first, then up to five more columns.
   const columns = useMemo(() => {
@@ -38,7 +42,8 @@ export default function Repository({ params }: { params: Promise<{ block: string
     if (status) p.set('status', status);
     const timer = setTimeout(() => api<Page>(`/records?${p}`).then(setData).catch((e) => setError(e.message)), q ? 250 : 0);
     return () => clearTimeout(timer);
-  }, [block, code, q, status, page]);
+  }, [block, code, q, status, page, reload]);
+  useEffect(() => { setSel(new Set()); setAllMatching(false); }, [code, q, status]);
 
   if (!model) return <p className="hint">{t('common.loading')}</p>;
   if (!block) return <p>{t('repo.notFound')}</p>;
@@ -54,6 +59,29 @@ export default function Repository({ params }: { params: Promise<{ block: string
       if (e instanceof ApiError && e.errors.length) setFieldErrors(Object.fromEntries(e.errors.map((x) => [x.key, x.message])));
       else setError((e as Error).message);
     }
+  }
+
+  const actions = ([
+    ['submit', canWrite], ['review', can(user, 'records.review')], ['approve', can(user, 'records.approve')], ['archive', can(user, 'records.archive')],
+  ] as const).filter(([, ok]) => ok).map(([a]) => a);
+  const pageIds = data?.items.map((r) => r.id) ?? [];
+  const allOnPage = pageIds.length > 0 && pageIds.every((id) => sel.has(id));
+  const count = allMatching ? data?.total ?? 0 : sel.size;
+  const toggle = (id: string) => { const n = new Set(sel); if (n.has(id)) n.delete(id); else n.add(id); setSel(n); setAllMatching(false); };
+
+  async function bulk(action: string) {
+    setBulkMsg(null);
+    let comment: string | undefined;
+    if (action === 'reject') { comment = prompt(t('repo.bulk.reason')) ?? undefined; if (!comment) return; }
+    try {
+      const r = await api<{ done: number; failed: { id: string; message: string }[] }>('/records-bulk', {
+        method: 'POST', json: { action, comment, ...(allMatching ? { filter: { block: code, status: status || undefined, q: q || undefined } } : { ids: [...sel] }) },
+      });
+      setBulkMsg({ ok: !r.failed.length, text: r.failed.length
+        ? t('repo.bulk.partial', { d: r.done, f: r.failed.length, why: r.failed[0].message })
+        : t('repo.bulk.done', { d: r.done }) });
+      setSel(new Set()); setAllMatching(false); setReload((x) => x + 1);
+    } catch (e) { setBulkMsg({ ok: false, text: (e as Error).message }); }
   }
 
   return (
@@ -79,9 +107,24 @@ export default function Repository({ params }: { params: Promise<{ block: string
         </select>
       </div>
 
+      {bulkMsg && <div className={`banner ${bulkMsg.ok ? 'ok' : 'warn'}`} role="status">{bulkMsg.text}</div>}
+      {count > 0 && actions.length > 0 && (
+        <div className="bulkbar" role="region" aria-label={t('repo.bulk.label')}>
+          <span>{t('repo.bulk.selected', { n: count })}</span>
+          {allOnPage && !allMatching && data && data.total > pageIds.length && (
+            <button className="btn quiet" onClick={() => setAllMatching(true)}>{t('repo.bulk.all', { n: data.total })}</button>
+          )}
+          <span style={{ flex: 1 }} />
+          {actions.map((a) => <button key={a} className={`btn${a === 'approve' ? ' primary' : ''}`} onClick={() => bulk(a)}>{t(`repo.bulk.${a}`)}</button>)}
+          <button className="btn quiet" onClick={() => { setSel(new Set()); setAllMatching(false); }}>{t('common.cancel')}</button>
+        </div>
+      )}
+
       <div className="table-wrap">
         <table>
           <thead><tr>
+            {actions.length > 0 && <th style={{ width: 32 }}><input type="checkbox" aria-label={t('repo.bulk.page')} checked={allOnPage}
+              onChange={() => { setSel(allOnPage ? new Set() : new Set(pageIds)); setAllMatching(false); }} /></th>}
             <th>{nm(block.attributes.find((a) => a.key === block.title_key)) || t('common.name')}</th>
             {columns.map((c) => <th key={c.key}>{nm(c)}</th>)}
             <th>{t('common.status')}</th><th>{t('common.completeness')}</th>
@@ -89,6 +132,7 @@ export default function Repository({ params }: { params: Promise<{ block: string
           <tbody>
             {data?.items.map((r) => (
               <tr key={r.id}>
+                {actions.length > 0 && <td><input type="checkbox" aria-label={r.name} checked={allMatching || sel.has(r.id)} onChange={() => toggle(r.id)} /></td>}
                 <td><Link href={`/records/${r.id}`}>{r.name || t('common.unnamed')}</Link></td>
                 {columns.map((c) => <td key={c.key}>{display(c, r.attrs[c.key], nm)}</td>)}
                 <td><span className={`status st-${r.status}`}>{t(`status.${r.status}`)}</span></td>

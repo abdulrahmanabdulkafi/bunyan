@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Link from 'next/link';
 import { api, ApiError, canInScope, download } from '@/lib/api';
 import { useSession } from '@/lib/session';
 import { useI18n } from '@/lib/i18n';
@@ -83,6 +84,12 @@ export default function ImportExport() {
             )}
           </div>
         )}
+      </section>
+
+      <section className="section">
+        <h2>{t('io.wizardTitle')}</h2>
+        <p className="hint" style={{ marginBottom: 'var(--s-3)' }}>{t('io.wizardHint')}</p>
+        <Link className="btn primary" href="/io/wizard">{t('io.wizardOpen')}</Link>
       </section>
     </>
   );

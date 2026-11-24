@@ -597,3 +597,74 @@ describe('account security (NCA ECC 2-2)', () => {
     assert.equal(res.headers.get('x-powered-by'), null);
   });
 });
+
+describe('import wizard (any spreadsheet)', () => {
+  const wizard = async (path: string, wb: ExcelJS.Workbook, fields: Record<string, string>) => {
+    const fd = new FormData();
+    fd.append('file', new Blob([await wb.xlsx.writeBuffer() as ArrayBuffer]), 'inventory.xlsx');
+    for (const [k, v] of Object.entries(fields)) fd.append(k, v);
+    const r = await fetch(`${base}/io/wizard/${path}`, { method: 'POST', body: fd, headers: { authorization: `Bearer ${T.ea}` } });
+    return { status: r.status, body: await r.json() };
+  };
+  // An entity's own file: a title block above the table, Arabic headers, units inside numbers, a list of hosts per cell.
+  const book = () => {
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('حصر الخوادم');
+    ws.addRow(['حصر الأصول التقنية — 2026']);
+    ws.addRow([]);
+    ws.addRow(['اسم الخادم', 'الذاكرة', 'المعالجات', 'التطبيقات المستضافة']);
+    ws.addRow(['SRV-WZ-01', '16 GB', 8, 'تطبيق المعالج أ؛ تطبيق المعالج ب']);
+    ws.addRow(['SRV-WZ-02', '٣٢ GB', 'أربعة', '']);
+    ws.addRow(['SRV-WZ-01', '16 GB', 8, '']);
+    return wb;
+  };
+
+  it('finds the header row, maps columns, validates in a dry run, imports, links, and re-imports without duplicates', async () => {
+    const ins = await wizard('inspect', book(), {});
+    assert.equal(ins.status, 201, JSON.stringify(ins.body));
+    assert.equal(ins.body.header_row, 3);
+    assert.deepEqual(ins.body.columns.map((c: { header: string }) => c.header), ['اسم الخادم', 'الذاكرة', 'المعالجات', 'التطبيقات المستضافة']);
+
+    const model = (await api(T.ea, 'GET', '/metamodel')).body;
+    const hosts = model.relations.find((r: { source_code: string; target_code: string }) => r.source_code === 'server' && r.target_code === 'application');
+    const mapping = (extra: object) => JSON.stringify({
+      sheet: 'حصر الخوادم', header_row: 3, block: 'server',
+      columns: { 1: 'server_name', 2: 'random_access_memory_ram', 3: 'central_processing_units', 4: `rel:${hosts.id}` },
+      create_missing_links: true, ...extra,
+    });
+    const dry = await wizard('run', book(), { mapping: mapping({ dry_run: true }) });
+    assert.equal(dry.status, 201, JSON.stringify(dry.body));
+    assert.equal(dry.body.saved, false);
+    assert.equal(dry.body.errors, 1); // "أربعة" is not a number
+    assert.ok(dry.body.issues.some((i: { row: number; column: string; kind: string }) => i.row === 5 && i.column === 'المعالجات' && i.kind === 'error'));
+    assert.ok(dry.body.issues.some((i: { row: number; kind: string }) => i.row === 6 && i.kind === 'warning'));
+    assert.equal((await api(T.ea, 'GET', '/records?block=server&q=SRV-WZ')).body.total, 0);
+
+    const fixed = book();
+    fixed.worksheets[0].getCell('C5').value = 4;
+    const run = await wizard('run', fixed, { mapping: mapping({ dry_run: false }) });
+    assert.equal(run.body.saved, true, JSON.stringify(run.body));
+    assert.equal(run.body.created, 2);
+    assert.equal(run.body.linked, 2);
+    const list = (await api(T.ea, 'GET', '/records?block=server&q=SRV-WZ')).body;
+    assert.equal(list.total, 2);
+    const s1 = list.items.find((x: { name: string }) => x.name === 'SRV-WZ-01');
+    assert.equal(s1.attrs.random_access_memory_ram, 16);
+    assert.equal((await api(T.ea, 'GET', '/records?block=application&q=تطبيق المعالج')).body.total, 2);
+
+    const again = await wizard('run', fixed, { mapping: mapping({ dry_run: false }) });
+    assert.equal(again.body.created, 0);
+    assert.equal(again.body.updated, 0);
+    assert.equal(again.body.unchanged, 3);
+    assert.equal((await api(T.ea, 'GET', '/records?block=server&q=SRV-WZ')).body.total, 2);
+  });
+
+  it('approves many records at once, keeping maker-checker', async () => {
+    const ids = (await api(T.ea, 'GET', '/records?block=server&q=SRV-WZ')).body.items.map((x: { id: string }) => x.id);
+    const sub = await api(T.ea, 'POST', '/records-bulk', { ids, action: 'submit' });
+    assert.equal(sub.body.done, 2, JSON.stringify(sub.body));
+    const self = await api(T.ea, 'POST', '/records-bulk', { ids, action: 'approve' });
+    assert.equal(self.body.done, 0);
+    assert.equal(self.body.failed.length, 2);
+  });
+});

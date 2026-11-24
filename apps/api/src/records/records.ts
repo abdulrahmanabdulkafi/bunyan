@@ -3,7 +3,7 @@ import {
   NotFoundException, Param, Patch, Post, Query, UnprocessableEntityException,
 } from '@nestjs/common';
 import { z } from 'zod';
-import { Tx, audit, withActor } from '../common/db.js';
+import { Tx, audit, txIdOf, withActor } from '../common/db.js';
 import { CurrentUser, Perm, SessionUser, actorOf } from '../auth/auth.js';
 import { COST_KEYS, Permission, can, inScope } from '../auth/permissions.js';
 import { BlockDef, loadModel } from '../metamodel/metamodel.js';
@@ -26,8 +26,12 @@ export function stripCost(u: SessionUser, r: { attrs: Record<string, unknown> })
 
 @Injectable()
 export class RecordsService {
+  // One transaction sees one meta-model: cache it per transaction (bulk imports call this per row).
+  private models = new WeakMap<Tx, { id: number; p: Promise<Awaited<ReturnType<typeof loadModel>>> }>();
   async block(tx: Tx, code: string): Promise<BlockDef> {
-    const m = await loadModel(tx);
+    let c = this.models.get(tx);
+    if (!c || c.id !== txIdOf(tx)) { c = { id: txIdOf(tx), p: loadModel(tx) }; this.models.set(tx, c); }
+    const m = await c.p;
     const b = m.blocks.find((x) => x.code === code);
     if (!b) throw new NotFoundException('وحدة البناء غير موجودة');
     return b;
@@ -70,6 +74,8 @@ export class RecordsService {
     if (!can(u.roles, 'cost.read')) for (const k of Object.keys(cur.attrs)) if (COST_KEYS.test(k)) merged[k] = cur.attrs[k];
     const { attrs, errors } = validateAttrs(b, merged);
     if (errors.length) throw new UnprocessableEntityException({ message: 'أخطاء في البيانات', errors });
+    // A save that changes nothing (e.g. re-importing the same file) must not send an approved record back to draft.
+    if (stable(attrs) === stable(cur.attrs)) return { ...cur, unchanged: true };
     // Editing an approved/submitted record sends it back to draft so the change is re-approved.
     const { rows } = await tx.query(
       `update records set attrs=$2, name=$3, version=version+1, status='draft', updated_by=app_user(), updated_at=now() where id=$1 returning *`,
@@ -113,6 +119,12 @@ export class RecordsService {
     await audit(tx, actorOf(u), 'link', 'record_link', rows[0].id, null, rows[0]);
     return rows[0];
   }
+}
+
+function stable(v: unknown): string {
+  if (Array.isArray(v)) return `[${v.map(stable).join(',')}]`;
+  if (v && typeof v === 'object') return `{${Object.keys(v).sort().filter((k) => (v as Record<string, unknown>)[k] !== undefined && (v as Record<string, unknown>)[k] !== null && (v as Record<string, unknown>)[k] !== '').map((k) => JSON.stringify(k) + ':' + stable((v as Record<string, unknown>)[k])).join(',')}}`;
+  return JSON.stringify(v);
 }
 
 const ListQuery = z.object({

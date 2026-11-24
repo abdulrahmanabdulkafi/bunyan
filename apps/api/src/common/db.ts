@@ -11,6 +11,8 @@ export interface Actor {
 }
 
 export type Tx = pg.PoolClient;
+let txCounter = 0;
+export const txIdOf = (tx: Tx) => (tx as Tx & { txId?: number }).txId ?? 0;
 
 /**
  * Run `fn` in a transaction with the actor's context loaded into session settings
@@ -20,6 +22,8 @@ export async function withActor<T>(actor: Actor, fn: (tx: Tx) => Promise<T>): Pr
   const client = await pool.connect();
   try {
     await client.query('begin');
+    // Pooled clients are reused: give each transaction its own id so per-transaction caches never go stale.
+    (client as Tx & { txId?: number }).txId = ++txCounter;
     await client.query(
       `select set_config('app.tenant_id', $1, true), set_config('app.user_id', $2, true), set_config('app.platform', $3, true)`,
       [actor.tenantId ?? '', actor.userId ?? '', actor.platform ? 'on' : 'off'],
