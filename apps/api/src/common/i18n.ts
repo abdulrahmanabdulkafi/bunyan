@@ -37,6 +37,9 @@ const EN: Record<string, string> = {
   'نوع موصّل غير معروف': 'Unknown connector type',
   'حقول ناقصة': 'Some required fields are missing',
   'vCenter رفض بيانات الدخول': 'vCenter rejected the credentials',
+  'معرّف مكرر أو فارغ في المصدر': 'Duplicate or empty id in the source',
+  'الدليل النشط رفض بيانات الدخول': 'Active Directory rejected the credentials',
+  'العنوان يجب أن يبدأ بـ ldaps://': 'The address must start with ldaps://',
   'لم يُعثر على قائمة في الاستجابة؛ راجع مسار القائمة': 'No list found in the response. Check the list path',
   'مدير المنصة يضيف مسؤول الجهة الأول أو مستعرضي اللوحات فقط': 'The platform admin only adds the first entity admin or dashboard viewers',
 };

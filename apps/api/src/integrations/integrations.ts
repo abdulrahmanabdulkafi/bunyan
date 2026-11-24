@@ -117,7 +117,13 @@ export class IntegrationsService {
         for (const { target, items } of fetched) {
           const block = model.blocks.find((b) => b.code === target.block);
           if (!block?.active) { note({ kind: 'error', message: `وحدة البناء ${target.block} غير مفعّلة` }); continue; }
-          for (const item of items) await this.upsert(tx, conn, block, target.fields, target.mode, item, sum, note);
+          // A source that returns the same id twice (or none) would silently merge different objects: report it instead.
+          const seen = new Set<string>();
+          for (const item of items) {
+            if (!item.externalId || seen.has(item.externalId)) { note({ kind: 'error', external_id: item.externalId, message: 'معرّف مكرر أو فارغ في المصدر' }); continue; }
+            seen.add(item.externalId);
+            await this.upsert(tx, conn, block, target.fields, target.mode, item, sum, note);
+          }
         }
         if (dry) await tx.query('rollback to savepoint dry');
         else await tx.query('update connectors set last_run_at = now() where id=$1', [id]);

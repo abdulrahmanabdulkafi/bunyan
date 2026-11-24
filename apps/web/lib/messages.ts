@@ -305,7 +305,7 @@ const integrations: M = {
   'int.every.1440': { ar: 'يومياً', en: 'Daily' },
   'int.every.10080': { ar: 'أسبوعياً', en: 'Weekly' },
   'int.never': { ar: 'لم يُشغَّل بعد', en: 'Not run yet' },
-  'int.empty': { ar: 'لا توجد موصّلات. أضف موصّلاً لـ vCenter أو لأي واجهة JSON.', en: 'No connectors yet. Add one for vCenter or any JSON API.' },
+  'int.empty': { ar: 'لا توجد موصّلات. أضف موصّلاً لـ vCenter أو Active Directory أو لأي واجهة JSON.', en: 'No connectors yet. Add one for vCenter, Active Directory or any JSON API.' },
   'int.status.running': { ar: 'قيد التشغيل', en: 'Running' },
   'int.status.succeeded': { ar: 'نجح', en: 'Succeeded' },
   'int.status.failed': { ar: 'فشل', en: 'Failed' },

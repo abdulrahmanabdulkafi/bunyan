@@ -7,6 +7,7 @@ import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import http from 'node:http';
 import type { AddressInfo } from 'node:net';
+import ldap from 'ldapjs';
 import pg from 'pg';
 import { createApp } from '../main.js';
 import { pool } from '../common/db.js';
@@ -452,5 +453,55 @@ describe('compliance (NCA ECC)', () => {
     const a = n.entities.find((e: { tenant: string }) => e.tenant.includes('(أ)'));
     assert.ok(a.coverage > 0 && a.coverage < 1);
     assert.equal((await api(T.national, 'GET', '/compliance/summary')).status, 403);
+  });
+});
+
+describe('integrations (Active Directory)', () => {
+  let server: ldap.Server;
+  let url = '';
+  const BIND = 'cn=svc-bunyan,dc=demo,dc=local';
+  const computers = [
+    { dn: 'cn=SRV-ERP-01,ou=servers,dc=demo,dc=local', attributes: { cn: 'SRV-ERP-01', objectGUID: 'guid-erp', operatingSystem: 'Windows Server 2022 Datacenter', operatingSystemVersion: '10.0 (20348)', objectCategory: 'computer' } },
+    { dn: 'cn=srv-hr-02,ou=servers,dc=demo,dc=local', attributes: { cn: 'srv-hr-02', objectGUID: 'guid-hr', operatingSystem: 'Windows Server 2019 Standard', operatingSystemVersion: '10.0 (17763)', objectCategory: 'computer' } },
+    { dn: 'cn=LAPTOP-7,ou=workstations,dc=demo,dc=local', attributes: { cn: 'LAPTOP-7', objectGUID: 'guid-lt', operatingSystem: 'Windows 11 Enterprise', objectCategory: 'computer' } },
+  ];
+  before(async () => {
+    server = ldap.createServer();
+    server.bind('dc=demo,dc=local', (req: any, res: any, next: any) => {
+      if (req.dn.toString() === BIND && req.credentials === 'ad-secret') { res.end(); return next(); }
+      return next(new ldap.InvalidCredentialsError());
+    });
+    server.search('dc=demo,dc=local', (req: any, res: any, next: any) => {
+      // ldapjs only echoes requested attributes whose names match in lower case — which also exercises
+      // the connector's case-insensitive attribute handling.
+      const lower = (a: object) => Object.fromEntries(Object.entries(a).map(([k, v]) => [k.toLowerCase(), v]));
+      for (const c of computers) if (c.dn.endsWith(req.dn.toString()) && req.filter.matches(c.attributes)) res.send({ dn: c.dn, attributes: lower(c.attributes) });
+      res.end(); next();
+    });
+    await new Promise<void>((r) => server.listen(0, '127.0.0.1', () => r()));
+    url = `ldap://127.0.0.1:${((server as any).server.address() as AddressInfo).port}`;
+  });
+  after(() => { server.close(() => undefined); });
+
+  it('reads server computers only, merges by name, and creates the rest', async () => {
+    const c = await api(T.ea, 'POST', '/integrations', {
+      name: 'AD', type: 'active_directory', settings: { url, base_dn: 'dc=demo,dc=local' }, secret: { bind_dn: BIND, password: 'ad-secret' },
+    });
+    assert.equal(c.status, 201, JSON.stringify(c.body));
+    assert.equal((await api(T.ea, 'POST', `/integrations/${c.body.id}/test`)).body.ok, true);
+    const r = await api(T.ea, 'POST', `/integrations/${c.body.id}/run`);
+    assert.equal(r.body.status, 'succeeded', JSON.stringify(r.body.details));
+    assert.deepEqual([r.body.created, r.body.updated], [1, 1], 'the workstation is filtered out');
+    const hr = (await api(T.ea, 'GET', '/records?block=server&q=SRV-HR-02')).body.items[0];
+    assert.equal(hr.name, 'SRV-HR-02', 'name upper-cased by the default mapping');
+    assert.equal(hr.attrs.operating_system_type, 'Windows Server 2019 Standard');
+    const erp = (await api(T.ea, 'GET', '/records?block=server&q=SRV-ERP-01')).body.items[0];
+    assert.equal(erp.attrs.operating_system_version, '10.0 (20348)');
+  });
+  it('reports wrong credentials without changing anything', async () => {
+    const c = await api(T.ea, 'POST', '/integrations', { name: 'AD bad', type: 'active_directory', settings: { url, base_dn: 'dc=demo,dc=local' }, secret: { bind_dn: BIND, password: 'nope' } });
+    const r = await api(T.ea, 'POST', `/integrations/${c.body.id}/run`);
+    assert.equal(r.body.status, 'failed');
+    assert.equal(r.body.created + r.body.updated, 0);
   });
 });

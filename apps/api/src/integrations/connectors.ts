@@ -1,4 +1,6 @@
-import { HttpOpts, pick, requestJson } from './http.js';
+import dns from 'node:dns/promises';
+import { Client as LdapClient } from 'ldapts';
+import { HttpOpts, blockedAddress, pick, requestJson } from './http.js';
 
 /** One kind of object a connector reads (e.g. vCenter hosts, vCenter VMs). */
 export interface SourceEntity {
@@ -188,5 +190,82 @@ const JSON_API: ConnectorType = {
   },
 };
 
-export const CONNECTOR_TYPES: Record<string, ConnectorType> = { vcenter: VCENTER, json_api: JSON_API };
+// ───────────── Active Directory (LDAP, read-only) ─────────────
+async function ldapClient(config: Record<string, unknown>) {
+  const url = new URL(String(config.url));
+  if (url.protocol !== 'ldaps:' && url.protocol !== 'ldap:') throw new SourceError('العنوان يجب أن يبدأ بـ ldaps://');
+  const { address } = await dns.lookup(url.hostname);
+  if (blockedAddress(address)) throw new SourceError(`blocked address ${address}`);
+  return new LdapClient({
+    url: url.toString().replace(/\/$/, ''),
+    timeout: 30_000, connectTimeout: 10_000,
+    tlsOptions: url.protocol === 'ldaps:' ? { rejectUnauthorized: config.allow_self_signed !== true, ca: (config.ca_cert as string) || undefined } : undefined,
+  });
+}
+
+const AD_ATTRS = ['cn', 'dNSHostName', 'operatingSystem', 'operatingSystemVersion', 'description', 'location', 'managedBy', 'whenCreated', 'objectGUID', 'distinguishedName'];
+
+const ACTIVE_DIRECTORY: ConnectorType = {
+  type: 'active_directory',
+  name_ar: 'Active Directory',
+  name_en: 'Active Directory',
+  description_ar: 'يقرأ حسابات أجهزة الخوادم من الدليل النشط عبر LDAP (قراءة فقط) ويحدّث سجلات الخوادم.',
+  description_en: 'Reads server computer accounts from Active Directory over LDAP (read-only) and updates server records.',
+  settings: [
+    { key: 'url', name_ar: 'عنوان الخادم', name_en: 'Server URL', type: 'url', required: true, hint_ar: 'مثال: ldaps://dc01.example.gov.sa:636', hint_en: 'e.g. ldaps://dc01.example.gov.sa:636' },
+    { key: 'base_dn', name_ar: 'نقطة البدء في الدليل (Base DN)', name_en: 'Base DN', type: 'text', required: true, hint_ar: 'مثال: OU=Servers,DC=example,DC=gov,DC=sa', hint_en: 'e.g. OU=Servers,DC=example,DC=gov,DC=sa' },
+    { key: 'filter', name_ar: 'مرشّح البحث', name_en: 'Search filter', type: 'text', hint_ar: 'الافتراضي: أجهزة أنظمة الخوادم فقط', hint_en: 'Default: server operating systems only' },
+    { key: 'bind_dn', name_ar: 'حساب الربط (قراءة فقط)', name_en: 'Bind account (read-only)', type: 'text', required: true, secret: true, hint_ar: 'مثال: svc-bunyan@example.gov.sa', hint_en: 'e.g. svc-bunyan@example.gov.sa' },
+    { key: 'password', name_ar: 'كلمة المرور', name_en: 'Password', type: 'text', required: true, secret: true },
+    { key: 'allow_self_signed', name_ar: 'قبول شهادة موقعة ذاتياً', name_en: 'Accept self-signed certificate', type: 'boolean' },
+    { key: 'ca_cert', name_ar: 'شهادة الجهة المصدِّرة (PEM)', name_en: 'CA certificate (PEM)', type: 'textarea' },
+  ],
+  entities: () => [{
+    key: 'computer', name_ar: 'أجهزة الخوادم', name_en: 'Server computers', defaultBlock: 'server',
+    fields: [
+      { path: 'cn', name_ar: 'الاسم', name_en: 'Name' },
+      { path: 'dNSHostName', name_ar: 'اسم النطاق', name_en: 'DNS host name' },
+      { path: 'operatingSystem', name_ar: 'نظام التشغيل', name_en: 'Operating system' },
+      { path: 'operatingSystemVersion', name_ar: 'إصدار نظام التشغيل', name_en: 'OS version' },
+      { path: 'description', name_ar: 'الوصف', name_en: 'Description' },
+      { path: 'location', name_ar: 'الموقع', name_en: 'Location' },
+      { path: 'managedBy', name_ar: 'المسؤول', name_en: 'Managed by' },
+    ],
+    defaultMap: [
+      { from: 'cn', to: 'server_name', transform: 'upper' },
+      { from: 'operatingSystem', to: 'operating_system_type' },
+      { from: 'operatingSystemVersion', to: 'operating_system_version' },
+    ],
+  }],
+  async test(config, secret) {
+    const c = await ldapClient(config);
+    try { await c.bind(secret.bind_dn, secret.password); return 'bind ok'; }
+    catch { throw new SourceError('الدليل النشط رفض بيانات الدخول'); }
+    finally { await c.unbind().catch(() => undefined); }
+  },
+  async fetch(config, secret) {
+    const c = await ldapClient(config);
+    try {
+      try { await c.bind(secret.bind_dn, secret.password); } catch { throw new SourceError('الدليل النشط رفض بيانات الدخول'); }
+      const filter = String(config.filter || '(&(objectCategory=computer)(operatingSystem=*Server*))');
+      const { searchEntries } = await c.search(String(config.base_dn), {
+        // Attribute names are case-insensitive in LDAP; requesting them in lower case works with every directory server.
+        scope: 'sub', filter, attributes: AD_ATTRS.map((a) => a.toLowerCase()), paged: { pageSize: 500 }, explicitBufferAttributes: ['objectGUID', 'objectguid'],
+      });
+      return searchEntries.map((e) => {
+        const data: Record<string, unknown> = {};
+        // LDAP attribute names are case-insensitive; normalise to AD's canonical spelling so mappings always match.
+        const canonical = new Map(AD_ATTRS.map((a) => [a.toLowerCase(), a]));
+        for (const [k, v] of Object.entries(e)) data[canonical.get(k.toLowerCase()) ?? k] = Array.isArray(v) ? (v.length === 1 ? v[0] : v) : v;
+        // objectGUID survives renames and OU moves, so it is the stable key; fall back to the DN.
+        const guid = data.objectGUID;
+        const id = (Buffer.isBuffer(guid) && guid.length ? guid.toString('hex') : typeof guid === 'string' ? guid : '') || String(e.dn);
+        delete data.objectGUID;
+        return { externalId: id, data };
+      });
+    } finally { await c.unbind().catch(() => undefined); }
+  },
+};
+
+export const CONNECTOR_TYPES: Record<string, ConnectorType> = { vcenter: VCENTER, active_directory: ACTIVE_DIRECTORY, json_api: JSON_API };
 export { SourceError };
