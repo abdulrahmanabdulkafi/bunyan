@@ -43,6 +43,17 @@ export class AppModule {}
 export async function createApp() {
   const app = await NestFactory.create(AppModule, { logger: ['error', 'warn'] });
   app.enableCors({ origin: config.corsOrigin.split(','), credentials: false });
+  app.getHttpAdapter().getInstance().disable('x-powered-by');
+  // Baseline response hardening for an API that serves JSON and file downloads only.
+  app.use((_req: unknown, res: { setHeader: (k: string, v: string) => void }, next: () => void) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Referrer-Policy', 'no-referrer');
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'");
+    if (process.env.NODE_ENV === 'production') res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    next();
+  });
   app.useGlobalFilters(new ErrorFilter());
   app.setGlobalPrefix('api');
   return app;

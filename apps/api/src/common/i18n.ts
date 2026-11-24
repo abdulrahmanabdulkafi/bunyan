@@ -3,6 +3,20 @@
  * (Accept-Language: en), the error filter translates them here. Add a line when you add a message.
  */
 const EN: Record<string, string> = {
+  'الحساب مقفل مؤقتاً بسبب محاولات دخول فاشلة': 'The account is temporarily locked after failed sign-in attempts',
+  'محاولات كثيرة؛ انتظر قليلاً ثم حاول مجدداً': 'Too many attempts. Wait a little and try again',
+  'انتهت صلاحية الطلب؛ سجّل الدخول من جديد': 'This request expired. Sign in again',
+  'رمز التحقق غير صحيح': 'The verification code is incorrect',
+  'فعّل التحقق الثنائي أولاً': 'Set up two-step verification first',
+  'غيّر كلمة المرور أولاً': 'Change your password first',
+  'التحقق الثنائي مفعّل مسبقاً': 'Two-step verification is already on',
+  'ابدأ إعداد التحقق الثنائي أولاً': 'Start two-step verification setup first',
+  'كلمة المرور الحالية غير صحيحة': 'The current password is incorrect',
+  'كلمة المرور لا تستوفي السياسة': 'The password does not meet the policy',
+  'يجب أن تجمع كلمة المرور ثلاثة على الأقل من: حروف صغيرة، حروف كبيرة، أرقام، رموز': 'Use at least three of: lowercase letters, uppercase letters, digits, symbols',
+  'يجب ألا تتضمن كلمة المرور اسم المستخدم': 'The password must not contain the user name',
+  'يجب أن تختلف كلمة المرور الجديدة عن الحالية': 'The new password must differ from the current one',
+  'لا يمكنك تعطيل حسابك أو إزالة صلاحياتك بنفسك': 'You cannot disable your own account or remove your own roles',
   'بيانات الدخول غير صحيحة': 'Incorrect email or password',
   'المستخدم غير مسجل في المنصة': 'This user is not registered on the platform',
   'خارج نطاق صلاحياتك': 'This is outside your permissions',
@@ -52,6 +66,7 @@ const AR: Record<string, string> = {
 };
 
 const PATTERNS_EN: [RegExp, (m: RegExpMatchArray) => string][] = [
+  [/^يجب ألا تقل كلمة المرور عن (\d+) حرفاً$/, (m) => `Use at least ${m[1]} characters`],
   [/^قيمة غير مسموحة؛ القيم المتاحة: (.*)$/, (m) => `Value not allowed. Allowed values: ${m[1].replace(/،/g, ',')}`],
   [/^لا يمكن تنفيذ "(.+)" على سجل حالته (.+)$/, (m) => `Cannot ${m[1]} a record in status ${m[2]}`],
   [/^vCenter أعاد الحالة (\d+)$/, (m) => `vCenter returned status ${m[1]}`],

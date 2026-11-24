@@ -12,6 +12,7 @@ import pg from 'pg';
 import { createApp } from '../main.js';
 import { pool } from '../common/db.js';
 import { config } from '../common/config.js';
+import { totp } from '../common/crypto.js';
 
 let base = '';
 let app: Awaited<ReturnType<typeof createApp>>;
@@ -517,5 +518,82 @@ describe('integrations (Active Directory)', () => {
     const r = await api(T.ea, 'POST', `/integrations/${c.body.id}/run`);
     assert.equal(r.body.status, 'failed');
     assert.equal(r.body.created + r.body.updated, 0);
+  });
+});
+
+describe('account security (NCA ECC 2-2)', () => {
+  const strong = 'Sahm-Qawi#2026x';
+  let tmpUser = { id: '', email: 'new.user@a.local', temp: '' };
+  it('enforces the password policy and a one-time password for new accounts', async () => {
+    const weak = await api(T.admin, 'POST', '/users', { email: 'weak@a.local', display_name: 'ضعيف', password: 'abc12345', roles: ['R6'] });
+    assert.equal(weak.status, 400);
+    const r = await api(T.admin, 'POST', '/users', { email: tmpUser.email, display_name: 'مستخدم جديد', roles: ['R6'] });
+    assert.equal(r.status, 201, JSON.stringify(r.body));
+    assert.ok(r.body.temporary_password);
+    tmpUser = { id: r.body.id, email: tmpUser.email, temp: r.body.temporary_password };
+  });
+  it('a first sign-in must change the password before doing anything else', async () => {
+    const l = await api('', 'POST', '/auth/login', { email: tmpUser.email, password: tmpUser.temp });
+    assert.equal(l.body.limited, 'password_change');
+    assert.equal((await api(l.body.token, 'GET', '/records?block=application')).status, 403);
+    assert.equal((await api(l.body.token, 'POST', '/auth/password', { current: tmpUser.temp, next: 'short' })).status, 400);
+    const c = await api(l.body.token, 'POST', '/auth/password', { current: tmpUser.temp, next: strong });
+    assert.equal(c.status, 201, JSON.stringify(c.body));
+    assert.equal(c.body.limited, null);
+    assert.equal((await api(c.body.token, 'GET', '/records?block=application')).status, 200);
+    assert.equal((await api(l.body.token, 'GET', '/auth/me')).status, 401, 'the old session ends after a password change');
+  });
+  it('locks the account after repeated failures; the admin can unlock it', async () => {
+    for (let i = 0; i < 5; i++) await api('', 'POST', '/auth/login', { email: tmpUser.email, password: 'Wrong-Password-1' });
+    const locked = await api('', 'POST', '/auth/login', { email: tmpUser.email, password: strong });
+    assert.equal(locked.status, 423);
+    assert.equal((await api(T.admin, 'POST', `/users/${tmpUser.id}/unlock`)).status, 201);
+    assert.equal((await api('', 'POST', '/auth/login', { email: tmpUser.email, password: strong })).status, 201);
+  });
+  it('two-step verification with an authenticator app', async () => {
+    const t = (await api('', 'POST', '/auth/login', { email: tmpUser.email, password: strong })).body.token;
+    const setup = await api(t, 'POST', '/auth/mfa/setup');
+    assert.match(setup.body.otpauth, /^otpauth:\/\/totp\//);
+    assert.equal((await api(t, 'POST', '/auth/mfa/enable', { code: '000000' })).status, 400);
+    const en = await api(t, 'POST', '/auth/mfa/enable', { code: totp(setup.body.secret) });
+    assert.equal(en.status, 201, JSON.stringify(en.body));
+    const step1 = await api('', 'POST', '/auth/login', { email: tmpUser.email, password: strong });
+    assert.equal(step1.body.mfa_required, true);
+    assert.equal(step1.body.token, undefined, 'no session before the second factor');
+    assert.equal((await api(step1.body.challenge, 'GET', '/auth/me')).status, 401, 'a challenge is not a session');
+    assert.equal((await api('', 'POST', '/auth/mfa/verify', { challenge: step1.body.challenge, code: '123456' })).status, 401);
+    const ok = await api('', 'POST', '/auth/mfa/verify', { challenge: step1.body.challenge, code: totp(setup.body.secret) });
+    assert.equal(ok.status, 201);
+    assert.equal((await api(ok.body.token, 'GET', '/auth/me')).body.mfaEnabled, true);
+  });
+  it('privileged roles must enrol in two-step verification', async () => {
+    process.env.MFA_REQUIRED_ROLES = 'R2';
+    try {
+      const l = await api('', 'POST', '/auth/login', { email: 'ea@b.local', password: PW });
+      assert.equal(l.body.limited, 'mfa_setup');
+      assert.equal((await api(l.body.token, 'GET', '/metamodel')).status, 403);
+      assert.equal((await api(l.body.token, 'POST', '/auth/mfa/setup')).status, 201);
+    } finally { process.env.MFA_REQUIRED_ROLES = 'none'; }
+  });
+  it('disabling an account ends its sessions immediately', async () => {
+    const r = await api(T.admin, 'POST', '/users', { email: 'temp2@a.local', display_name: 'مؤقت', roles: ['R6'], password: 'Another-Strong#2026' });
+    const l = await api('', 'POST', '/auth/login', { email: 'temp2@a.local', password: 'Another-Strong#2026' });
+    const c = await api(l.body.token, 'POST', '/auth/password', { current: 'Another-Strong#2026', next: strong + 'y' });
+    assert.equal((await api(c.body.token, 'GET', '/auth/me')).status, 200);
+    await api(T.admin, 'PATCH', `/users/${r.body.id}`, { active: false });
+    assert.equal((await api(c.body.token, 'GET', '/auth/me')).status, 401);
+  });
+  it('an admin cannot disable their own account; sessions can be renewed', async () => {
+    const me = (await api(T.admin, 'GET', '/auth/me')).body;
+    assert.equal((await api(T.admin, 'PATCH', `/users/${me.id}`, { active: false })).status, 400);
+    const r = await api(T.admin, 'POST', '/auth/refresh');
+    assert.equal(r.status, 201);
+    assert.ok(r.body.token);
+  });
+  it('sends hardening headers', async () => {
+    const res = await fetch(`${base}/auth/policy`);
+    assert.equal(res.headers.get('x-frame-options'), 'DENY');
+    assert.equal(res.headers.get('x-content-type-options'), 'nosniff');
+    assert.equal(res.headers.get('x-powered-by'), null);
   });
 });

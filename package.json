@@ -11,7 +11,8 @@
     "build": "npm --workspace apps/api run build && npm --workspace apps/web run build",
     "dev:api": "npm --workspace apps/api run dev",
     "dev:web": "npm --workspace apps/web run dev",
-    "test": "npm --workspace apps/api test"
+    "test": "npm --workspace apps/api test",
+    "admin:create": "node scripts/create-admin.mjs"
   },
   "devDependencies": {
     "bcryptjs": "^3.0.3",

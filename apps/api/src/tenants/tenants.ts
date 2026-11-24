@@ -1,10 +1,11 @@
-import { Body, Controller, ForbiddenException, Get, Injectable, Param, Patch, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, ForbiddenException, Get, Injectable, NotFoundException, Param, Patch, Post } from '@nestjs/common';
 import fs from 'node:fs';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { config } from '../common/config.js';
 import { Actor, Tx, audit, withActor } from '../common/db.js';
-import { CurrentUser, Perm, SessionUser, actorOf } from '../auth/auth.js';
+import { CurrentUser, Perm, SessionUser, actorOf, forgetAccount } from '../auth/auth.js';
+import { passwordProblems, temporaryPassword } from '../common/crypto.js';
 import { ROLES } from '../auth/permissions.js';
 
 export interface SeedBlock {
@@ -56,7 +57,8 @@ const TenantDto = z.object({
 const UserDto = z.object({
   email: z.string().email(),
   display_name: z.string().min(2),
-  password: z.string().min(10).optional(),
+  password: z.string().min(1).optional(),
+  sso_only: z.boolean().default(false),
   roles: z.array(z.enum(Object.keys(ROLES) as [string, ...string[]])).default(['R6']),
   scope: z.object({ domains: z.array(z.string()).optional(), blocks: z.array(z.string()).optional() }).default({}),
   tenant_id: z.string().uuid().optional(),
@@ -80,22 +82,38 @@ export class TenantsService {
     const dto = UserDto.parse(body);
     const isPlatform = u.roles.includes('R0');
     const tenantId = isPlatform ? (dto.tenant_id ?? null) : u.tenantId;
-    // R0 only creates the first admin of an entity (◐ in the matrix); R1 manages everyone else in their entity.
+    // R0 only creates the first admin of an entity and dashboard viewers (◐ in the matrix); R1 manages everyone else in their entity.
     if (isPlatform && !dto.roles.every((r) => r === 'R1' || r === 'R8' || r === 'R9')) {
       throw new ForbiddenException('مدير المنصة يضيف مسؤول الجهة الأول أو مستعرضي اللوحات فقط');
     }
     if (!isPlatform && dto.roles.some((r) => r === 'R0' || r === 'R8' || r === 'R9')) throw new ForbiddenException();
-    const hash = dto.password ? await bcrypt.hash(dto.password, 12) : null;
+    if (dto.roles.includes('R1') || dto.roles.some((r) => !['R8', 'R9'].includes(r))) {
+      if (!tenantId) throw new BadRequestException({ message: 'حقول ناقصة', errors: [{ key: 'tenant_id', message: 'حقل إلزامي' }] });
+    }
+    // Without SSO every account starts with a one-time password that must be changed at first sign-in.
+    const temporary = dto.sso_only ? null : dto.password ?? temporaryPassword();
+    if (dto.password) {
+      const problems = passwordProblems(dto.password, dto.email);
+      if (problems.length) throw new BadRequestException({ message: 'كلمة المرور لا تستوفي السياسة', errors: problems.map((m) => ({ key: 'password', message: m })) });
+    }
+    const hash = temporary ? await bcrypt.hash(temporary, 12) : null;
     return withActor(actor, async (tx) => {
       const { rows } = await tx.query(
-        `insert into users (tenant_id, email, display_name, password_hash, roles, scope) values ($1,lower($2),$3,$4,$5,$6)
+        `insert into users (tenant_id, email, display_name, password_hash, roles, scope, must_change_password) values ($1,lower($2),$3,$4,$5,$6,$7)
          returning id, tenant_id, email, display_name, roles, scope, active`,
-        [tenantId, dto.email, dto.display_name, hash, dto.roles, JSON.stringify(dto.scope)]);
+        [tenantId, dto.email, dto.display_name, hash, dto.roles, JSON.stringify(dto.scope), !!temporary]);
       await audit(tx, actor, 'create', 'user', rows[0].id, null, rows[0], tenantId);
-      return rows[0];
+      return { ...rows[0], temporary_password: temporary };
     });
   }
 }
+
+const USER_COLS = `u.id, u.tenant_id, t.name_ar as tenant_name_ar, t.name_en as tenant_name_en, u.email, u.display_name, u.roles, u.scope, u.active,
+  u.mfa_enabled, u.must_change_password, u.failed_attempts, (u.locked_until > now()) as locked, u.last_login_at, u.created_at`;
+const TenantPatch = z.object({
+  name_ar: z.string().min(2), name_en: z.string().nullable(), active: z.boolean(),
+  classification: z.enum(['top_secret', 'secret', 'restricted', 'public']), parent_id: z.string().uuid().nullable(),
+}).partial();
 
 @Controller()
 export class TenantsController {
@@ -103,7 +121,10 @@ export class TenantsController {
 
   @Get('tenants')
   list(@CurrentUser() u: SessionUser) {
-    return withActor(actorOf(u), async (tx) => (await tx.query('select * from tenants order by kind, name_ar')).rows);
+    return withActor(actorOf(u), async (tx) => (await tx.query(
+      `select t.*, (select count(*) from users x where x.tenant_id = t.id) as users,
+              (select count(*) from records r where r.tenant_id = t.id and r.status <> 'archived') as records
+         from tenants t order by kind desc, name_ar`)).rows);
   }
 
   @Perm('tenant.manage')
@@ -112,11 +133,29 @@ export class TenantsController {
     return this.svc.create(actorOf(u), body);
   }
 
+  /** R0 edits any entity; an entity's own admin (R1) may set its data classification. */
+  @Patch('tenants/:id')
+  patchTenant(@CurrentUser() u: SessionUser, @Param('id') id: string, @Body() body: unknown) {
+    const p = TenantPatch.parse(body);
+    const platform = u.roles.includes('R0');
+    if (!platform && !(u.roles.includes('R1') && u.tenantId === id && Object.keys(p).every((k) => k === 'classification'))) throw new ForbiddenException();
+    return withActor(actorOf(u), async (tx) => {
+      const before = (await tx.query('select * from tenants where id=$1', [id])).rows[0];
+      if (!before) throw new NotFoundException();
+      const row = (await tx.query(
+        `update tenants set name_ar=coalesce($2,name_ar), name_en=case when $3::boolean then $4 else name_en end, active=coalesce($5,active),
+           classification=coalesce($6,classification), parent_id=case when $7::boolean then $8::uuid else parent_id end where id=$1 returning *`,
+        [id, p.name_ar ?? null, p.name_en !== undefined, p.name_en ?? null, p.active ?? null, p.classification ?? null, p.parent_id !== undefined, p.parent_id ?? null])).rows[0];
+      await audit(tx, actorOf(u), 'update', 'tenant', id, before, row, id);
+      return row;
+    });
+  }
+
   @Perm('users.manage')
   @Get('users')
   users(@CurrentUser() u: SessionUser) {
     return withActor(actorOf(u), async (tx) =>
-      (await tx.query('select id, tenant_id, email, display_name, roles, scope, active, created_at from users order by display_name')).rows);
+      (await tx.query(`select ${USER_COLS} from users u left join tenants t on t.id = u.tenant_id order by t.name_ar nulls first, u.display_name`)).rows);
   }
 
   @Perm('users.manage')
@@ -127,17 +166,62 @@ export class TenantsController {
 
   @Perm('users.manage')
   @Patch('users/:id')
-  updateUser(@CurrentUser() u: SessionUser, @Param('id') id: string, @Body() body: { roles?: string[]; scope?: object; active?: boolean }) {
-    const roles = z.array(z.enum(Object.keys(ROLES) as [string, ...string[]])).optional().parse(body.roles);
+  updateUser(@CurrentUser() u: SessionUser, @Param('id') id: string, @Body() body: { roles?: string[]; scope?: object; active?: boolean; display_name?: string }) {
+    const roles = z.array(z.enum(Object.keys(ROLES) as [string, ...string[]])).min(1).optional().parse(body.roles);
     if (roles && !u.roles.includes('R0') && roles.some((r) => r === 'R0' || r === 'R8' || r === 'R9')) throw new ForbiddenException();
+    if (roles && u.roles.includes('R0') && !roles.every((r) => ['R1', 'R8', 'R9'].includes(r))) throw new ForbiddenException('مدير المنصة يضيف مسؤول الجهة الأول أو مستعرضي اللوحات فقط');
+    if (id === u.id && (body.active === false || (roles && !roles.some((r) => u.roles.includes(r))))) throw new BadRequestException('لا يمكنك تعطيل حسابك أو إزالة صلاحياتك بنفسك');
     return withActor(actorOf(u), async (tx) => {
-      const before = (await tx.query('select id, roles, scope, active from users where id = $1', [id])).rows[0];
+      const before = (await tx.query('select id, roles, scope, active, display_name from users where id = $1', [id])).rows[0];
+      if (!before) throw new NotFoundException();
       const { rows } = await tx.query(
-        `update users set roles = coalesce($2, roles), scope = coalesce($3, scope), active = coalesce($4, active)
+        `update users set roles = coalesce($2, roles), scope = coalesce($3, scope), active = coalesce($4, active), display_name = coalesce($5, display_name),
+           token_version = token_version + case when $4 = false then 1 else 0 end
           where id = $1 returning id, email, display_name, roles, scope, active`,
-        [id, roles ?? null, body.scope ? JSON.stringify(body.scope) : null, body.active ?? null]);
+        [id, roles ?? null, body.scope ? JSON.stringify(body.scope) : null, body.active ?? null, body.display_name ?? null]);
       await audit(tx, actorOf(u), 'update', 'user', id, before, rows[0]);
+      forgetAccount(id);
       return rows[0];
+    });
+  }
+
+  /** Issue a one-time password (shown once), unlock the account and end its sessions. */
+  @Perm('users.manage')
+  @Post('users/:id/reset-password')
+  async resetPassword(@CurrentUser() u: SessionUser, @Param('id') id: string) {
+    const temporary = temporaryPassword();
+    const hash = await bcrypt.hash(temporary, 12);
+    return withActor(actorOf(u), async (tx) => {
+      const r = await tx.query(`update users set password_hash=$2, must_change_password=true, failed_attempts=0, locked_until=null, token_version=token_version+1 where id=$1 returning id`, [id, hash]);
+      if (!r.rowCount) throw new NotFoundException();
+      await audit(tx, actorOf(u), 'reset_password', 'user', id, null, null);
+      forgetAccount(id);
+      return { temporary_password: temporary };
+    });
+  }
+
+  @Perm('users.manage')
+  @Post('users/:id/unlock')
+  unlock(@CurrentUser() u: SessionUser, @Param('id') id: string) {
+    return withActor(actorOf(u), async (tx) => {
+      const r = await tx.query('update users set failed_attempts=0, locked_until=null where id=$1 returning id', [id]);
+      if (!r.rowCount) throw new NotFoundException();
+      await audit(tx, actorOf(u), 'unlock', 'user', id, null, null);
+      forgetAccount(id);
+      return { ok: true };
+    });
+  }
+
+  /** For a lost authenticator: the user enrols again at next sign-in. */
+  @Perm('users.manage')
+  @Post('users/:id/reset-mfa')
+  resetMfa(@CurrentUser() u: SessionUser, @Param('id') id: string) {
+    return withActor(actorOf(u), async (tx) => {
+      const r = await tx.query('update users set mfa_enabled=false, mfa_secret=null, token_version=token_version+1 where id=$1 returning id', [id]);
+      if (!r.rowCount) throw new NotFoundException();
+      await audit(tx, actorOf(u), 'reset_mfa', 'user', id, null, null);
+      forgetAccount(id);
+      return { ok: true };
     });
   }
 }
