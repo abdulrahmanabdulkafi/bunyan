@@ -19,7 +19,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!user) return;
-    if (!can(user, 'records.read')) { router.replace(can(user, 'dashboard.national') ? '/national' : can(user, 'integrations.manage') ? '/integrations' : '/studio'); return; }
+    if (!can(user, 'records.read')) { router.replace(can(user, 'dashboard.national') ? '/national' : can(user, 'compliance.library') ? '/library' : can(user, 'integrations.manage') ? '/integrations' : '/studio'); return; }
     api<Dash>('/viewpoints/dashboard').then(setD);
   }, [user, router]);
 

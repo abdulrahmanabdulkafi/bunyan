@@ -23,6 +23,8 @@ function Rail() {
         {can(user, 'records.read') && <Link href="/" aria-current={cur('/')}>{t('nav.dashboard')}</Link>}
         {can(user, 'records.review') && <Link href="/approvals" aria-current={cur('/approvals')}>{t('nav.approvals')} {queue > 0 && <span className="count">{queue}</span>}</Link>}
         {can(user, 'records.read') && <Link href="/views" aria-current={cur('/views')}>{t('nav.viewpoints')}</Link>}
+        {can(user, 'compliance.read') && <Link href="/compliance" aria-current={cur('/compliance')}>{t('nav.compliance')}</Link>}
+        {can(user, 'compliance.library') && <Link href="/library" aria-current={cur('/library')}>{t('nav.library')}</Link>}
         {can(user, 'records.import') && <Link href="/io" aria-current={cur('/io')}>{t('nav.io')}</Link>}
         {can(user, 'integrations.manage') && user?.tenantId && <Link href="/integrations" aria-current={cur('/integrations')}>{t('nav.integrations')}</Link>}
         {can(user, 'dashboard.national') && <Link href="/national" aria-current={cur('/national')}>{t('nav.national')}</Link>}

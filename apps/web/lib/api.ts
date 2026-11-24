@@ -62,7 +62,7 @@ const PERMS: Record<string, string[]> = {
   'users.manage': ['R0', 'R1'], 'metamodel.edit': ['R0', 'R2'], 'records.read': ['R2', 'R3', 'R4', 'R5', 'R6', 'R7'],
   'records.write': ['R2', 'R3', 'R4', 'R5'], 'records.import': ['R2', 'R3', 'R4', 'R5'], 'records.review': ['R2', 'R3', 'R4'],
   'records.approve': ['R2'], 'records.archive': ['R2'], 'audit.read': ['R0', 'R1', 'R2', 'R7'],
-  'dashboard.national': ['R2', 'R6', 'R8', 'R9'], 'integrations.manage': ['R1', 'R2'], 'cost.read': ['R2', 'R3', 'R4', 'R6', 'R7'],
+  'dashboard.national': ['R2', 'R6', 'R8', 'R9'], 'integrations.manage': ['R1', 'R2'], 'compliance.read': ['R2', 'R3', 'R4', 'R6', 'R7'], 'compliance.library': ['R0'], 'cost.read': ['R2', 'R3', 'R4', 'R6', 'R7'],
 };
 export function can(u: User | null, perm: string) {
   return !!u && (PERMS[perm] ?? []).some((r) => u.roles.includes(r));

@@ -24,12 +24,14 @@ export default function RecordPage({ params }: { params: Promise<{ id: string }>
   const linkDlg = useRef<HTMLDialogElement>(null);
   const rejectDlg = useRef<HTMLDialogElement>(null);
   const [comment, setComment] = useState('');
+  const [controls, setControls] = useState<{ item_id: string; code: string; title_ar: string; title_en: string | null; framework: string; version: string; status: string }[]>([]);
 
   const load = useCallback(async () => {
     const r = await api<Full>(`/records/${id}`);
     setRec(r); setAttrs(r.attrs); setDirty(false); setFieldErrors({});
   }, [id]);
   useEffect(() => { load().catch((e) => setMsg({ kind: 'error', text: e.message })); }, [load]);
+  useEffect(() => { if (can(user, 'compliance.read')) api<typeof controls>(`/compliance/records/${id}`).then(setControls).catch(() => undefined); }, [id, user]);
 
   if (!rec || !model) return msg ? <div className="banner error">{msg.text}</div> : <p className="hint">{t('common.loading')}</p>;
   const block = model.blocks.find((b) => b.code === rec.block_code)!;
@@ -124,6 +126,14 @@ export default function RecordPage({ params }: { params: Promise<{ id: string }>
               </ul>
             )}
           </div>
+          {controls.length > 0 && (
+            <div className="side-block">
+              <h3>{t('record.controls')}</h3>
+              <ul className="links">{controls.map((c) => (
+                <li key={c.item_id}><span><span className="verb" dir="ltr">{c.framework}-{c.version} · {c.code}</span>{nm(c, 'title')}</span><span className={`status cs-${c.status}`}>{t(`cmp.st.${c.status}`)}</span></li>))}
+              </ul>
+            </div>
+          )}
           <div className="side-block">
             <h3>{t('record.history')}</h3>
             {rec.history.length === 0 ? <p className="hint">{t('record.noHistory')}</p> : (

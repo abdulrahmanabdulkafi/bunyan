@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
 
-interface Entity { id: string; tenant: string; total: number; approved: number; approvedRatio: number; domains: Record<string, number> }
-interface Nat { scope: 'national' | 'sector' | 'entity'; average: number; entities: Entity[] | number; mine?: Entity | null }
+interface Entity { id: string; tenant: string; total: number; approved: number; approvedRatio: number; coverage: number | null; domains: Record<string, number> }
+interface Nat { scope: 'national' | 'sector' | 'entity'; average: number; averageCoverage: number | null; entities: Entity[] | number; mine?: Entity | null }
 
 const DOMS = ['applications', 'technology', 'security'];
 
@@ -23,6 +23,8 @@ export default function National() {
         <div className="figures">
           <div className="figure"><b>{pct(d.mine?.approvedRatio ?? 0)}</b><span>{t('nat.yourRatio')}</span></div>
           <div className="figure"><b>{pct(d.average)}</b><span>{t('nat.nationalAverage')}</span></div>
+          {d.mine?.coverage != null && <div className="figure"><b>{pct(d.mine.coverage)}</b><span>{t('nat.yourCoverage')}</span></div>}
+          {d.averageCoverage != null && <div className="figure"><b>{pct(d.averageCoverage)}</b><span>{t('nat.averageCoverage')}</span></div>}
         </div>
       </>
     );
@@ -37,14 +39,16 @@ export default function National() {
       <div className="figures">
         <div className="figure"><b>{list.length}</b><span>{t('nat.entities')}</span></div>
         <div className="figure"><b>{pct(d.average)}</b><span>{t('nat.averageRatio')}</span></div>
+        {d.averageCoverage != null && <div className="figure"><b>{pct(d.averageCoverage)}</b><span>{t('nat.averageCoverage')}</span></div>}
       </div>
       <div className="section table-wrap"><table>
-        <thead><tr><th>{t('nat.entity')}</th>{DOMS.map((k) => <th key={k} className="num">{t(`domain.${k}`)}</th>)}<th className="num">{t('nat.total')}</th><th>{t('nat.ratio')}</th></tr></thead>
+        <thead><tr><th>{t('nat.entity')}</th>{DOMS.map((k) => <th key={k} className="num">{t(`domain.${k}`)}</th>)}<th className="num">{t('nat.total')}</th><th>{t('nat.ratio')}</th><th>{t('nat.coverage')}</th></tr></thead>
         <tbody>{list.map((e) => (
           <tr key={e.id}><td>{e.tenant}</td>
             {DOMS.map((k) => <td key={k} className="num">{e.domains[k] ?? 0}</td>)}
             <td className="num">{e.total}</td>
             <td>{pct(e.approvedRatio)}<span className={`gauge${e.approvedRatio < 0.5 ? ' low' : ''}`}><i style={{ width: `${e.approvedRatio * 100}%` }} /></span></td>
+            <td>{e.coverage == null ? <span className="hint">—</span> : <>{pct(e.coverage)}<span className={`gauge${e.coverage < 0.5 ? ' low' : ''}`}><i style={{ width: `${e.coverage * 100}%` }} /></span></>}</td>
           </tr>))}
         </tbody>
       </table></div>
