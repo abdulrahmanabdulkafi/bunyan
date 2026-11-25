@@ -66,6 +66,19 @@ for (const f of fs.readdirSync(path.join(root, 'db')).filter((f) => f.endsWith('
   await db.query('commit');
 }
 
+// Keep every existing entity in step with the national meta-model template (idempotent; never undoes an entity's own choices).
+{
+  const { syncTemplate } = await import(path.join(root, 'apps/api/dist/tenants/tenants.js'));
+  const tenants = (await db.query(`select set_config('app.platform','on',false); select id from tenants where kind = 'entity'`))[1].rows;
+  for (const t of tenants) {
+    await db.query('begin');
+    await db.query(`select set_config('app.platform','on',true)`);
+    await syncTemplate(db, t.id);
+    await db.query('commit');
+  }
+  if (tenants.length) console.log(`meta-model template synced for ${tenants.length} entities`);
+}
+
 if (demo) {
   const { applyTemplate } = await import(path.join(root, 'apps/api/dist/tenants/tenants.js'));
   await db.query('begin');

@@ -64,7 +64,8 @@ export class ExcelController {
           if (note) ws.getCell(1, i + 2).note = note;
           // A dropdown only for single-value lists; strict lists block other values, open lists just suggest.
           if (a.type === 'enum' && a.options?.length && !a.multiple) {
-            const list = a.options.map((o) => o.value.replace(/[",]/g, ' ')).join(',');
+            // Labels in the workbook's language; the import maps them back to the stored value.
+            const list = a.options.map((o) => ((en ? o.label_en : o.label_ar) || o.value).replace(/[",]/g, ' ')).join(',');
             if (list.length < 250) for (let r = HEADER_ROWS + 1; r <= 2000; r++) {
               ws.getCell(r, i + 2).dataValidation = {
                 type: 'list', allowBlank: true, formulae: [`"${list}"`],
@@ -76,8 +77,9 @@ export class ExcelController {
         if (withData === 'true') {
           const rows = (await tx.query(`select id, attrs from records where block_code=$1 and status <> 'archived' order by name`, [b.code])).rows;
           for (const r of rows) ws.addRow([r.id, ...attrs.map((a) => {
+            const lbl = (x: unknown) => { const o = a.type === 'enum' ? a.options?.find((p) => p.value === x) : undefined; return o ? (en ? o.label_en : o.label_ar) || o.value : x; };
             const v = r.attrs[a.key];
-            return safe(Array.isArray(v) ? v.join('; ') : v);
+            return safe(Array.isArray(v) ? v.map(lbl).join('; ') : lbl(v));
           })]);
         }
       }

@@ -236,15 +236,39 @@ describe('excel template round trip', () => {
   });
 });
 
+describe('national meta-model (DGA EA Content Meta Model)', () => {
+  it('has every domain, building block, attribute and connection of the guide, all active', async () => {
+    const m = (await api(T.ea, 'GET', '/metamodel')).body;
+    assert.equal(m.domains.length, 7);
+    assert.ok(m.domains.every((d: { active: boolean }) => d.active));
+    const national = m.blocks.filter((b: { is_custom: boolean }) => !b.is_custom);
+    assert.equal(national.length, 45);
+    assert.ok(national.every((b: { active: boolean }) => b.active));
+    assert.equal(national.reduce((a: number, b: { attributes: { is_custom: boolean }[] }) => a + b.attributes.filter((x) => !x.is_custom).length, 0), 375);
+    assert.equal(m.relations.length, 312);
+    const has = (s: string, v: string, t: string) => m.relations.some((r: { source_code: string; verb: string; target_code: string }) => r.source_code === s && r.verb === v && r.target_code === t);
+    assert.ok(has('persona', 'Owns', 'beneficiary_journey') && has('service', 'Automated', 'application') && !has('beneficiary', 'Owns', 'beneficiary_journey'));
+    const env = m.blocks.find((b: { code: string }) => b.code === 'server').attributes.find((a: { key: string }) => a.key === 'environment');
+    assert.ok(env.options.some((o: { label_ar: string }) => o.label_ar === 'بيئة الإنتاج'));
+  });
+
+  it('stores an Arabic or English list label as the list value', async () => {
+    const a = await api(T.ea, 'POST', '/records', { block: 'objective', attrs: { name: 'هدف تجريبي' } });
+    assert.equal(a.status, 201, JSON.stringify(a.body));
+    const s = await api(T.ea, 'POST', '/records', { block: 'server', attrs: { server_name: 'SRV-LBL-1', environment: 'بيئة الإنتاج', status: 'operational' } });
+    assert.equal(s.status, 201, JSON.stringify(s.body));
+    assert.deepEqual([s.body.attrs.environment].flat(), ['Production environment']); // the demo entity made this list multi-value
+    assert.equal(s.body.attrs.status, 'Operational');
+  });
+});
+
 describe('viewpoints', () => {
-  it('lists the 35 phase-1 viewpoints and flags those that need phase-2 blocks', async () => {
+  it('lists the 35 viewpoints, all available now that every domain is active', async () => {
     const r = await api(T.ea, 'GET', '/viewpoints/catalog');
     assert.equal(r.body.length, 35);
     const byDomain = (d: string) => r.body.filter((v: { domain: string }) => v.domain === d).length;
     assert.deepEqual([byDomain('applications'), byDomain('technology'), byDomain('security')], [15, 12, 8]);
-    const ou = r.body.find((v: { code: string }) => v.code === 'APP-M2');
-    assert.deepEqual(ou.missing, ['organizational_unit']);
-    assert.ok(r.body.filter((v: { missing: string[] }) => v.missing.length === 0).length >= 27);
+    assert.equal(r.body.filter((v: { missing: string[] }) => v.missing.length === 0).length, 35);
   });
   it('builds every available viewpoint without error', async () => {
     const cat = (await api(T.ea, 'GET', '/viewpoints/catalog')).body;

@@ -5,7 +5,10 @@ import { useSession } from '@/lib/session';
 import { useI18n } from '@/lib/i18n';
 
 const TYPES = ['text', 'multi_text', 'number', 'date', 'enum', 'url', 'duration'];
-const toOptions = (s: string) => s.split(/[,،\n]/).map((x) => x.trim()).filter(Boolean).map((value) => ({ value }));
+type Opt = { value: string; label_ar?: string; label_en?: string };
+/** Values typed as a list; a value that matches an existing option (by label in either language or by value) keeps its labels. */
+const toOptions = (s: string, prev: Opt[] = []) => s.split(/[,،\n]/).map((x) => x.trim()).filter(Boolean).map((v): Opt =>
+  prev.find((o) => o.value === v || o.label_ar === v || o.label_en?.toLowerCase() === v.toLowerCase()) ?? { value: v });
 
 export default function Studio() {
   const { model, reloadModel } = useSession();
@@ -107,13 +110,13 @@ function BlockEditor({ block, patchAttr, run }: { block: Block; patchAttr: (a: A
             <td>{t(`type.${a.type}`)}</td>
             <td>{a.type !== 'enum' ? '—' : editing === a.key ? (
               <span className="row"><input value={opts} onChange={(e) => setOpts(e.target.value)} style={{ maxWidth: 260 }} aria-label={t('studio.values')} />
-                <button className="btn primary" onClick={() => { patchAttr(a, { options: toOptions(opts) }); setEditing(null); }}>{t('common.save')}</button></span>
-            ) : (a.options.length ? a.options.map((o) => o.value).join(t('list.sep')) : <span className="hint">{t('studio.noValues')}</span>)}</td>
+                <button className="btn primary" onClick={() => { patchAttr(a, { options: toOptions(opts, a.options) }); setEditing(null); }}>{t('common.save')}</button></span>
+            ) : (a.options.length ? a.options.map((o) => nm(o, 'label') || o.value).join(t('list.sep')) : <span className="hint">{t('studio.noValues')}</span>)}</td>
             <td><input type="checkbox" checked={a.multiple || a.type === 'multi_text'} disabled={!listable(a) || a.key === block.title_key} onChange={(e) => patchAttr(a, { multiple: e.target.checked })} aria-label={`${t('studio.multipleShort')} ${nm(a)}`} /></td>
             <td><input type="checkbox" checked={a.strict} disabled={a.type !== 'enum' || !a.options.length} onChange={(e) => patchAttr(a, { strict: e.target.checked })} aria-label={`${t('studio.strictShort')} ${nm(a)}`} title={t('studio.strictHint')} /></td>
             <td><input type="checkbox" checked={a.required} disabled={a.key === block.title_key} onChange={(e) => patchAttr(a, { required: e.target.checked })} aria-label={`${t('studio.required')} ${nm(a)}`} /></td>
             <td><input type="checkbox" checked={a.active} disabled={a.key === block.title_key} onChange={(e) => patchAttr(a, { active: e.target.checked })} aria-label={`${t('studio.activeShort')} ${nm(a)}`} /></td>
-            <td>{a.type === 'enum' && editing !== a.key && <button className="btn quiet" onClick={() => { setEditing(a.key); setOpts(a.options.map((o) => o.value).join(t('list.sep'))); }}>{t('studio.editValues')}</button>}</td>
+            <td>{a.type === 'enum' && editing !== a.key && <button className="btn quiet" onClick={() => { setEditing(a.key); setOpts(a.options.map((o) => nm(o, 'label') || o.value).join(t('list.sep'))); }}>{t('studio.editValues')}</button>}</td>
           </tr>))}
         </tbody>
       </table></div>

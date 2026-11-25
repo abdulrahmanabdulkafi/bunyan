@@ -88,7 +88,7 @@ const nav: M = {
 
 const screens: M = {
   'dash.title': { ar: 'لوحة البنية المؤسسية', en: 'Enterprise architecture dashboard' },
-  'dash.subtitle': { ar: 'حالة مستودع الجهة في مجالات التطبيقات والتقنية والأمن السيبراني.', en: 'Your repository across applications, technology and cybersecurity.' },
+  'dash.subtitle': { ar: 'حالة مستودع الجهة في مجالات البنية المؤسسية السبعة.', en: 'Your repository across the seven enterprise architecture domains.' },
   'dash.records': { ar: 'سجل في المستودع', en: 'records in the repository' },
   'dash.approved': { ar: 'معتمد نهائياً', en: 'approved' },
   'dash.pending': { ar: 'بانتظار الاعتماد', en: 'Awaiting approval' },
@@ -164,7 +164,7 @@ const screens: M = {
   'appr.empty': { ar: 'لا توجد طلبات بانتظارك.', en: 'Nothing is waiting for you.' },
 
   'vp.title': { ar: 'المناظير', en: 'Viewpoints' },
-  'vp.subtitle': { ar: '{ready} من {total} منظوراً جاهزة من بيانات المستودع مباشرة. البقية تحتاج تفعيل وحدات بناء من المرحلة الثانية.', en: '{ready} of {total} viewpoints are built straight from the repository. The rest need phase-2 building blocks switched on.' },
+  'vp.subtitle': { ar: '{ready} من {total} منظوراً جاهزة من بيانات المستودع مباشرة. البقية تحتاج تفعيل وحدات بناء معطّلة في جهتك.', en: '{ready} of {total} viewpoints are built straight from the repository. The rest need building blocks your entity has switched off.' },
   'vp.kind.list': { ar: 'قائمة', en: 'List' },
   'vp.kind.matrix': { ar: 'مصفوفة', en: 'Matrix' },
   'vp.kind.group': { ar: 'مشهد عام', en: 'Landscape' },
@@ -631,7 +631,7 @@ const admin: M = {
   'ent.add': { ar: 'إضافة جهة أو مكتب قطاعي', en: 'Add an entity or sector office' },
   'ent.code': { ar: 'الرمز', en: 'Code' },
   'ent.codeHint': { ar: 'حروف إنجليزية صغيرة وأرقام وشرطة', en: 'Lowercase letters, digits and hyphens' },
-  'ent.templateHint': { ar: 'تحصل الجهة الجديدة على النموذج العام لمحتوى البنية المؤسسية كاملاً، مع تفعيل مجالات المرحلة الأولى.', en: 'A new entity receives the full national EA content meta-model, with phase-1 domains switched on.' },
+  'ent.templateHint': { ar: 'تحصل الجهة الجديدة على النموذج العام لمحتوى البنية المؤسسية كاملاً: 7 مجالات و45 وحدة بناء بسماتها وعلاقاتها، مفعّلة كلها.', en: 'A new entity receives the full national EA content meta-model: 7 domains and 45 building blocks with their attributes and connections, all switched on.' },
   'ent.create': { ar: 'إضافة', en: 'Add' },
   'ent.created': { ar: 'أُضيفت.', en: 'Added.' },
   'act.lockout': { ar: 'قفل الحساب', en: 'Account locked' },

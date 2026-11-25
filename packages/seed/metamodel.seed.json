@@ -1,29 +1,29 @@
 {
- "version": "dga-ea-cmm-1.0",
+ "version": "dga-ea-cmm-1.0+r2",
  "domains": [
   {
    "code": "strategy",
    "name_ar": "المواءمة الاستراتيجية",
    "name_en": "Strategic Alignment",
-   "active": false
+   "active": true
   },
   {
    "code": "business",
    "name_ar": "الأعمال",
    "name_en": "Business",
-   "active": false
+   "active": true
   },
   {
    "code": "beneficiary",
    "name_ar": "تجربة المستفيد",
    "name_en": "Beneficiary Experience",
-   "active": false
+   "active": true
   },
   {
    "code": "data",
    "name_ar": "البيانات",
    "name_en": "Data",
-   "active": false
+   "active": true
   },
   {
    "code": "applications",
@@ -50,7 +50,7 @@
    "name_en": "Vision",
    "name_ar": "رؤية",
    "domain": "strategy",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "vision_statement",
@@ -80,7 +80,7 @@
    "name_en": "Mission",
    "name_ar": "رسالة",
    "domain": "strategy",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "mission_statement",
@@ -110,7 +110,7 @@
    "name_en": "Objective",
    "name_ar": "هدف",
    "domain": "strategy",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -160,7 +160,7 @@
    "name_en": "Pillar",
    "name_ar": "ركيزة",
    "domain": "strategy",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -200,7 +200,7 @@
    "name_en": "Initiative",
    "name_ar": "مبادرة",
    "domain": "strategy",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -240,7 +240,23 @@
      "description_en": "Description of the initiative type (e.g.: strategic initiative, technical initiative, operational initiative)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Strategic initiative",
+       "label_ar": "مبادرة استراتيجية",
+       "label_en": "Strategic initiative"
+      },
+      {
+       "value": "Technical initiative",
+       "label_ar": "مبادرة تقنية",
+       "label_en": "Technical initiative"
+      },
+      {
+       "value": "Operational initiative",
+       "label_ar": "مبادرة تشغيلية",
+       "label_en": "Operational initiative"
+      }
+     ]
     },
     {
      "key": "owner_of_the_initiative",
@@ -290,7 +306,7 @@
    "name_en": "Project",
    "name_ar": "مشروع",
    "domain": "strategy",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -380,7 +396,33 @@
      "description_en": "Description of the project execution status (e.g.: scheduled, active, suspended, cancelled)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Scheduled",
+       "label_ar": "مجدول",
+       "label_en": "Scheduled"
+      },
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Suspended",
+       "label_ar": "معلّق",
+       "label_en": "Suspended"
+      },
+      {
+       "value": "Cancelled",
+       "label_ar": "ملغى",
+       "label_en": "Cancelled"
+      },
+      {
+       "value": "Completed",
+       "label_ar": "مكتمل",
+       "label_en": "Completed"
+      }
+     ]
     },
     {
      "key": "entity_in_charge_of_execution",
@@ -390,7 +432,18 @@
      "description_en": "Determine the type of entity responsible for executing the project (e.g.: in-house execution, outsourced execution, etc.)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house execution",
+       "label_ar": "تنفيذ داخلي",
+       "label_en": "In-house execution"
+      },
+      {
+       "value": "Outsourced execution",
+       "label_ar": "تنفيذ خارجي",
+       "label_en": "Outsourced execution"
+      }
+     ]
     },
     {
      "key": "start_date",
@@ -430,7 +483,18 @@
      "description_en": "Currency used to define the budget (e.g.: Saudi Riyal, US Dollar)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Saudi Riyal",
+       "label_ar": "ريال سعودي",
+       "label_en": "Saudi Riyal"
+      },
+      {
+       "value": "US Dollar",
+       "label_ar": "دولار أمريكي",
+       "label_en": "US Dollar"
+      }
+     ]
     },
     {
      "key": "priority",
@@ -440,7 +504,23 @@
      "description_en": "Determine the project execution priority (e.g.: high priority, medium priority, low priority)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "High priority",
+       "label_ar": "أولوية عالية",
+       "label_en": "High priority"
+      },
+      {
+       "value": "Medium priority",
+       "label_ar": "أولوية متوسطة",
+       "label_en": "Medium priority"
+      },
+      {
+       "value": "Low priority",
+       "label_ar": "أولوية منخفضة",
+       "label_en": "Low priority"
+      }
+     ]
     }
    ],
    "title_key": "name"
@@ -450,7 +530,7 @@
    "name_en": "Key Performance Indicator",
    "name_ar": "مؤشر أداء",
    "domain": "strategy",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -490,7 +570,18 @@
      "description_en": "Determine the level that the indicator measures (e.g.: strategic, operational)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Strategic",
+       "label_ar": "استراتيجي",
+       "label_en": "Strategic"
+      },
+      {
+       "value": "Operational",
+       "label_ar": "تشغيلي",
+       "label_en": "Operational"
+      }
+     ]
     },
     {
      "key": "calculation_formula",
@@ -520,7 +611,33 @@
      "description_en": "Specify the period over which the indicator is measured (e.g.: daily, monthly, quarterly)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Daily",
+       "label_ar": "يومي",
+       "label_en": "Daily"
+      },
+      {
+       "value": "Monthly",
+       "label_ar": "شهري",
+       "label_en": "Monthly"
+      },
+      {
+       "value": "Quarterly",
+       "label_ar": "ربع سنوي",
+       "label_en": "Quarterly"
+      },
+      {
+       "value": "Semi-annual",
+       "label_ar": "نصف سنوي",
+       "label_en": "Semi-annual"
+      },
+      {
+       "value": "Annual",
+       "label_ar": "سنوي",
+       "label_en": "Annual"
+      }
+     ]
     },
     {
      "key": "measurement_unit",
@@ -530,7 +647,18 @@
      "description_en": "Specify the unit in which the indicator value is calculated (e.g.: percentage, number)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Percentage",
+       "label_ar": "نسبة مئوية",
+       "label_en": "Percentage"
+      },
+      {
+       "value": "Number",
+       "label_ar": "عدد",
+       "label_en": "Number"
+      }
+     ]
     },
     {
      "key": "polarity_of_measurement",
@@ -540,7 +668,18 @@
      "description_en": "Specify the desired direction of the indicator value (ascending, descending)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Ascending",
+       "label_ar": "تصاعدي",
+       "label_en": "Ascending"
+      },
+      {
+       "value": "Descending",
+       "label_ar": "تنازلي",
+       "label_en": "Descending"
+      }
+     ]
     },
     {
      "key": "actual_indicator_value",
@@ -610,7 +749,7 @@
    "name_en": "Business Capability",
    "name_ar": "قدرة عمل",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "name",
@@ -640,7 +779,23 @@
      "description_en": "Determining the type of capability (strategic, operational, supporting)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Strategic",
+       "label_ar": "استراتيجية",
+       "label_en": "Strategic"
+      },
+      {
+       "value": "Operational",
+       "label_ar": "تشغيلية",
+       "label_en": "Operational"
+      },
+      {
+       "value": "Supporting",
+       "label_ar": "مساندة",
+       "label_en": "Supporting"
+      }
+     ]
     },
     {
      "key": "capability_maturity_level",
@@ -650,7 +805,23 @@
      "description_en": "Determining the level of maturity of the capability in terms of its activation (e.g.: high maturity capability, medium maturity capability, low maturity capability)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "High maturity capability",
+       "label_ar": "قدرة عالية النضج",
+       "label_en": "High maturity capability"
+      },
+      {
+       "value": "Medium maturity capability",
+       "label_ar": "قدرة متوسطة النضج",
+       "label_en": "Medium maturity capability"
+      },
+      {
+       "value": "Low maturity capability",
+       "label_ar": "قدرة منخفضة النضج",
+       "label_en": "Low maturity capability"
+      }
+     ]
     }
    ],
    "title_key": "name"
@@ -660,7 +831,7 @@
    "name_en": "Organizational Unit",
    "name_ar": "وحدة تنظيمية",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "name",
@@ -687,17 +858,48 @@
      "order": 3,
      "name_en": "Type",
      "name_ar": "النوع",
-     "description_en": "Determining the administrative type that the organizational unit",
+     "description_en": "Determining the administrative type that the organizational unit represents (e.g.: ministry, authority, agency, sector, public administration, department)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Ministry",
+       "label_ar": "وزارة",
+       "label_en": "Ministry"
+      },
+      {
+       "value": "Authority",
+       "label_ar": "هيئة",
+       "label_en": "Authority"
+      },
+      {
+       "value": "Agency",
+       "label_ar": "وكالة",
+       "label_en": "Agency"
+      },
+      {
+       "value": "Sector",
+       "label_ar": "قطاع",
+       "label_en": "Sector"
+      },
+      {
+       "value": "Public administration",
+       "label_ar": "إدارة عامة",
+       "label_en": "Public administration"
+      },
+      {
+       "value": "Department",
+       "label_ar": "إدارة",
+       "label_en": "Department"
+      }
+     ]
     },
     {
      "key": "organizational_dependency",
      "order": 4,
      "name_en": "Organizational Dependency",
      "name_ar": "التبعية التنظيمية",
-     "description_en": "represents (e.g.: ministry, authority, agency, sector, public administration, department) Organizational affiliation with the highest organizational unit in the entity’s organizational structure",
+     "description_en": "Organizational affiliation with the highest organizational unit in the entity’s organizational structure",
      "type": "text",
      "required": false,
      "options": []
@@ -730,7 +932,7 @@
    "name_en": "Service Provider",
    "name_ar": "مزود خدمة",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "name",
@@ -747,7 +949,7 @@
      "order": 2,
      "name_en": "Description",
      "name_ar": "الوصف",
-     "description_en": "Description of the service provider’s objective and scope of work Specifying the type of contractual",
+     "description_en": "Description of the service provider’s objective and scope of work",
      "type": "text",
      "required": false,
      "options": []
@@ -757,10 +959,36 @@
      "order": 3,
      "name_en": "Type of Contractual Relationship",
      "name_ar": "نوع العلاقة التعاقدية",
-     "description_en": "relationship (e.g.: external partner, authorized service provider, service provider, technical solutions and hardware provider, security solutions and hardware provider, etc.)",
+     "description_en": "Specifying the type of contractual relationship (e.g.: external partner, authorized service provider, service provider, technical solutions and hardware provider, security solutions and hardware provider, etc.)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "External partner",
+       "label_ar": "شريك خارجي",
+       "label_en": "External partner"
+      },
+      {
+       "value": "Authorized service provider",
+       "label_ar": "مقدم خدمة معتمد",
+       "label_en": "Authorized service provider"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      },
+      {
+       "value": "Technical solutions and hardware provider",
+       "label_ar": "مورد حلول وأجهزة تقنية",
+       "label_en": "Technical solutions and hardware provider"
+      },
+      {
+       "value": "Security solutions and hardware provider",
+       "label_ar": "مورد حلول وأجهزة أمنية",
+       "label_en": "Security solutions and hardware provider"
+      }
+     ]
     },
     {
      "key": "services_provided",
@@ -777,30 +1005,78 @@
      "order": 5,
      "name_en": "Service Provider Status",
      "name_ar": "حالة مزود الخدمة",
-     "description_en": "Determining the status of interaction with the service provider (e.g.: active, inactive) Shows the status of compliance",
+     "description_en": "Determining the status of interaction with the service provider (e.g.: active, inactive)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Inactive",
+       "label_ar": "غير نشط",
+       "label_en": "Inactive"
+      }
+     ]
     },
     {
      "key": "compliance_and_certifications",
      "order": 6,
      "name_en": "Compliance and Certifications",
      "name_ar": "الامتثال والشهادات",
-     "description_en": "with legal and regulatory requirements, as well as adherence to regulatory policies and standards. It also shows any certifications or accreditation that the provider holds (e.g.: ISO certification, industry-specific certifications, and compliance",
+     "description_en": "Shows the status of compliance with legal and regulatory requirements, as well as adherence to regulatory policies and standards. It also shows any certifications or accreditation that the provider holds (e.g.: ISO certification, industry-specific certifications, and compliance certifications)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "ISO certification",
+       "label_ar": "شهادة ISO",
+       "label_en": "ISO certification"
+      },
+      {
+       "value": "Industry-specific certification",
+       "label_ar": "شهادة قطاعية",
+       "label_en": "Industry-specific certification"
+      },
+      {
+       "value": "NCA compliance",
+       "label_ar": "الامتثال لضوابط الهيئة الوطنية للأمن السيبراني",
+       "label_en": "NCA compliance"
+      }
+     ]
     },
     {
      "key": "field_of_activity",
      "order": 7,
      "name_en": "Field of Activity",
      "name_ar": "مجال النشاط",
-     "description_en": "certifications) Defines the provider’s specialization classification (e.g.: technology solutions, security solutions, hardware provider, or service provider)",
+     "description_en": "Defines the provider’s specialization classification (e.g.: technology solutions, security solutions, hardware provider, or service provider)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Technology solutions",
+       "label_ar": "حلول تقنية",
+       "label_en": "Technology solutions"
+      },
+      {
+       "value": "Security solutions",
+       "label_ar": "حلول أمنية",
+       "label_en": "Security solutions"
+      },
+      {
+       "value": "Hardware provider",
+       "label_ar": "مورد أجهزة",
+       "label_en": "Hardware provider"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمات",
+       "label_en": "Service provider"
+      }
+     ]
     },
     {
      "key": "relationship_status",
@@ -830,7 +1106,7 @@
    "name_en": "Service",
    "name_ar": "خدمة",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -870,7 +1146,18 @@
      "description_en": "Determining the service classification by type (e.g.: core service, sub-service)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Core service",
+       "label_ar": "خدمة رئيسية",
+       "label_en": "Core service"
+      },
+      {
+       "value": "Sub-service",
+       "label_ar": "خدمة فرعية",
+       "label_en": "Sub-service"
+      }
+     ]
     },
     {
      "key": "service_type",
@@ -880,7 +1167,23 @@
      "description_en": "Determining the type of service provided by the entity by business capabilities (e.g.: administrative - core - supporting)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Core",
+       "label_ar": "أساسية",
+       "label_en": "Core"
+      },
+      {
+       "value": "Administrative",
+       "label_ar": "إدارية",
+       "label_en": "Administrative"
+      },
+      {
+       "value": "Supporting",
+       "label_ar": "مساندة",
+       "label_en": "Supporting"
+      }
+     ]
     },
     {
      "key": "geographic_coverage",
@@ -890,7 +1193,23 @@
      "description_en": "Geographic coverage of service provision (e.g.: within specific areas, all areas of the Kingdom, inside/outside the Kingdom)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Within specific areas",
+       "label_ar": "مناطق محددة",
+       "label_en": "Within specific areas"
+      },
+      {
+       "value": "All areas of the Kingdom",
+       "label_ar": "جميع مناطق المملكة",
+       "label_en": "All areas of the Kingdom"
+      },
+      {
+       "value": "Inside and outside the Kingdom",
+       "label_ar": "داخل المملكة وخارجها",
+       "label_en": "Inside and outside the Kingdom"
+      }
+     ]
     },
     {
      "key": "automation_level",
@@ -900,7 +1219,23 @@
      "description_en": "Determining the level of automation of the service execution steps (e.g.: fully automated, partially automated, manual)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Fully automated",
+       "label_ar": "مؤتمت بالكامل",
+       "label_en": "Fully automated"
+      },
+      {
+       "value": "Partially automated",
+       "label_ar": "مؤتمت جزئياً",
+       "label_en": "Partially automated"
+      },
+      {
+       "value": "Manual",
+       "label_ar": "يدوي",
+       "label_en": "Manual"
+      }
+     ]
     },
     {
      "key": "type_of_beneficiary",
@@ -910,7 +1245,23 @@
      "description_en": "Determining the type of service beneficiary (e.g.: government entity, private sector, individual)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Government entity",
+       "label_ar": "جهة حكومية",
+       "label_en": "Government entity"
+      },
+      {
+       "value": "Private sector",
+       "label_ar": "قطاع خاص",
+       "label_en": "Private sector"
+      },
+      {
+       "value": "Individual",
+       "label_ar": "أفراد",
+       "label_en": "Individual"
+      }
+     ]
     },
     {
      "key": "requirements_for_obtaining_the_service",
@@ -980,7 +1331,18 @@
      "description_en": "Determining the status of service provision (e.g.: active, inactive)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشطة",
+       "label_en": "Active"
+      },
+      {
+       "value": "Inactive",
+       "label_ar": "غير نشطة",
+       "label_en": "Inactive"
+      }
+     ]
     },
     {
      "key": "key_performance_indicator",
@@ -1030,7 +1392,7 @@
    "name_en": "Processes Group",
    "name_ar": "مجموعة إجراءات",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -1070,7 +1432,23 @@
      "description_en": "Processes group type (e.g.: core, administrative, supporting)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Core",
+       "label_ar": "أساسية",
+       "label_en": "Core"
+      },
+      {
+       "value": "Administrative",
+       "label_ar": "إدارية",
+       "label_en": "Administrative"
+      },
+      {
+       "value": "Supporting",
+       "label_ar": "مساندة",
+       "label_en": "Supporting"
+      }
+     ]
     }
    ],
    "title_key": "name"
@@ -1080,7 +1458,7 @@
    "name_en": "Business Process",
    "name_ar": "إجراء عمل",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -1130,7 +1508,18 @@
      "description_en": "Determining process classification by type (e.g.: core process, sub- process)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Core process",
+       "label_ar": "إجراء رئيسي",
+       "label_en": "Core process"
+      },
+      {
+       "value": "Sub-process",
+       "label_ar": "إجراء فرعي",
+       "label_en": "Sub-process"
+      }
+     ]
     },
     {
      "key": "type",
@@ -1140,7 +1529,23 @@
      "description_en": "Determining the type of business process by business capabilities (e.g.: core, administrative, supporting)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Core",
+       "label_ar": "أساسي",
+       "label_en": "Core"
+      },
+      {
+       "value": "Administrative",
+       "label_ar": "إداري",
+       "label_en": "Administrative"
+      },
+      {
+       "value": "Supporting",
+       "label_ar": "مساند",
+       "label_en": "Supporting"
+      }
+     ]
     },
     {
      "key": "type_of_beneficiary",
@@ -1150,7 +1555,23 @@
      "description_en": "Specifying the type of process beneficiary (e.g.: government entity, private sector, individual)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Government entity",
+       "label_ar": "جهة حكومية",
+       "label_en": "Government entity"
+      },
+      {
+       "value": "Private sector",
+       "label_ar": "قطاع خاص",
+       "label_en": "Private sector"
+      },
+      {
+       "value": "Individual",
+       "label_ar": "أفراد",
+       "label_en": "Individual"
+      }
+     ]
     },
     {
      "key": "agreement_on_the_timeline_for_process_execution",
@@ -1230,7 +1651,23 @@
      "description_en": "Determining the level of automation of the business process execution steps (e.g.: fully automated, partially automated, manual)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Fully automated",
+       "label_ar": "مؤتمت بالكامل",
+       "label_en": "Fully automated"
+      },
+      {
+       "value": "Partially automated",
+       "label_ar": "مؤتمت جزئياً",
+       "label_en": "Partially automated"
+      },
+      {
+       "value": "Manual",
+       "label_ar": "يدوي",
+       "label_en": "Manual"
+      }
+     ]
     }
    ],
    "title_key": "name"
@@ -1240,7 +1677,7 @@
    "name_en": "Activity",
    "name_ar": "نشاط",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -1310,7 +1747,23 @@
      "description_en": "Determining the level of automation of activity execution (e.g.: fully automated, partially automated, manual)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Fully automated",
+       "label_ar": "مؤتمت بالكامل",
+       "label_en": "Fully automated"
+      },
+      {
+       "value": "Partially automated",
+       "label_ar": "مؤتمت جزئياً",
+       "label_en": "Partially automated"
+      },
+      {
+       "value": "Manual",
+       "label_ar": "يدوي",
+       "label_en": "Manual"
+      }
+     ]
     }
    ],
    "title_key": "name"
@@ -1320,7 +1773,7 @@
    "name_en": "Product",
    "name_ar": "منتج",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -1360,7 +1813,23 @@
      "description_en": "Specifying the product type (e.g.: physical product, technical product, document)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Physical product",
+       "label_ar": "منتج مادي",
+       "label_en": "Physical product"
+      },
+      {
+       "value": "Technical product",
+       "label_ar": "منتج تقني",
+       "label_en": "Technical product"
+      },
+      {
+       "value": "Document",
+       "label_ar": "وثيقة",
+       "label_en": "Document"
+      }
+     ]
     },
     {
      "key": "product_owner",
@@ -1390,7 +1859,7 @@
    "name_en": "Position",
    "name_ar": "مسمى وظيفي",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "name",
@@ -1450,7 +1919,7 @@
    "name_en": "Role",
    "name_ar": "دور",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "name",
@@ -1480,7 +1949,18 @@
      "description_en": "Specifying the role type (e.g.: core role, supporting role)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Core role",
+       "label_ar": "دور أساسي",
+       "label_en": "Core role"
+      },
+      {
+       "value": "Supporting role",
+       "label_ar": "دور مساند",
+       "label_en": "Supporting role"
+      }
+     ]
     }
    ],
    "title_key": "name"
@@ -1490,7 +1970,7 @@
    "name_en": "Policy",
    "name_ar": "سياسة",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -1540,7 +2020,18 @@
      "description_en": "Specifying the policy type (e.g.: internal, external (governmental))",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Internal",
+       "label_ar": "داخلية",
+       "label_en": "Internal"
+      },
+      {
+       "value": "External (governmental)",
+       "label_ar": "خارجية (حكومية)",
+       "label_en": "External (governmental)"
+      }
+     ]
     },
     {
      "key": "status",
@@ -1550,7 +2041,23 @@
      "description_en": "Specifying the policy status (e.g.: activated, suspended, cancelled)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Activated",
+       "label_ar": "مفعّلة",
+       "label_en": "Activated"
+      },
+      {
+       "value": "Suspended",
+       "label_ar": "معلّقة",
+       "label_en": "Suspended"
+      },
+      {
+       "value": "Cancelled",
+       "label_ar": "ملغاة",
+       "label_en": "Cancelled"
+      }
+     ]
     },
     {
      "key": "policy_activation_date",
@@ -1580,7 +2087,7 @@
    "name_en": "Model/Template",
    "name_ar": "نموذج / قالب",
    "domain": "business",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -1620,7 +2127,28 @@
      "description_en": "Specifying the template type (e.g.: service delivery template, data collection template, guide template, policy template)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Service delivery template",
+       "label_ar": "نموذج تقديم خدمة",
+       "label_en": "Service delivery template"
+      },
+      {
+       "value": "Data collection template",
+       "label_ar": "نموذج جمع بيانات",
+       "label_en": "Data collection template"
+      },
+      {
+       "value": "Guide template",
+       "label_ar": "نموذج دليل",
+       "label_en": "Guide template"
+      },
+      {
+       "value": "Policy template",
+       "label_ar": "نموذج سياسة",
+       "label_en": "Policy template"
+      }
+     ]
     },
     {
      "key": "link",
@@ -1640,7 +2168,7 @@
    "name_en": "Beneficiary",
    "name_ar": "مستفيد",
    "domain": "beneficiary",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "name",
@@ -1670,7 +2198,28 @@
      "description_en": "Specifying the type of beneficiary (internal beneficiary, government entity, business sector, individuals) Journey”",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Internal beneficiary",
+       "label_ar": "مستفيد داخلي",
+       "label_en": "Internal beneficiary"
+      },
+      {
+       "value": "Government entity",
+       "label_ar": "جهة حكومية",
+       "label_en": "Government entity"
+      },
+      {
+       "value": "Business sector",
+       "label_ar": "قطاع الأعمال",
+       "label_en": "Business sector"
+      },
+      {
+       "value": "Individuals",
+       "label_ar": "أفراد",
+       "label_en": "Individuals"
+      }
+     ]
     }
    ],
    "title_key": "name"
@@ -1680,7 +2229,7 @@
    "name_en": "Beneficiary Journey",
    "name_ar": "رحلة المستفيد",
    "domain": "beneficiary",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -1720,7 +2269,7 @@
    "name_en": "Persona",
    "name_ar": "الشخصية",
    "domain": "beneficiary",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -1780,7 +2329,7 @@
    "name_en": "Phase",
    "name_ar": "مرحلة",
    "domain": "beneficiary",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -1820,7 +2369,7 @@
    "name_en": "Step",
    "name_ar": "خطوة",
    "domain": "beneficiary",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
@@ -1887,10 +2436,41 @@
      "order": 7,
      "name_en": "Communication Channel",
      "name_ar": "قناة التواصل",
-     "description_en": "associated with each step (e.g.: digital platforms, smartphone apps, social media platforms, traditional channels such as e-mail, field visits, telephone calls)",
+     "description_en": "Communication channels associated with each step (e.g.: digital platforms, smartphone apps, social media platforms, traditional channels such as e-mail, field visits, telephone calls)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Digital platforms",
+       "label_ar": "المنصات الرقمية",
+       "label_en": "Digital platforms"
+      },
+      {
+       "value": "Smartphone apps",
+       "label_ar": "تطبيقات الهواتف الذكية",
+       "label_en": "Smartphone apps"
+      },
+      {
+       "value": "Social media platforms",
+       "label_ar": "منصات التواصل الاجتماعي",
+       "label_en": "Social media platforms"
+      },
+      {
+       "value": "E-mail",
+       "label_ar": "البريد الإلكتروني",
+       "label_en": "E-mail"
+      },
+      {
+       "value": "Field visits",
+       "label_ar": "الزيارات الميدانية",
+       "label_en": "Field visits"
+      },
+      {
+       "value": "Telephone calls",
+       "label_ar": "الاتصالات الهاتفية",
+       "label_en": "Telephone calls"
+      }
+     ]
     }
    ],
    "title_key": "name"
@@ -1900,14 +2480,14 @@
    "name_en": "Data Entity",
    "name_ar": "كيان بيانات",
    "domain": "data",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
      "order": 1,
      "name_en": "Code",
      "name_ar": "الرمز",
-     "description_en": "",
+     "description_en": "Approved code for the data entity",
      "type": "text",
      "required": false,
      "options": []
@@ -1917,7 +2497,7 @@
      "order": 2,
      "name_en": "Name",
      "name_ar": "الاسم",
-     "description_en": "",
+     "description_en": "Common name for the data entity",
      "type": "text",
      "required": true,
      "options": []
@@ -1927,7 +2507,7 @@
      "order": 3,
      "name_en": "Description",
      "name_ar": "الوصف",
-     "description_en": "",
+     "description_en": "Textual description of the data entity",
      "type": "text",
      "required": false,
      "options": []
@@ -1937,7 +2517,7 @@
      "order": 4,
      "name_en": "Key Internal Beneficiaries",
      "name_ar": "المستفيدون الداخليون الرئيسيون",
-     "description_en": "",
+     "description_en": "Identifying the organizational units and applications that benefit from the data entity within the entity, whether as an application or as an organizational unit",
      "type": "text",
      "required": false,
      "options": []
@@ -1947,7 +2527,7 @@
      "order": 5,
      "name_en": "Key External Consumers",
      "name_ar": "المستهلكون الخارجيون الرئيسيون",
-     "description_en": "",
+     "description_en": "Identifying the key beneficiaries of the data entity outside the entity, whether as an application or an external party",
      "type": "text",
      "required": false,
      "options": []
@@ -1957,7 +2537,7 @@
      "order": 6,
      "name_en": "Data Source",
      "name_ar": "مصدر البيانات",
-     "description_en": "",
+     "description_en": "Name of the data source from which the core data entity is created",
      "type": "text",
      "required": false,
      "options": []
@@ -1967,30 +2547,44 @@
      "order": 7,
      "name_en": "Storage Classification",
      "name_ar": "تصنيف التخزين",
-     "description_en": "",
+     "description_en": "Classification for defining the parameters of the data entity storage location (possibility of storing data outside the Kingdom)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Inside the Kingdom only",
+       "label_ar": "داخل المملكة فقط",
+       "label_en": "Inside the Kingdom only"
+      },
+      {
+       "value": "May be stored outside the Kingdom",
+       "label_ar": "يجوز تخزينها خارج المملكة",
+       "label_en": "May be stored outside the Kingdom"
+      }
+     ]
     },
     {
      "key": "structure_classification",
      "order": 8,
      "name_en": "Structure Classification",
      "name_ar": "تصنيف الهيكلة",
-     "description_en": "",
+     "description_en": "Classification of data entities according to their storage structure (structured, semi-structured, unstructured data)",
      "type": "enum",
      "required": false,
      "options": [
       {
        "value": "Structured",
+       "label_ar": "مهيكلة",
        "label_en": "Structured"
       },
       {
        "value": "Semi-structured",
+       "label_ar": "شبه مهيكلة",
        "label_en": "Semi-structured"
       },
       {
        "value": "Unstructured",
+       "label_ar": "غير مهيكلة",
        "label_en": "Unstructured"
       }
      ]
@@ -2000,7 +2594,7 @@
      "order": 9,
      "name_en": "Data Business Rules",
      "name_ar": "قواعد العمل للبيانات",
-     "description_en": "",
+     "description_en": "Defining business rules associated with the use of the data entity",
      "type": "text",
      "required": false,
      "options": []
@@ -2010,7 +2604,7 @@
      "order": 10,
      "name_en": "Security Controls",
      "name_ar": "الضوابط الأمنية",
-     "description_en": "",
+     "description_en": "Determining security measures and controls in line with the entity’s approved controls (e.g. data encryption, data obfuscation)",
      "type": "text",
      "required": false,
      "options": []
@@ -2020,7 +2614,7 @@
      "order": 11,
      "name_en": "Data Storage Rules",
      "name_ar": "قواعد حفظ البيانات",
-     "description_en": "",
+     "description_en": "Determining the rules regarding the duration of data storage according to the requirements of the controls for data storage and recovery at the entity",
      "type": "text",
      "required": false,
      "options": []
@@ -2030,24 +2624,28 @@
      "order": 12,
      "name_en": "Data Entity Classification",
      "name_ar": "تصنيف كيان البيانات",
-     "description_en": "",
+     "description_en": "Classification for defining the use of a data entity according to the policies of the National Data Management Office (strictly confidential, confidential, restricted, public)",
      "type": "enum",
      "required": false,
      "options": [
       {
        "value": "Top Secret",
+       "label_ar": "سري للغاية",
        "label_en": "Top Secret"
       },
       {
        "value": "Secret",
+       "label_ar": "سري",
        "label_en": "Secret"
       },
       {
        "value": "Restricted",
+       "label_ar": "مقيد",
        "label_en": "Restricted"
       },
       {
        "value": "Public",
+       "label_ar": "عام",
        "label_en": "Public"
       }
      ]
@@ -2060,14 +2658,14 @@
    "name_en": "Data Vault",
    "name_ar": "خزينة بيانات",
    "domain": "data",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "code",
      "order": 1,
      "name_en": "Code",
      "name_ar": "الرمز",
-     "description_en": "",
+     "description_en": "Approved code for the data vault",
      "type": "text",
      "required": false,
      "options": []
@@ -2077,7 +2675,7 @@
      "order": 2,
      "name_en": "Name",
      "name_ar": "الاسم",
-     "description_en": "",
+     "description_en": "Name of data vault",
      "type": "text",
      "required": true,
      "options": []
@@ -2087,7 +2685,7 @@
      "order": 3,
      "name_en": "Description",
      "name_ar": "الوصف",
-     "description_en": "",
+     "description_en": "Description of the structure and functions of the data vault",
      "type": "text",
      "required": false,
      "options": []
@@ -2097,21 +2695,24 @@
      "order": 4,
      "name_en": "Type",
      "name_ar": "النوع",
-     "description_en": "",
+     "description_en": "Specifying the data vault type (e.g.: electronic database, digital archive, paper archive)",
      "type": "enum",
      "required": false,
      "options": [
       {
        "value": "Electronic database",
-       "label_en": "Electronic database"
+       "label_en": "Electronic database",
+       "label_ar": "قاعدة بيانات إلكترونية"
       },
       {
        "value": "Digital archive",
-       "label_en": "Digital archive"
+       "label_en": "Digital archive",
+       "label_ar": "أرشيف رقمي"
       },
       {
        "value": "Paper archive",
-       "label_en": "Paper archive"
+       "label_en": "Paper archive",
+       "label_ar": "أرشيف ورقي"
       }
      ]
     },
@@ -2120,7 +2721,7 @@
      "order": 5,
      "name_en": "Structure",
      "name_ar": "الهيكلة",
-     "description_en": "",
+     "description_en": "Specifying the structure type of data entities stored in the data vault",
      "type": "text",
      "required": false,
      "options": []
@@ -2133,14 +2734,14 @@
    "name_en": "Data Attributes",
    "name_ar": "سمات بيانات",
    "domain": "data",
-   "active": false,
+   "active": true,
    "attributes": [
     {
      "key": "name",
      "order": 1,
      "name_en": "Name",
      "name_ar": "الاسم",
-     "description_en": "",
+     "description_en": "Data attribute name",
      "type": "text",
      "required": true,
      "options": []
@@ -2150,7 +2751,7 @@
      "order": 2,
      "name_en": "Description",
      "name_ar": "الوصف",
-     "description_en": "",
+     "description_en": "Data attribute description",
      "type": "text",
      "required": false,
      "options": []
@@ -2160,25 +2761,29 @@
      "order": 3,
      "name_en": "Type",
      "name_ar": "النوع",
-     "description_en": "",
+     "description_en": "Specifying the data attribute type according to the main database design specifications (e.g.: numbers, text, image, date)",
      "type": "enum",
      "required": false,
      "options": [
       {
        "value": "Number",
-       "label_en": "Number"
+       "label_en": "Number",
+       "label_ar": "رقم"
       },
       {
        "value": "Text",
-       "label_en": "Text"
+       "label_en": "Text",
+       "label_ar": "نص"
       },
       {
        "value": "Image",
-       "label_en": "Image"
+       "label_en": "Image",
+       "label_ar": "صورة"
       },
       {
        "value": "Date",
-       "label_en": "Date"
+       "label_en": "Date",
+       "label_ar": "تاريخ"
       }
      ]
     },
@@ -2187,7 +2792,7 @@
      "order": 4,
      "name_en": "Quality Rules",
      "name_ar": "قواعد الجودة",
-     "description_en": "",
+     "description_en": "Identifying and defining quality rules for data attribute values such as (mandatory value, custom field length, field type) and other custom rules (e.g.: the value must not exceed a certain number, and the date must not be in the past)",
      "type": "text",
      "required": false,
      "options": []
@@ -2197,24 +2802,28 @@
      "order": 5,
      "name_en": "Classification",
      "name_ar": "التصنيف",
-     "description_en": "",
+     "description_en": "Classification according to the data policy and the level of confidentiality of the data entity attributes according to the classification of the Data Management and Governance Policy and in accordance with the level of impact resulting from accessing the data (strictly confidential, confidential, restricted, public)",
      "type": "enum",
      "required": false,
      "options": [
       {
        "value": "Top Secret",
+       "label_ar": "سري للغاية",
        "label_en": "Top Secret"
       },
       {
        "value": "Secret",
+       "label_ar": "سري",
        "label_en": "Secret"
       },
       {
        "value": "Restricted",
+       "label_ar": "مقيد",
        "label_en": "Restricted"
       },
       {
        "value": "Public",
+       "label_ar": "عام",
        "label_en": "Public"
       }
      ]
@@ -2254,7 +2863,7 @@
      "order": 3,
      "name_en": "Description",
      "name_ar": "الوصف",
-     "description_en": "Description of the objectives and nature of the functions provided by the application Determining the layer to which the",
+     "description_en": "Description of the objectives and nature of the functions provided by the application",
      "type": "text",
      "required": false,
      "options": []
@@ -2264,37 +2873,100 @@
      "order": 4,
      "name_en": "Layer",
      "name_ar": "الطبقة",
-     "description_en": "application belongs (access layer, core business applications layer, supporting applications layer, data applications layer, infrastructure applications layer, integration applications layer, and information",
+     "description_en": "Determining the layer to which the application belongs (access layer, core business applications layer, supporting applications layer, data applications layer, infrastructure applications layer, integration applications layer, and information security applications layer)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Access layer",
+       "label_ar": "طبقة الوصول",
+       "label_en": "Access layer"
+      },
+      {
+       "value": "Core business applications layer",
+       "label_ar": "طبقة تطبيقات الأعمال الأساسية",
+       "label_en": "Core business applications layer"
+      },
+      {
+       "value": "Supporting applications layer",
+       "label_ar": "طبقة التطبيقات المساندة",
+       "label_en": "Supporting applications layer"
+      },
+      {
+       "value": "Data applications layer",
+       "label_ar": "طبقة تطبيقات البيانات",
+       "label_en": "Data applications layer"
+      },
+      {
+       "value": "Infrastructure applications layer",
+       "label_ar": "طبقة تطبيقات البنية التحتية",
+       "label_en": "Infrastructure applications layer"
+      },
+      {
+       "value": "Integration applications layer",
+       "label_ar": "طبقة تطبيقات التكامل",
+       "label_en": "Integration applications layer"
+      },
+      {
+       "value": "Information security applications layer",
+       "label_ar": "طبقة تطبيقات أمن المعلومات",
+       "label_en": "Information security applications layer"
+      }
+     ]
     },
     {
      "key": "development_source",
      "order": 5,
      "name_en": "Development Source",
      "name_ar": "مصدر التطوير",
-     "description_en": "security applications layer) Identifying the source of application development (internal, external)",
+     "description_en": "Identifying the source of application development (internal, external)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Internal",
+       "label_ar": "داخلي",
+       "label_en": "Internal"
+      },
+      {
+       "value": "External",
+       "label_ar": "خارجي",
+       "label_en": "External"
+      }
+     ]
     },
     {
      "key": "development_type",
      "order": 6,
      "name_en": "Development Type",
      "name_ar": "نوع التطوير",
-     "description_en": "Determining the type of application development (e.g.: commercial of",
+     "description_en": "Determining the type of application development (e.g.: commercial off-the-shelf source code, custom source code, open-source code)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Commercial off-the-shelf",
+       "label_ar": "منتج تجاري جاهز",
+       "label_en": "Commercial off-the-shelf"
+      },
+      {
+       "value": "Custom source code",
+       "label_ar": "شفرة مصدرية خاصة",
+       "label_en": "Custom source code"
+      },
+      {
+       "value": "Open-source code",
+       "label_ar": "شفرة مفتوحة المصدر",
+       "label_en": "Open-source code"
+      }
+     ]
     },
     {
      "key": "application_link",
      "order": 7,
      "name_en": "Application Link",
      "name_ar": "رابط التطبيق",
-     "description_en": "the shelf source code, custom source code, open-source code) Web address of the browser for accessing the application. It is preceded by protocol identification",
+     "description_en": "Web address of the browser for accessing the application. It is preceded by protocol identification",
      "type": "url",
      "required": false,
      "options": []
@@ -2327,7 +2999,28 @@
      "description_en": "Determining the importance of the application to the entity’s operational priorities (e.g.: critical, high, medium, low)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Critical",
+       "label_ar": "حرجة",
+       "label_en": "Critical"
+      },
+      {
+       "value": "High",
+       "label_ar": "عالية",
+       "label_en": "High"
+      },
+      {
+       "value": "Medium",
+       "label_ar": "متوسطة",
+       "label_en": "Medium"
+      },
+      {
+       "value": "Low",
+       "label_ar": "منخفضة",
+       "label_en": "Low"
+      }
+     ]
     },
     {
      "key": "application_status",
@@ -2337,7 +3030,38 @@
      "description_en": "Determining the application’s status in terms of readiness for use (e.g.: under development, newly launched, active, locked, planned)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Planned",
+       "label_ar": "مخطط",
+       "label_en": "Planned"
+      },
+      {
+       "value": "Under development",
+       "label_ar": "قيد التطوير",
+       "label_en": "Under development"
+      },
+      {
+       "value": "Newly launched",
+       "label_ar": "حديث الإطلاق",
+       "label_en": "Newly launched"
+      },
+      {
+       "value": "Active",
+       "label_ar": "قيد التشغيل",
+       "label_en": "Active"
+      },
+      {
+       "value": "Locked",
+       "label_ar": "موقوف",
+       "label_en": "Locked"
+      },
+      {
+       "value": "Retired",
+       "label_ar": "متقاعد",
+       "label_en": "Retired"
+      }
+     ]
     },
     {
      "key": "pattern_of_the_architecture_structure",
@@ -2347,7 +3071,28 @@
      "description_en": "Defining the pattern of the application’s architecture structure (e.g.: n-tier Architecture ، client/server ،microservice)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "N-tier architecture",
+       "label_ar": "متعدد الطبقات (N-tier)",
+       "label_en": "N-tier architecture"
+      },
+      {
+       "value": "Client/server",
+       "label_ar": "خادم/عميل",
+       "label_en": "Client/server"
+      },
+      {
+       "value": "Microservices",
+       "label_ar": "خدمات مصغّرة",
+       "label_en": "Microservices"
+      },
+      {
+       "value": "Monolithic",
+       "label_ar": "متجانس (Monolithic)",
+       "label_en": "Monolithic"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -2377,7 +3122,33 @@
      "description_en": "Determining the technology used to develop the application (e.g.: Oracle ،Microsoft)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Oracle",
+       "label_ar": "Oracle",
+       "label_en": "Oracle"
+      },
+      {
+       "value": "Microsoft",
+       "label_ar": "Microsoft",
+       "label_en": "Microsoft"
+      },
+      {
+       "value": "Java",
+       "label_ar": "Java",
+       "label_en": "Java"
+      },
+      {
+       "value": ".NET",
+       "label_ar": ".NET",
+       "label_en": ".NET"
+      },
+      {
+       "value": "Low-code platform",
+       "label_ar": "منصة تطوير منخفض الكود",
+       "label_en": "Low-code platform"
+      }
+     ]
     },
     {
      "key": "provider_of_development_and_maintenance_services",
@@ -2414,7 +3185,7 @@
      "order": 1,
      "name_en": "Name",
      "name_ar": "الاسم",
-     "description_en": "Name of a software module in an application that performs a unique",
+     "description_en": "Name of a software module in an application that performs a unique function or a set of related functions within the application",
      "type": "text",
      "required": true,
      "options": []
@@ -2424,7 +3195,7 @@
      "order": 2,
      "name_en": "Description",
      "name_ar": "الوصف",
-     "description_en": "function or a set of related functions within the application Brief description of the application module, explaining the purpose and nature of the provided function",
+     "description_en": "Brief description of the application module, explaining the purpose and nature of the provided function",
      "type": "text",
      "required": false,
      "options": []
@@ -2474,7 +3245,7 @@
      "order": 1,
      "name_en": "Code",
      "name_ar": "الرمز",
-     "description_en": "Approved code for the technical integration point. It is used as an identifier to distinguish various types of technical points (e.g.: internal integration points versus external integration points) through",
+     "description_en": "Approved code for the technical integration point. It is used as an identifier to distinguish various types of technical points (e.g.: internal integration points versus external integration points) through a specific numerical sequence that makes them easy to access and search for",
      "type": "text",
      "required": false,
      "options": []
@@ -2484,7 +3255,7 @@
      "order": 2,
      "name_en": "Name",
      "name_ar": "الاسم",
-     "description_en": "a specific numerical sequence that makes them easy to access and search for Name of the technical integration point. It refers to the definition and specification of its objective",
+     "description_en": "Name of the technical integration point. It refers to the definition and specification of its objective",
      "type": "text",
      "required": true,
      "options": []
@@ -2547,7 +3318,18 @@
      "description_en": "Specifying the scope of the application interface connection (e.g.: internal, external)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Internal",
+       "label_ar": "داخلي",
+       "label_en": "Internal"
+      },
+      {
+       "value": "External",
+       "label_ar": "خارجي",
+       "label_en": "External"
+      }
+     ]
     },
     {
      "key": "integration_platform",
@@ -2567,7 +3349,28 @@
      "description_en": "Specifying the type of application interface connection (e.g.: direct connection, via the integration platform, secure government network, the Governmental Service Bus (GSB))",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Direct connection",
+       "label_ar": "اتصال مباشر",
+       "label_en": "Direct connection"
+      },
+      {
+       "value": "Via the integration platform",
+       "label_ar": "عبر منصة التكامل",
+       "label_en": "Via the integration platform"
+      },
+      {
+       "value": "Secure government network",
+       "label_ar": "الشبكة الحكومية الآمنة",
+       "label_en": "Secure government network"
+      },
+      {
+       "value": "Government Service Bus (GSB)",
+       "label_ar": "قناة التكامل الحكومية (GSB)",
+       "label_en": "Government Service Bus (GSB)"
+      }
+     ]
     },
     {
      "key": "integration_type",
@@ -2577,7 +3380,28 @@
      "description_en": "Specifying the type of integration used in the application interface (e.g.: DB Link ،SFTP ،SOAP, REST)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "DB Link",
+       "label_ar": "DB Link",
+       "label_en": "DB Link"
+      },
+      {
+       "value": "SFTP",
+       "label_ar": "SFTP",
+       "label_en": "SFTP"
+      },
+      {
+       "value": "SOAP",
+       "label_ar": "SOAP",
+       "label_en": "SOAP"
+      },
+      {
+       "value": "REST",
+       "label_ar": "REST",
+       "label_en": "REST"
+      }
+     ]
     },
     {
      "key": "data_format",
@@ -2587,7 +3411,28 @@
      "description_en": "Data format used in the technical interface point, for example (XML, JSON, Text, CSV, etc.) in order to store, process, and exchange data efficiently",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "XML",
+       "label_ar": "XML",
+       "label_en": "XML"
+      },
+      {
+       "value": "JSON",
+       "label_ar": "JSON",
+       "label_en": "JSON"
+      },
+      {
+       "value": "Text",
+       "label_ar": "نص",
+       "label_en": "Text"
+      },
+      {
+       "value": "CSV",
+       "label_ar": "CSV",
+       "label_en": "CSV"
+      }
+     ]
     }
    ],
    "title_key": "name"
@@ -2627,7 +3472,18 @@
      "description_en": "Description of the role of the data center in the technical infrastructure business (e.g.: primary data center, disaster recovery center)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Primary data center",
+       "label_ar": "مركز البيانات الرئيسي",
+       "label_en": "Primary data center"
+      },
+      {
+       "value": "Disaster recovery center",
+       "label_ar": "مركز التعافي من الكوارث",
+       "label_en": "Disaster recovery center"
+      }
+     ]
     },
     {
      "key": "classification_level",
@@ -2637,7 +3493,28 @@
      "description_en": "Determining the classification level of the data center infrastructure specifications (e.g.: Level 1, Level 2, etc.)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Level 1",
+       "label_ar": "المستوى 1",
+       "label_en": "Level 1"
+      },
+      {
+       "value": "Level 2",
+       "label_ar": "المستوى 2",
+       "label_en": "Level 2"
+      },
+      {
+       "value": "Level 3",
+       "label_ar": "المستوى 3",
+       "label_en": "Level 3"
+      },
+      {
+       "value": "Level 4",
+       "label_ar": "المستوى 4",
+       "label_en": "Level 4"
+      }
+     ]
     },
     {
      "key": "location",
@@ -2667,7 +3544,23 @@
      "description_en": "Identifying the business environments in the data center (e.g.: production environment, experimental environment, testing environment)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Production environment",
+       "label_ar": "بيئة الإنتاج",
+       "label_en": "Production environment"
+      },
+      {
+       "value": "Experimental environment",
+       "label_ar": "بيئة تجريبية",
+       "label_en": "Experimental environment"
+      },
+      {
+       "value": "Testing environment",
+       "label_ar": "بيئة الاختبار",
+       "label_en": "Testing environment"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -2677,7 +3570,18 @@
      "description_en": "Determining the operational support mechanism for the data center (e.g.: in-house team, service provider)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -2747,7 +3651,28 @@
      "description_en": "Determining the type of technology used in the physical host device (stand-alone or racked server, blade server, Hyper-Converged Infrastructure)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Stand-alone",
+       "label_ar": "مستقل",
+       "label_en": "Stand-alone"
+      },
+      {
+       "value": "Racked server",
+       "label_ar": "خادم رف",
+       "label_en": "Racked server"
+      },
+      {
+       "value": "Blade server",
+       "label_ar": "خادم شفرة (Blade)",
+       "label_en": "Blade server"
+      },
+      {
+       "value": "Hyper-Converged Infrastructure",
+       "label_ar": "بنية فائقة التقارب (HCI)",
+       "label_en": "Hyper-Converged Infrastructure"
+      }
+     ]
     },
     {
      "key": "vault",
@@ -2777,7 +3702,23 @@
      "description_en": "Specifying the type of virtual machine monitor available in the physical host device (e.g. ESXI, Hyper-V) (where applicable)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "ESXi",
+       "label_ar": "ESXi",
+       "label_en": "ESXi"
+      },
+      {
+       "value": "Hyper-V",
+       "label_ar": "Hyper-V",
+       "label_en": "Hyper-V"
+      },
+      {
+       "value": "KVM",
+       "label_ar": "KVM",
+       "label_en": "KVM"
+      }
+     ]
     },
     {
      "key": "version_of_virtual_machine_monitor",
@@ -2797,7 +3738,48 @@
      "description_en": "Determining the network segment to which the physical host belongs (e.g.: DMZ ،data center server farm)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "DMZ",
+       "label_ar": "المنطقة المنزوعة (DMZ)",
+       "label_en": "DMZ"
+      },
+      {
+       "value": "Extranet",
+       "label_ar": "الشبكة الخارجية (Extranet)",
+       "label_en": "Extranet"
+      },
+      {
+       "value": "Internet",
+       "label_ar": "الإنترنت",
+       "label_en": "Internet"
+      },
+      {
+       "value": "WAN",
+       "label_ar": "الشبكة الواسعة (WAN)",
+       "label_en": "WAN"
+      },
+      {
+       "value": "LAN",
+       "label_ar": "الشبكة المحلية (LAN)",
+       "label_en": "LAN"
+      },
+      {
+       "value": "Air Gapped",
+       "label_ar": "شبكة معزولة (Air Gapped)",
+       "label_en": "Air Gapped"
+      },
+      {
+       "value": "data center",
+       "label_ar": "مركز البيانات",
+       "label_en": "data center"
+      },
+      {
+       "value": "Data center server farm",
+       "label_ar": "مزرعة خوادم مركز البيانات",
+       "label_en": "Data center server farm"
+      }
+     ]
     },
     {
      "key": "central_processing_unit",
@@ -2857,7 +3839,18 @@
      "description_en": "Determining the status of the support contract for the physical host device (e.g.: active, expired)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Expired",
+       "label_ar": "منتهٍ",
+       "label_en": "Expired"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -2867,7 +3860,18 @@
      "description_en": "Specifying the operational support mechanism for a physical host device (e.g.: in-house team, service provider)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -2917,7 +3921,18 @@
      "description_en": "Determining the server type (physical server or virtual server)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Physical server",
+       "label_ar": "خادم مادي",
+       "label_en": "Physical server"
+      },
+      {
+       "value": "Virtual server",
+       "label_ar": "خادم افتراضي",
+       "label_en": "Virtual server"
+      }
+     ]
     },
     {
      "key": "operating_system_type",
@@ -2927,7 +3942,23 @@
      "description_en": "Determining the type of operating system running on this server (e.g.: Windows ،Linux ،Unix)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Windows",
+       "label_ar": "Windows",
+       "label_en": "Windows"
+      },
+      {
+       "value": "Linux",
+       "label_ar": "Linux",
+       "label_en": "Linux"
+      },
+      {
+       "value": "Unix",
+       "label_ar": "Unix",
+       "label_en": "Unix"
+      }
+     ]
     },
     {
      "key": "operating_system_version",
@@ -2937,7 +3968,28 @@
      "description_en": "Determining the version of the operating system running on this server (e.g.: Windows Server 2022)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Windows Server 2022",
+       "label_ar": "Windows Server 2022",
+       "label_en": "Windows Server 2022"
+      },
+      {
+       "value": "Windows Server 2019",
+       "label_ar": "Windows Server 2019",
+       "label_en": "Windows Server 2019"
+      },
+      {
+       "value": "Red Hat Enterprise Linux 9",
+       "label_ar": "Red Hat Enterprise Linux 9",
+       "label_en": "Red Hat Enterprise Linux 9"
+      },
+      {
+       "value": "Red Hat Enterprise Linux 8",
+       "label_ar": "Red Hat Enterprise Linux 8",
+       "label_en": "Red Hat Enterprise Linux 8"
+      }
+     ]
     },
     {
      "key": "cluster_id",
@@ -2957,7 +4009,48 @@
      "description_en": "Determining the network segment to which the server belongs (e.g.: DMZ ، data center server farm)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "DMZ",
+       "label_ar": "المنطقة المنزوعة (DMZ)",
+       "label_en": "DMZ"
+      },
+      {
+       "value": "Extranet",
+       "label_ar": "الشبكة الخارجية (Extranet)",
+       "label_en": "Extranet"
+      },
+      {
+       "value": "Internet",
+       "label_ar": "الإنترنت",
+       "label_en": "Internet"
+      },
+      {
+       "value": "WAN",
+       "label_ar": "الشبكة الواسعة (WAN)",
+       "label_en": "WAN"
+      },
+      {
+       "value": "LAN",
+       "label_ar": "الشبكة المحلية (LAN)",
+       "label_en": "LAN"
+      },
+      {
+       "value": "Air Gapped",
+       "label_ar": "شبكة معزولة (Air Gapped)",
+       "label_en": "Air Gapped"
+      },
+      {
+       "value": "data center",
+       "label_ar": "مركز البيانات",
+       "label_en": "data center"
+      },
+      {
+       "value": "Data center server farm",
+       "label_ar": "مزرعة خوادم مركز البيانات",
+       "label_en": "Data center server farm"
+      }
+     ]
     },
     {
      "key": "central_processing_units",
@@ -2997,7 +4090,38 @@
      "description_en": "Specifying the role of the server, e.g. (web server, application server, database server, integration server, infrastructure server, security server)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Web server",
+       "label_ar": "خادم ويب",
+       "label_en": "Web server"
+      },
+      {
+       "value": "Application server",
+       "label_ar": "خادم تطبيقات",
+       "label_en": "Application server"
+      },
+      {
+       "value": "Database server",
+       "label_ar": "خادم قواعد بيانات",
+       "label_en": "Database server"
+      },
+      {
+       "value": "Integration server",
+       "label_ar": "خادم تكامل",
+       "label_en": "Integration server"
+      },
+      {
+       "value": "Infrastructure server",
+       "label_ar": "خادم بنية تحتية",
+       "label_en": "Infrastructure server"
+      },
+      {
+       "value": "Security server",
+       "label_ar": "خادم أمني",
+       "label_en": "Security server"
+      }
+     ]
     },
     {
      "key": "environment",
@@ -3007,7 +4131,23 @@
      "description_en": "Specifying the server’s hosting environment (e.g.: production environment, preproduction environment, testing environment)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Production environment",
+       "label_ar": "بيئة الإنتاج",
+       "label_en": "Production environment"
+      },
+      {
+       "value": "Preproduction environment",
+       "label_ar": "بيئة ما قبل الإنتاج",
+       "label_en": "Preproduction environment"
+      },
+      {
+       "value": "Testing environment",
+       "label_ar": "بيئة الاختبار",
+       "label_en": "Testing environment"
+      }
+     ]
     },
     {
      "key": "backup",
@@ -3017,7 +4157,28 @@
      "description_en": "Specifying if the server is included in the backup policy (e.g.: yes, no, partially, not applicable)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Yes",
+       "label_ar": "نعم",
+       "label_en": "Yes"
+      },
+      {
+       "value": "No",
+       "label_ar": "لا",
+       "label_en": "No"
+      },
+      {
+       "value": "Partially",
+       "label_ar": "جزئياً",
+       "label_en": "Partially"
+      },
+      {
+       "value": "Not applicable",
+       "label_ar": "لا ينطبق",
+       "label_en": "Not applicable"
+      }
+     ]
     },
     {
      "key": "disaster_recovery",
@@ -3027,7 +4188,23 @@
      "description_en": "Determining if the server is included in the disaster recovery plan (e.g.: yes, no, not applicable)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Yes",
+       "label_ar": "نعم",
+       "label_en": "Yes"
+      },
+      {
+       "value": "No",
+       "label_ar": "لا",
+       "label_en": "No"
+      },
+      {
+       "value": "Not applicable",
+       "label_ar": "لا ينطبق",
+       "label_en": "Not applicable"
+      }
+     ]
     },
     {
      "key": "status",
@@ -3037,7 +4214,18 @@
      "description_en": "Determining the server’s operating status (e.g.: operational, not operational)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Operational",
+       "label_ar": "قيد التشغيل",
+       "label_en": "Operational"
+      },
+      {
+       "value": "Not operational",
+       "label_ar": "متوقف",
+       "label_en": "Not operational"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -3047,7 +4235,23 @@
      "description_en": "Determining the operational support mechanism for the server (e.g.: in-house team, service provider, other)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      },
+      {
+       "value": "Other",
+       "label_ar": "أخرى",
+       "label_en": "Other"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -3127,7 +4331,43 @@
      "description_en": "Determining the network segment to which this network device belongs (e.g.: DMZ, Extranet, Internet, WAN, LAN, Air Gapped, data center)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "DMZ",
+       "label_ar": "المنطقة المنزوعة (DMZ)",
+       "label_en": "DMZ"
+      },
+      {
+       "value": "Extranet",
+       "label_ar": "الشبكة الخارجية (Extranet)",
+       "label_en": "Extranet"
+      },
+      {
+       "value": "Internet",
+       "label_ar": "الإنترنت",
+       "label_en": "Internet"
+      },
+      {
+       "value": "WAN",
+       "label_ar": "الشبكة الواسعة (WAN)",
+       "label_en": "WAN"
+      },
+      {
+       "value": "LAN",
+       "label_ar": "الشبكة المحلية (LAN)",
+       "label_en": "LAN"
+      },
+      {
+       "value": "Air Gapped",
+       "label_ar": "شبكة معزولة (Air Gapped)",
+       "label_en": "Air Gapped"
+      },
+      {
+       "value": "data center",
+       "label_ar": "مركز البيانات",
+       "label_en": "data center"
+      }
+     ]
     },
     {
      "key": "type",
@@ -3137,7 +4377,28 @@
      "description_en": "Specifying the network device type (e.g.: router, switch, access point, controller)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Router",
+       "label_ar": "موجّه (Router)",
+       "label_en": "Router"
+      },
+      {
+       "value": "Switch",
+       "label_ar": "مبدّل (Switch)",
+       "label_en": "Switch"
+      },
+      {
+       "value": "Access point",
+       "label_ar": "نقطة وصول",
+       "label_en": "Access point"
+      },
+      {
+       "value": "Controller",
+       "label_ar": "وحدة تحكم",
+       "label_en": "Controller"
+      }
+     ]
     },
     {
      "key": "function",
@@ -3177,7 +4438,18 @@
      "description_en": "Determining the status of the support contract for the network device (e.g.: active, expired)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Expired",
+       "label_ar": "منتهٍ",
+       "label_en": "Expired"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -3187,7 +4459,18 @@
      "description_en": "Determining the operational support mechanism for the network device (e.g.: in-house team, service provider)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -3257,7 +4540,28 @@
      "description_en": "Determining the technology used in this network link, e.g.: fiber, copper, microwave, satellite",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Fiber",
+       "label_ar": "ألياف ضوئية",
+       "label_en": "Fiber"
+      },
+      {
+       "value": "Copper",
+       "label_ar": "نحاس",
+       "label_en": "Copper"
+      },
+      {
+       "value": "Microwave",
+       "label_ar": "موجات دقيقة",
+       "label_en": "Microwave"
+      },
+      {
+       "value": "Satellite",
+       "label_ar": "أقمار صناعية",
+       "label_en": "Satellite"
+      }
+     ]
     },
     {
      "key": "service",
@@ -3267,7 +4571,48 @@
      "description_en": "Determining the service provided by this network link (e.g.: Internet DIA, MPLS, PLL, IP Sec Tunnel, 5G, DWDM, IP VPN, SIP)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Internet DIA",
+       "label_ar": "Internet DIA",
+       "label_en": "Internet DIA"
+      },
+      {
+       "value": "MPLS",
+       "label_ar": "MPLS",
+       "label_en": "MPLS"
+      },
+      {
+       "value": "PLL",
+       "label_ar": "PLL",
+       "label_en": "PLL"
+      },
+      {
+       "value": "IPsec tunnel",
+       "label_ar": "IPsec tunnel",
+       "label_en": "IPsec tunnel"
+      },
+      {
+       "value": "5G",
+       "label_ar": "5G",
+       "label_en": "5G"
+      },
+      {
+       "value": "DWDM",
+       "label_ar": "DWDM",
+       "label_en": "DWDM"
+      },
+      {
+       "value": "IP VPN",
+       "label_ar": "IP VPN",
+       "label_en": "IP VPN"
+      },
+      {
+       "value": "SIP",
+       "label_ar": "SIP",
+       "label_en": "SIP"
+      }
+     ]
     },
     {
      "key": "role",
@@ -3277,7 +4622,18 @@
      "description_en": "Determining the role of the network link (e.g.: primary link, backup link)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Primary link",
+       "label_ar": "رابط رئيسي",
+       "label_en": "Primary link"
+      },
+      {
+       "value": "Backup link",
+       "label_ar": "رابط احتياطي",
+       "label_en": "Backup link"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -3287,14 +4643,30 @@
      "description_en": "Determining the operational support mechanism for the network link (e.g.: in-house team, service provider, other)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      },
+      {
+       "value": "Other",
+       "label_ar": "أخرى",
+       "label_en": "Other"
+      }
+     ]
     },
     {
      "key": "capital_cost",
      "order": 8,
      "name_en": "Capital Cost",
      "name_ar": "التكلفة الرأسمالية",
-     "description_en": "Determining the capital cost of the network link upon installation, which includes: cost of the network link and professional services",
+     "description_en": "Determining the capital cost of the network link upon installation, which includes: cost of the network link and professional services required for installation and configuration, if any",
      "type": "number",
      "required": false,
      "options": []
@@ -3304,7 +4676,7 @@
      "order": 9,
      "name_en": "Operating Cost",
      "name_ar": "التكلفة التشغيلية",
-     "description_en": "required for installation and configuration, if any. Determining the annual operating cost of the network link (where applicable)",
+     "description_en": "Determining the annual operating cost of the network link (where applicable)",
      "type": "number",
      "required": false,
      "options": []
@@ -3374,17 +4746,53 @@
      "order": 5,
      "name_en": "Network Segment",
      "name_ar": "مقطع الشبكة",
-     "description_en": "Determining the network segment to which this storage device belongs (e.g.: DMZ, Extranet,",
+     "description_en": "Determining the network segment to which this storage device belongs (e.g.: DMZ, Extranet, Internet, WAN, LAN, Air Gapped, data center)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "DMZ",
+       "label_ar": "المنطقة المنزوعة (DMZ)",
+       "label_en": "DMZ"
+      },
+      {
+       "value": "Extranet",
+       "label_ar": "الشبكة الخارجية (Extranet)",
+       "label_en": "Extranet"
+      },
+      {
+       "value": "Internet",
+       "label_ar": "الإنترنت",
+       "label_en": "Internet"
+      },
+      {
+       "value": "WAN",
+       "label_ar": "الشبكة الواسعة (WAN)",
+       "label_en": "WAN"
+      },
+      {
+       "value": "LAN",
+       "label_ar": "الشبكة المحلية (LAN)",
+       "label_en": "LAN"
+      },
+      {
+       "value": "Air Gapped",
+       "label_ar": "شبكة معزولة (Air Gapped)",
+       "label_en": "Air Gapped"
+      },
+      {
+       "value": "data center",
+       "label_ar": "مركز البيانات",
+       "label_en": "data center"
+      }
+     ]
     },
     {
      "key": "storage_capacity",
      "order": 6,
      "name_en": "Storage Capacity",
      "name_ar": "سعة التخزين",
-     "description_en": "Internet, WAN, LAN, Air Gapped, data center) Specifying the storage capacity provided by the storage device (in GB)",
+     "description_en": "Specifying the storage capacity provided by the storage device (in GB)",
      "type": "number",
      "required": false,
      "options": []
@@ -3407,7 +4815,18 @@
      "description_en": "Determining the status of the support contract for the storage device (active, expired)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Expired",
+       "label_ar": "منتهٍ",
+       "label_en": "Expired"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -3417,7 +4836,23 @@
      "description_en": "Identifying the operational support mechanism for the containerization engine (e.g.: in-house team, service provider, other)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      },
+      {
+       "value": "Other",
+       "label_ar": "أخرى",
+       "label_en": "Other"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -3487,24 +4922,76 @@
      "description_en": "Specifying the network segment to which the containerization engine belongs (e.g.: DMZ, Extranet, Internet, WAN, LAN, Air Gapped, data center)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "DMZ",
+       "label_ar": "المنطقة المنزوعة (DMZ)",
+       "label_en": "DMZ"
+      },
+      {
+       "value": "Extranet",
+       "label_ar": "الشبكة الخارجية (Extranet)",
+       "label_en": "Extranet"
+      },
+      {
+       "value": "Internet",
+       "label_ar": "الإنترنت",
+       "label_en": "Internet"
+      },
+      {
+       "value": "WAN",
+       "label_ar": "الشبكة الواسعة (WAN)",
+       "label_en": "WAN"
+      },
+      {
+       "value": "LAN",
+       "label_ar": "الشبكة المحلية (LAN)",
+       "label_en": "LAN"
+      },
+      {
+       "value": "Air Gapped",
+       "label_ar": "شبكة معزولة (Air Gapped)",
+       "label_en": "Air Gapped"
+      },
+      {
+       "value": "data center",
+       "label_ar": "مركز البيانات",
+       "label_en": "data center"
+      }
+     ]
     },
     {
      "key": "environment",
      "order": 5,
      "name_en": "Environment",
      "name_ar": "البيئة",
-     "description_en": "Determining the hosting environment for the containerization engine (e.g.: production environment, development environment, testing",
+     "description_en": "Determining the hosting environment for the containerization engine (e.g.: production environment, development environment, testing environment)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Production environment",
+       "label_ar": "بيئة الإنتاج",
+       "label_en": "Production environment"
+      },
+      {
+       "value": "Development environment",
+       "label_ar": "بيئة التطوير",
+       "label_en": "Development environment"
+      },
+      {
+       "value": "Testing environment",
+       "label_ar": "بيئة الاختبار",
+       "label_en": "Testing environment"
+      }
+     ]
     },
     {
      "key": "support_end_date",
      "order": 6,
      "name_en": "Support End Date",
      "name_ar": "تاريخ نهاية الدعم",
-     "description_en": "environment) Containerization engine support end date as per the manufacturer",
+     "description_en": "Containerization engine support end date as per the manufacturer",
      "type": "date",
      "required": false,
      "options": []
@@ -3517,7 +5004,18 @@
      "description_en": "Determining the status of the support contract for the containerization engine (active, expired)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Expired",
+       "label_ar": "منتهٍ",
+       "label_en": "Expired"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -3527,14 +5025,30 @@
      "description_en": "Identifying the operational support mechanism for the containerization engine (e.g.: in-house team, service provider, other)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      },
+      {
+       "value": "Other",
+       "label_ar": "أخرى",
+       "label_en": "Other"
+      }
+     ]
     },
     {
      "key": "capital_cost",
      "order": 9,
      "name_en": "Capital Cost",
      "name_ar": "التكلفة الرأسمالية",
-     "description_en": "Determining the capital cost of the containerization engine upon installation, which includes: cost of the containerization engine and professional services required for installation and configuration, if",
+     "description_en": "Determining the capital cost of the containerization engine upon installation, which includes: cost of the containerization engine and professional services required for installation and configuration, if any",
      "type": "number",
      "required": false,
      "options": []
@@ -3544,7 +5058,7 @@
      "order": 10,
      "name_en": "Operating Cost",
      "name_ar": "التكلفة التشغيلية",
-     "description_en": "any. Determining the annual operating cost of the containerization engine (where applicable).",
+     "description_en": "Determining the annual operating cost of the containerization engine (where applicable)",
      "type": "number",
      "required": false,
      "options": []
@@ -3617,7 +5131,18 @@
      "description_en": "Determining the status of the support contract for the infrastructure management tool (active, expired)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Expired",
+       "label_ar": "منتهٍ",
+       "label_en": "Expired"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -3627,7 +5152,23 @@
      "description_en": "Determining the operational support mechanism for the infrastructure management tool (e.g.: in-house team, service provider, other)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      },
+      {
+       "value": "Other",
+       "label_ar": "أخرى",
+       "label_en": "Other"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -3704,17 +5245,38 @@
      "order": 5,
      "name_en": "Type",
      "name_ar": "النوع",
-     "description_en": "Specifying the license type (e.g.: permanent license, annual",
+     "description_en": "Specifying the license type (e.g.: permanent license, annual subscription, monthly subscription, etc.)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Permanent license",
+       "label_ar": "ترخيص دائم",
+       "label_en": "Permanent license"
+      },
+      {
+       "value": "Annual subscription",
+       "label_ar": "اشتراك سنوي",
+       "label_en": "Annual subscription"
+      },
+      {
+       "value": "Monthly subscription",
+       "label_ar": "اشتراك شهري",
+       "label_en": "Monthly subscription"
+      },
+      {
+       "value": "Open source",
+       "label_ar": "مفتوح المصدر",
+       "label_en": "Open source"
+      }
+     ]
     },
     {
      "key": "date_of_obtaining",
      "order": 6,
      "name_en": "Date of Obtaining",
      "name_ar": "تاريخ الحصول",
-     "description_en": "subscription, monthly subscription, etc.) Determining the date on which the entity obtained the license",
+     "description_en": "Determining the date on which the entity obtained the license",
      "type": "date",
      "required": false,
      "options": []
@@ -3794,7 +5356,7 @@
      "order": 4,
      "name_en": "Version",
      "name_ar": "الإصدار",
-     "description_en": "Determining the release version of the infrastructure service according",
+     "description_en": "Determining the release version of the infrastructure service according to the provider or manufacturer’s list",
      "type": "text",
      "required": false,
      "options": []
@@ -3804,10 +5366,51 @@
      "order": 5,
      "name_en": "Function",
      "name_ar": "الوظيفة",
-     "description_en": "to the provider or manufacturer’s list Function performed by the infrastructure service, such as: DNS, DHCP, NTP, directory service, email service, communication service, collaboration service, backup and restore service",
+     "description_en": "Function performed by the infrastructure service, such as: DNS, DHCP, NTP, directory service, email service, communication service, collaboration service, backup and restore service",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "DNS",
+       "label_ar": "DNS",
+       "label_en": "DNS"
+      },
+      {
+       "value": "DHCP",
+       "label_ar": "DHCP",
+       "label_en": "DHCP"
+      },
+      {
+       "value": "NTP",
+       "label_ar": "NTP",
+       "label_en": "NTP"
+      },
+      {
+       "value": "Directory service",
+       "label_ar": "خدمة الدليل",
+       "label_en": "Directory service"
+      },
+      {
+       "value": "Email service",
+       "label_ar": "خدمة البريد الإلكتروني",
+       "label_en": "Email service"
+      },
+      {
+       "value": "Communication service",
+       "label_ar": "خدمة الاتصالات",
+       "label_en": "Communication service"
+      },
+      {
+       "value": "Collaboration service",
+       "label_ar": "خدمة التعاون",
+       "label_en": "Collaboration service"
+      },
+      {
+       "value": "Backup and restore service",
+       "label_ar": "خدمة النسخ الاحتياطي والاستعادة",
+       "label_en": "Backup and restore service"
+      }
+     ]
     },
     {
      "key": "support_end_date",
@@ -3827,7 +5430,18 @@
      "description_en": "Determining the status of the support contract for the infrastructure service (active, expired)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Expired",
+       "label_ar": "منتهٍ",
+       "label_en": "Expired"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -3837,14 +5451,25 @@
      "description_en": "Determining the operational support mechanism for the infrastructure service (e.g.: in-house team, service provider)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      }
+     ]
     },
     {
      "key": "capital_cost",
      "order": 9,
      "name_en": "Capital Cost",
      "name_ar": "التكلفة الرأسمالية",
-     "description_en": "Determining the capital cost of the infrastructure service upon installation, which includes: cost of the technical service and professional services required for",
+     "description_en": "Determining the capital cost of the infrastructure service upon installation, which includes: cost of the technical service and professional services required for installation and configuration, if any",
      "type": "number",
      "required": false,
      "options": []
@@ -3854,7 +5479,7 @@
      "order": 10,
      "name_en": "Operating Cost",
      "name_ar": "التكلفة التشغيلية",
-     "description_en": "installation and configuration, if any. Determining the annual operating cost of the infrastructure service (where applicable)",
+     "description_en": "Determining the annual operating cost of the infrastructure service (where applicable)",
      "type": "number",
      "required": false,
      "options": []
@@ -3924,17 +5549,43 @@
      "order": 6,
      "name_en": "Function",
      "name_ar": "الوظيفة",
-     "description_en": "Specifies the function of this accessory device or peripheral",
+     "description_en": "Specifies the function of this accessory device or peripheral device (e.g.: laptop, desktop, printer, sensor, scanner)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Laptop",
+       "label_ar": "حاسب محمول",
+       "label_en": "Laptop"
+      },
+      {
+       "value": "Desktop",
+       "label_ar": "حاسب مكتبي",
+       "label_en": "Desktop"
+      },
+      {
+       "value": "Printer",
+       "label_ar": "طابعة",
+       "label_en": "Printer"
+      },
+      {
+       "value": "Sensor",
+       "label_ar": "مستشعر",
+       "label_en": "Sensor"
+      },
+      {
+       "value": "Scanner",
+       "label_ar": "ماسح ضوئي",
+       "label_en": "Scanner"
+      }
+     ]
     },
     {
      "key": "operating_system_or_firmware",
      "order": 7,
      "name_en": "Operating System Or Firmware",
      "name_ar": "نظام التشغيل أو البرنامج الثابت",
-     "description_en": "device (e.g.: laptop, desktop, printer, sensor, scanner) Identifies the operating system or firmware used for this peripheral device and its version",
+     "description_en": "Identifies the operating system or firmware used for this peripheral device and its version",
      "type": "text",
      "required": false,
      "options": []
@@ -3957,7 +5608,18 @@
      "description_en": "Determining the status of the support contract for the infrastructure management tool (active, expired)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Expired",
+       "label_ar": "منتهٍ",
+       "label_en": "Expired"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -3967,7 +5629,18 @@
      "description_en": "Determining the operational support mechanism for the peripheral device (e.g.: in-house team, service provider)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -4047,7 +5720,43 @@
      "description_en": "Determining the network segment to which this security hardware belongs (e.g.: DMZ, Extranet, Internet, WAN, LAN, Air Gapped, data center)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "DMZ",
+       "label_ar": "المنطقة المنزوعة (DMZ)",
+       "label_en": "DMZ"
+      },
+      {
+       "value": "Extranet",
+       "label_ar": "الشبكة الخارجية (Extranet)",
+       "label_en": "Extranet"
+      },
+      {
+       "value": "Internet",
+       "label_ar": "الإنترنت",
+       "label_en": "Internet"
+      },
+      {
+       "value": "WAN",
+       "label_ar": "الشبكة الواسعة (WAN)",
+       "label_en": "WAN"
+      },
+      {
+       "value": "LAN",
+       "label_ar": "الشبكة المحلية (LAN)",
+       "label_en": "LAN"
+      },
+      {
+       "value": "Air Gapped",
+       "label_ar": "شبكة معزولة (Air Gapped)",
+       "label_en": "Air Gapped"
+      },
+      {
+       "value": "data center",
+       "label_ar": "مركز البيانات",
+       "label_en": "data center"
+      }
+     ]
     },
     {
      "key": "function",
@@ -4057,7 +5766,38 @@
      "description_en": "Determining the function of the security hardware in the network (e.g.: internet firewall, WAN firewall, data center firewall, WAF, IPS, IDS)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Internet firewall",
+       "label_ar": "جدار حماية الإنترنت",
+       "label_en": "Internet firewall"
+      },
+      {
+       "value": "WAN firewall",
+       "label_ar": "جدار حماية الشبكة الواسعة",
+       "label_en": "WAN firewall"
+      },
+      {
+       "value": "Data center firewall",
+       "label_ar": "جدار حماية مركز البيانات",
+       "label_en": "Data center firewall"
+      },
+      {
+       "value": "WAF",
+       "label_ar": "جدار حماية تطبيقات الويب (WAF)",
+       "label_en": "WAF"
+      },
+      {
+       "value": "IPS",
+       "label_ar": "نظام منع التسلل (IPS)",
+       "label_en": "IPS"
+      },
+      {
+       "value": "IDS",
+       "label_ar": "نظام كشف التسلل (IDS)",
+       "label_en": "IDS"
+      }
+     ]
     },
     {
      "key": "firmware_version",
@@ -4087,7 +5827,18 @@
      "description_en": "Determining the status of the support contract for the security hardware (active, expired)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Expired",
+       "label_ar": "منتهٍ",
+       "label_en": "Expired"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -4097,7 +5848,23 @@
      "description_en": "Determining the operational support mechanism for the security hardware (e.g.: in-house team, service provider, other)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      },
+      {
+       "value": "Other",
+       "label_ar": "أخرى",
+       "label_en": "Other"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -4177,7 +5944,38 @@
      "description_en": "Description of the function of information security software (e.g.: DLP, IAM, PAM, SIEM, vulnerability management, endpoint protection)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "DLP",
+       "label_ar": "منع تسرب البيانات (DLP)",
+       "label_en": "DLP"
+      },
+      {
+       "value": "IAM",
+       "label_ar": "إدارة الهويات والصلاحيات (IAM)",
+       "label_en": "IAM"
+      },
+      {
+       "value": "PAM",
+       "label_ar": "إدارة الصلاحيات الهامة (PAM)",
+       "label_en": "PAM"
+      },
+      {
+       "value": "SIEM",
+       "label_ar": "إدارة السجلات والأحداث الأمنية (SIEM)",
+       "label_en": "SIEM"
+      },
+      {
+       "value": "Vulnerability management",
+       "label_ar": "إدارة الثغرات",
+       "label_en": "Vulnerability management"
+      },
+      {
+       "value": "Endpoint protection",
+       "label_ar": "حماية الأجهزة الطرفية",
+       "label_en": "Endpoint protection"
+      }
+     ]
     },
     {
      "key": "support_end_date",
@@ -4197,7 +5995,18 @@
      "description_en": "Determining the status of the support contract for the security software (e.g.: active, expired)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Expired",
+       "label_ar": "منتهٍ",
+       "label_en": "Expired"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -4207,7 +6016,23 @@
      "description_en": "Determining the operational support mechanism for the security software (e.g.: in-house team, service provider, other)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      },
+      {
+       "value": "Other",
+       "label_ar": "أخرى",
+       "label_en": "Other"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -4287,7 +6112,18 @@
      "description_en": "Determining the status of the service provision contract that covers the security service (e.g.: active, expired)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "Active",
+       "label_ar": "نشط",
+       "label_en": "Active"
+      },
+      {
+       "value": "Expired",
+       "label_ar": "منتهٍ",
+       "label_en": "Expired"
+      }
+     ]
     },
     {
      "key": "type_of_operation",
@@ -4297,7 +6133,23 @@
      "description_en": "Determining the operational support mechanism for the security service (e.g.: in-house team, service provider, other)",
      "type": "enum",
      "required": false,
-     "options": []
+     "options": [
+      {
+       "value": "In-house team",
+       "label_ar": "فريق داخلي",
+       "label_en": "In-house team"
+      },
+      {
+       "value": "Service provider",
+       "label_ar": "مقدم خدمة",
+       "label_en": "Service provider"
+      },
+      {
+       "value": "Other",
+       "label_ar": "أخرى",
+       "label_en": "Other"
+      }
+     ]
     },
     {
      "key": "capital_cost",
@@ -4967,13 +6819,6 @@
    "target": "phase",
    "description_en": "The beneficiary journey includes several phases",
    "name_ar": "يتضمن"
-  },
-  {
-   "source": "beneficiary",
-   "verb": "Owns",
-   "target": "beneficiary_journey",
-   "description_en": "The persona owns the journey of one or more beneficiaries",
-   "name_ar": "يملك"
   },
   {
    "source": "step",
@@ -6479,7 +8324,42 @@
    "target": "beneficiary",
    "description_en": "A persona represents a beneficiary segment.",
    "name_ar": "يمثّل"
+  },
+  {
+   "source": "beneficiary",
+   "verb": "Represents",
+   "target": "persona",
+   "description_en": "Identifying the persona that represents the type and specifications of a group of beneficiaries",
+   "name_ar": "يمثل"
+  },
+  {
+   "source": "beneficiary_journey",
+   "verb": "Belongs To",
+   "target": "persona",
+   "description_en": "The beneficiary journey manages the interactions with the persona",
+   "name_ar": "تنتمي إلى"
+  },
+  {
+   "source": "persona",
+   "verb": "Owns",
+   "target": "beneficiary_journey",
+   "description_en": "The persona owns the journey of one or more beneficiaries",
+   "name_ar": "تمتلك"
+  },
+  {
+   "source": "service",
+   "verb": "Automated",
+   "target": "application",
+   "description_en": "Defining the service that is automated using a defined application",
+   "name_ar": "مؤتمتة"
+  },
+  {
+   "source": "security_hardware",
+   "verb": "Hosted In",
+   "target": "data_center",
+   "description_en": "Determining the location of the security hardware in a data center",
+   "name_ar": "مستضاف في"
   }
  ],
- "notes": "Enum attributes without options act as free text with suggestions until an entity EA owner (R2) configures the list."
+ "notes": "Built from the DGA EA Content Meta Model guide v1.0 (Dec 2024): 7 domains, 45 building blocks, 375 attributes, 312 connections. Predefined lists carry the guide’s example values as open suggestions in Arabic and English."
 }

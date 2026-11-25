@@ -24,7 +24,7 @@ export function loadSeed(): Seed {
   return (cached ??= JSON.parse(fs.readFileSync(config.seedFile, 'utf8')));
 }
 
-/** Copy the national DGA meta-model template into a tenant. Phase-1 domains are active; the rest are available but off. */
+/** Copy the national DGA meta-model template into a tenant: all seven domains, 45 building blocks, their attributes and connections. */
 export async function applyTemplate(tx: Tx, tenantId: string) {
   const s = loadSeed();
   for (const [i, d] of s.domains.entries()) {
@@ -43,6 +43,37 @@ export async function applyTemplate(tx: Tx, tenantId: string) {
   for (const r of s.relations) {
     await tx.query(`insert into mm_relations (tenant_id, source_code, verb, target_code, name_ar, description) values ($1,$2,$3,$4,$5,$6) on conflict do nothing`,
       [tenantId, r.source, r.verb, r.target, r.name_ar ?? null, r.description_en]);
+  }
+}
+
+/**
+ * Bring an existing tenant up to the current national template without undoing its own choices:
+ * adds missing domains, blocks, attributes and connections; fills predefined lists that are still empty and adds
+ * Arabic labels to national list values; repairs national attribute descriptions; retires connections the
+ * template no longer defines (switched off, kept if records already use them).
+ */
+export async function syncTemplate(tx: Tx, tenantId: string) {
+  const s = loadSeed();
+  await applyTemplate(tx, tenantId);
+  for (const b of s.blocks) {
+    for (const a of b.attributes) {
+      const cur = (await tx.query('select options, description, is_custom from mm_attributes where tenant_id=$1 and block_code=$2 and key=$3', [tenantId, b.code, a.key])).rows[0];
+      if (!cur || cur.is_custom) continue;
+      const seedOpts = (a.options ?? []) as { value: string; label_ar?: string; label_en?: string }[];
+      let opts = (cur.options ?? []) as { value: string; label_ar?: string; label_en?: string }[];
+      if (!opts.length) opts = seedOpts;
+      else opts = opts.map((o) => { const m = seedOpts.find((x) => x.value === o.value); return m ? { ...m, ...o, label_ar: o.label_ar || m.label_ar } : o; });
+      await tx.query('update mm_attributes set options=$4, description=$5 where tenant_id=$1 and block_code=$2 and key=$3',
+        [tenantId, b.code, a.key, JSON.stringify(opts), a.description_en ?? cur.description]);
+    }
+  }
+  const keep = new Set(s.relations.map((r) => `${r.source}|${r.verb}|${r.target}`));
+  const rels = (await tx.query('select id, source_code, verb, target_code from mm_relations where tenant_id=$1 and not is_custom', [tenantId])).rows;
+  for (const r of rels) {
+    if (keep.has(`${r.source_code}|${r.verb}|${r.target_code}`)) continue;
+    const used = (await tx.query('select 1 from record_links where relation_id=$1 limit 1', [r.id])).rowCount;
+    if (used) await tx.query('update mm_relations set active=false where id=$1', [r.id]);
+    else await tx.query('delete from mm_relations where id=$1', [r.id]);
   }
 }
 

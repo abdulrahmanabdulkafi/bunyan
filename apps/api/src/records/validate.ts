@@ -3,7 +3,7 @@ import type { BlockDef } from '../metamodel/metamodel.js';
 export interface FieldError { key: string; message: string }
 
 /** Coerce one value to the attribute's type; returns undefined for empty values. Throws a message string on bad input. */
-export interface CoerceOpts { options?: { value: string }[]; multiple?: boolean; strict?: boolean }
+export interface CoerceOpts { options?: { value: string; label_ar?: string; label_en?: string }[]; multiple?: boolean; strict?: boolean }
 
 const SPLIT = /[;\n؛]/;
 
@@ -37,7 +37,12 @@ export function coerce(type: string, raw: unknown, o: CoerceOpts = {}): unknown 
     }
     case 'enum': {
       // Options are suggestions; only a list marked strict rejects other values.
-      const v = String(raw).trim();
+      let v = String(raw).trim();
+      // An Arabic or English label (any letter case) is stored as the list's value, so Excel files in either language line up.
+      const lc = v.toLowerCase();
+      const hit = (options as { value: string; label_ar?: string; label_en?: string }[]).find((x) =>
+        x.value.toLowerCase() === lc || x.label_ar?.trim() === v || x.label_en?.toLowerCase() === lc);
+      if (hit) v = hit.value;
       if (o.strict && options.length && !options.some((x) => x.value === v)) throw `قيمة غير مسموحة؛ القيم المتاحة: ${options.map((x) => x.value).join('، ')}`;
       return v;
     }
