@@ -6,8 +6,54 @@ import { CurrentUser, Perm, SessionUser, actorOf } from '../auth/auth.js';
 import { can, inScope } from '../auth/permissions.js';
 import { loadModel } from '../metamodel/metamodel.js';
 import { completeness } from '../records/validate.js';
-import { VIEWPOINTS } from './catalog.js';
-import { Level, missingBlocks, run } from './engine.js';
+import { VIEWPOINTS, Viewpoint, ViewpointSpec, blocksOf } from './catalog.js';
+import { planOf } from '../cycles/cycles.js';
+import { Body, Delete, Patch, Post } from '@nestjs/common';
+import { z } from 'zod';
+import { Tx, audit } from '../common/db.js';
+import type { Model } from '../metamodel/metamodel.js';
+import { Level, PlanState, missingBlocks, run } from './engine.js';
+
+const DOMAINS = ['strategy', 'business', 'beneficiary', 'data', 'applications', 'technology', 'security'] as const;
+const codes = z.array(z.string().min(1)).min(1).max(20);
+/** The same five declarative kinds as the national catalogue; an entity composes its own from them. */
+export const SpecDto: z.ZodType<ViewpointSpec> = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('list'), blocks: codes.max(1), columns: z.array(z.string()).max(30).optional() }),
+  z.object({ kind: z.literal('matrix'), rows: codes, cols: codes, via: z.array(z.string()).max(6).optional() }),
+  z.object({ kind: z.literal('group'), blocks: codes, by: z.union([z.object({ attr: z.string().min(1) }), z.object({ related: z.string().min(1) }), z.object({ block: z.literal(true) })]) }),
+  z.object({ kind: z.literal('nest'), container: z.string().min(1), children: codes }),
+  z.object({ kind: z.literal('graph'), blocks: codes, collapse: z.string().optional() }),
+]) as z.ZodType<ViewpointSpec>;
+const CustomDto = z.object({
+  name_ar: z.string().trim().min(2).max(200), name_en: z.string().trim().min(2).max(200),
+  purpose_ar: z.string().max(500).nullable().optional(), purpose_en: z.string().max(500).nullable().optional(),
+  domain: z.enum(DOMAINS), spec: SpecDto,
+});
+
+function checkSpec(spec: ViewpointSpec, model: Model) {
+  const unknown = blocksOf(spec).filter((b) => !model.blocks.some((x) => x.code === b));
+  if (spec.kind === 'graph' && spec.collapse && !spec.blocks.includes(spec.collapse)) unknown.push(spec.collapse);
+  if (unknown.length) throw new BadRequestException(`وحدات بناء غير معروفة: ${unknown.join('، ')}`);
+  if (spec.kind === 'group' && 'attr' in spec.by) {
+    const attr = spec.by.attr;
+    if (!spec.blocks.every((b) => model.blocks.find((x) => x.code === b)!.attributes.some((a) => a.key === attr))) throw new BadRequestException('سمة التجميع غير موجودة في كل الوحدات المختارة');
+  }
+}
+
+/** A national viewpoint, or one of this entity's own. */
+async function findVp(tx: Tx, code: string): Promise<(Viewpoint & { custom?: boolean }) | undefined> {
+  const n = VIEWPOINTS.find((v) => v.code === code);
+  if (n) return n;
+  const c = (await tx.query('select * from custom_viewpoints where code=$1', [code])).rows[0];
+  return c && { code: c.code, domain: c.domain, name_ar: c.name_ar, name_en: c.name_en, purpose_ar: c.purpose_ar ?? '', purpose_en: c.purpose_en ?? '', spec: c.spec, custom: true };
+}
+
+/** `?cycle=<id>&state=current|target` — show the architecture before or after a development cycle's planned changes. */
+async function planFor(tx: Tx, cycle?: string, state?: string): Promise<PlanState | undefined> {
+  if (!cycle || (state !== 'current' && state !== 'target')) return undefined;
+  if (!(await tx.query('select 1 from ea_cycles where id=$1', [cycle])).rowCount) throw new NotFoundException();
+  return { mode: state, ...(await planOf(tx, cycle)) };
+}
 import { NotFoundException } from '@nestjs/common';
 
 const ALERT_DAYS = 180;
@@ -22,18 +68,21 @@ export class ViewpointsController {
     return withActor(actorOf(u), async (tx) => {
       const model = await loadModel(tx);
       const readable = (b: string) => { const d = model.blocks.find((x) => x.code === b); return !!d && inScope(u.roles, u.scope ?? {}, 'records.read', d.code, d.domain_code); };
-      return VIEWPOINTS.map(({ spec, ...vp }) => ({ ...vp, kind: spec.kind, missing: missingBlocks({ spec, ...vp }, { model, readable }) }));
+      const custom = (await tx.query('select * from custom_viewpoints order by code')).rows
+        .map((c) => ({ code: c.code, domain: c.domain, name_ar: c.name_ar, name_en: c.name_en, purpose_ar: c.purpose_ar ?? '', purpose_en: c.purpose_en ?? '', spec: c.spec as ViewpointSpec, custom: true }));
+      return [...VIEWPOINTS, ...custom].map(({ spec, ...vp }) => ({ ...vp, kind: spec.kind, missing: missingBlocks({ spec, ...vp } as Viewpoint, { model, readable }) }));
     });
   }
 
   /** Excel export of a viewpoint (FR-07-07): tables as they appear on screen, in the chosen language. */
   @Perm('reports.export')
   @Get('run/:code/xlsx')
-  async exportOne(@CurrentUser() u: SessionUser, @Param('code') code: string, @Query('level') level: string, @Query('lang') lang: string, @Res() res: Response) {
-    const vp = VIEWPOINTS.find((v) => v.code === code);
+  async exportOne(@CurrentUser() u: SessionUser, @Param('code') code: string, @Query('level') level: string, @Query('lang') lang: string, @Res() res: Response,
+    @Query('cycle') cycle?: string, @Query('state') state?: string) {
+    const vp = await withActor(actorOf(u), (tx) => findVp(tx, code));
     if (!vp) throw new NotFoundException();
     const en = lang === 'en';
-    const data = await this.runOne(u, code, level) as Record<string, any>;
+    const data = await this.runOne(u, code, level, cycle, state) as Record<string, any>;
     if (data.missing) throw new BadRequestException('لا توجد وحدات بناء متاحة');
     const model = await withActor(actorOf(u), loadModel);
     const bn = (c: string) => { const b = model.blocks.find((x) => x.code === c); return b ? (en ? b.name_en : b.name_ar) : c; };
@@ -67,20 +116,89 @@ export class ViewpointsController {
 
   @Perm('records.read')
   @Get('run/:code')
-  runOne(@CurrentUser() u: SessionUser, @Param('code') code: string, @Query('level') level: string) {
-    const vp = VIEWPOINTS.find((v) => v.code === code);
-    if (!vp) throw new NotFoundException();
+  runOne(@CurrentUser() u: SessionUser, @Param('code') code: string, @Query('level') level: string, @Query('cycle') cycle?: string, @Query('state') state?: string) {
     const lvl: Level = level === 'conceptual' || level === 'physical' ? level : 'logical';
     return withActor(actorOf(u), async (tx) => {
+      const vp = await findVp(tx, code);
+      if (!vp) throw new NotFoundException();
+      const plan = await planFor(tx, cycle, state);
       const model = await loadModel(tx);
       const readable = (b: string) => { const d = model.blocks.find((x) => x.code === b); return !!d && inScope(u.roles, u.scope ?? {}, 'records.read', d.code, d.domain_code); };
       const missing = missingBlocks(vp, { model, readable });
       if (missing.length) return { code, missing };
-      return { code, level: lvl, ...(await run(tx, vp.spec, { model, readable, level: lvl, showCost: can(u.roles, 'cost.read') })) };
+      return { code, level: lvl, ...(plan ? { state: plan.mode } : {}), ...(await run(tx, vp.spec, { model, readable, level: lvl, showCost: can(u.roles, 'cost.read'), plan })) };
     });
   }
 
   /** Relationship matrix between two building blocks (e.g. Applications × Servers). */
+  /** Build a viewpoint from a spec without saving it: the live preview of the viewpoint builder. */
+  @Perm('viewpoints.build')
+  @Post('preview')
+  preview(@CurrentUser() u: SessionUser, @Body() body: unknown) {
+    const spec = SpecDto.parse((body as { spec?: unknown })?.spec);
+    return withActor(actorOf(u), async (tx) => {
+      const model = await loadModel(tx);
+      checkSpec(spec, model);
+      const readable = (b: string) => { const d = model.blocks.find((x) => x.code === b); return !!d && inScope(u.roles, u.scope ?? {}, 'records.read', d.code, d.domain_code); };
+      const missing = missingBlocks({ spec } as Viewpoint, { model, readable });
+      if (missing.length) return { missing };
+      return run(tx, spec, { model, readable, level: 'logical', showCost: can(u.roles, 'cost.read') });
+    });
+  }
+
+  @Perm('viewpoints.build')
+  @Post('custom')
+  createCustom(@CurrentUser() u: SessionUser, @Body() body: unknown) {
+    const d = CustomDto.parse(body);
+    return withActor(actorOf(u), async (tx) => {
+      checkSpec(d.spec, await loadModel(tx));
+      const n = Number((await tx.query(`select coalesce(max(substring(code from 5)::int), 0) + 1 as n from custom_viewpoints where code ~ '^CUS-[0-9]+$'`)).rows[0].n);
+      const row = (await tx.query(
+        `insert into custom_viewpoints (tenant_id, code, domain, name_ar, name_en, purpose_ar, purpose_en, spec, created_by)
+         values (app_tenant(), $1, $2, $3, $4, $5, $6, $7, app_user()) returning *`,
+        [`CUS-${n}`, d.domain, d.name_ar, d.name_en, d.purpose_ar ?? null, d.purpose_en ?? null, JSON.stringify(d.spec)])).rows[0];
+      await audit(tx, actorOf(u), 'create', 'custom_viewpoint', row.id, null, row);
+      return row;
+    });
+  }
+
+  @Perm('viewpoints.build')
+  @Get('custom/:code')
+  getCustom(@CurrentUser() u: SessionUser, @Param('code') code: string) {
+    return withActor(actorOf(u), async (tx) => {
+      const row = (await tx.query('select * from custom_viewpoints where code=$1', [code])).rows[0];
+      if (!row) throw new NotFoundException();
+      return row;
+    });
+  }
+
+  @Perm('viewpoints.build')
+  @Patch('custom/:code')
+  updateCustom(@CurrentUser() u: SessionUser, @Param('code') code: string, @Body() body: unknown) {
+    const d = CustomDto.parse(body);
+    return withActor(actorOf(u), async (tx) => {
+      checkSpec(d.spec, await loadModel(tx));
+      const cur = (await tx.query('select * from custom_viewpoints where code=$1', [code])).rows[0];
+      if (!cur) throw new NotFoundException();
+      const row = (await tx.query(
+        `update custom_viewpoints set domain=$2, name_ar=$3, name_en=$4, purpose_ar=$5, purpose_en=$6, spec=$7, updated_at=now() where code=$1 returning *`,
+        [code, d.domain, d.name_ar, d.name_en, d.purpose_ar ?? null, d.purpose_en ?? null, JSON.stringify(d.spec)])).rows[0];
+      await audit(tx, actorOf(u), 'update', 'custom_viewpoint', row.id, cur, row);
+      return row;
+    });
+  }
+
+  @Perm('viewpoints.build')
+  @Delete('custom/:code')
+  removeCustom(@CurrentUser() u: SessionUser, @Param('code') code: string) {
+    return withActor(actorOf(u), async (tx) => {
+      const cur = (await tx.query('delete from custom_viewpoints where code=$1 returning *', [code])).rows[0];
+      if (!cur) throw new NotFoundException();
+      await audit(tx, actorOf(u), 'delete', 'custom_viewpoint', cur.id, cur, null);
+      return { ok: true };
+    });
+  }
+
   @Perm('records.read')
   @Get('matrix')
   matrix(@CurrentUser() u: SessionUser, @Query('rows') rowsBlock: string, @Query('cols') colsBlock: string) {

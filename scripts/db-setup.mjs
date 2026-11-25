@@ -252,6 +252,47 @@ if (demo && !demoLoaded) {
   await L(dv1, 'Hosted', s1, 'data_vault', 'server');
   await L(dv2, 'Hosted', s2, 'data_vault', 'server');
 
+  // An EA development cycle in its target phase: what the entity plans to add, change and retire.
+  {
+    const lic = await R('application', { code: 'APP-005', name: 'منصة التراخيص الموحدة', description: 'منصة واحدة لكل التراخيص تحل محل نظام إدارة الوثائق في مسار الترخيص', layer: 'تطبيقات الأعمال', development_type: 'تطوير داخلي', application_status: 'مخطط' }, 'draft');
+    await L(sv1, 'Automated', lic, 'service', 'application');
+    await L(sv2, 'Automated', lic, 'service', 'application');
+    await L(de2, 'Used In', lic, 'data_entity', 'application');
+    await L(s1, 'Hosts', lic, 'server', 'application');
+    const cyc = (await db.query(
+      `insert into ea_cycles (tenant_id, code, name, objective, domains, start_date, end_date, status, phase, owner_id, created_by)
+       values ($1,'CYC-2026-01','دورة تطوير البنية 2026 — توحيد التراخيص','توحيد خدمات الترخيص على منصة واحدة وتقاعد الأنظمة المتداخلة',
+               '{business,data,applications,technology}', '2026-07-01', '2027-03-31', 'active', 'target', $2, $2) returning id`, [ea, owner])).rows[0].id;
+    const tasks = [
+      ['scope', 'تحديد أهداف الدورة ونطاقها والمجالات المشمولة', 'وثيقة نطاق الدورة', 'done', owner, '2026-07-15'],
+      ['scope', 'تحديد أصحاب المصلحة وفريق العمل', 'مصفوفة أصحاب المصلحة', 'done', owner, '2026-07-20'],
+      ['baseline', 'تحديث سجلات التطبيقات والتقنية واعتمادها', 'مستودع محدّث ومعتمد', 'done', arch, '2026-08-31'],
+      ['baseline', 'مراجعة جودة البيانات واكتمال السمات', 'تقرير جودة البيانات', 'done', arch, '2026-09-15'],
+      ['target', 'تصميم الوضع المستهدف لخدمات الترخيص', 'سجل التغييرات المخطط لها', 'doing', arch, '2026-11-30'],
+      ['target', 'مواءمة الوضع المستهدف مع هدف رقمنة الخدمات', 'مصفوفة المواءمة', 'todo', owner, '2026-12-15'],
+      ['gap', 'تحليل الفجوات وأثر تقاعد نظام إدارة الوثائق', 'تقرير تحليل الفجوات والأثر', 'todo', arch, '2027-01-15'],
+      ['roadmap', 'خارطة طريق الانتقال وتقدير التكاليف', 'خارطة الطريق', 'todo', owner, '2027-02-15'],
+      ['approval', 'عرض المخرجات على لجنة البنية المؤسسية', 'محضر الاعتماد', 'todo', owner, '2027-03-15'],
+    ];
+    let sort = 0;
+    for (const [phase, title, deliverable, status, who, due] of tasks) await db.query(
+      `insert into ea_cycle_tasks (tenant_id, cycle_id, phase, title, deliverable, status, assignee_id, due_date, sort) values ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+      [ea, cyc, phase, title, deliverable, status, who, due, sort++]);
+    for (const [rec, type, why, date] of [
+      [lic, 'add', 'منصة موحدة لخدمات الترخيص', '2027-01-31'],
+      [dms, 'retire', 'تنتقل وظائفه في مسار الترخيص إلى المنصة الموحدة', '2027-03-31'],
+      [portal, 'modify', 'ربط البوابة بالمنصة الموحدة بدلاً من نظام العملاء', '2027-02-28'],
+      [sv2, 'modify', 'رفع أتمتة تجديد الترخيص إلى أتمتة كاملة', '2027-02-28'],
+    ]) await db.query(`insert into ea_cycle_changes (tenant_id, cycle_id, record_id, change_type, rationale, target_date, created_by) values ($1,$2,$3,$4,$5,$6,$7)`,
+      [ea, cyc, rec, type, why, date, arch]);
+  }
+
+  // A few notifications so the bell has something to show on first sign-in.
+  for (const [user, actor, kind, payload] of [
+    [owner, arch, 'task_assigned', { title: 'مواءمة الوضع المستهدف مع هدف رقمنة الخدمات', cycle: 'CYC-2026-01', path: '/cycles' }],
+    [arch, owner, 'rejected', { name: 'نظام إدارة علاقات العملاء', comment: 'يرجى تحديث مستوى الأهمية وتكلفة التشغيل', record_id: crm, path: `/records/${crm}` }],
+  ]) await db.query(`insert into notifications (tenant_id, user_id, kind, payload, actor_id) values ($1,$2,$3,$4,$5)`, [ea, user, kind, JSON.stringify(payload), actor]);
+
   // A short, realistic history on one record so the change-history tab has something to show.
   {
     const cur = (await db.query('select attrs from records where id=$1', [crm])).rows[0].attrs;

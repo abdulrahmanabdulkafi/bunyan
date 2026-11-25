@@ -64,6 +64,7 @@ const PERMS: Record<string, string[]> = {
   'records.write': ['R2', 'R3', 'R4', 'R5'], 'records.import': ['R2', 'R3', 'R4', 'R5'], 'records.review': ['R2', 'R3', 'R4'],
   'records.approve': ['R2'], 'records.archive': ['R2'], 'audit.read': ['R0', 'R1', 'R2', 'R7'],
   'dashboard.national': ['R2', 'R6', 'R8', 'R9'], 'integrations.manage': ['R1', 'R2'], 'compliance.read': ['R2', 'R3', 'R4', 'R6', 'R7'], 'compliance.library': ['R0'], 'cost.read': ['R2', 'R3', 'R4', 'R6', 'R7'],
+  'cycles.manage': ['R2', 'R3'], 'viewpoints.build': ['R2', 'R3'],
 };
 export function can(u: User | null, perm: string) {
   return !!u && (PERMS[perm] ?? []).some((r) => u.roles.includes(r));
@@ -76,7 +77,7 @@ export function canInScope(u: User | null, perm: string, b: Block) {
 }
 
 
-export interface VpMeta { code: string; domain: string; name_ar: string; name_en: string; purpose_ar: string; purpose_en: string; phase2?: boolean; kind: string; missing: string[] }
+export interface VpMeta { code: string; custom?: boolean; domain: string; name_ar: string; name_en: string; purpose_ar: string; purpose_en: string; phase2?: boolean; kind: string; missing: string[] }
 
 /** After sign-in: a limited session goes to the setup page to finish the owed step. */
 export interface Session { token: string; limited: string | null; expiresInMinutes: number }

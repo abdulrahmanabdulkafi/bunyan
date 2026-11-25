@@ -8,6 +8,7 @@ import { CurrentUser, Perm, SessionUser, actorOf } from '../auth/auth.js';
 import { COST_KEYS, Permission, can, inScope } from '../auth/permissions.js';
 import { BlockDef, loadModel } from '../metamodel/metamodel.js';
 import { completeness, validateAttrs } from './validate.js';
+import { notify, usersWith } from '../notifications/notifications.js';
 
 /** Approval workflow — BRD 4.x: draft → submitted → reviewed (preliminary) → approved (final). */
 const TRANSITIONS: Record<string, { from: string[]; to: string; perm: Permission }> = {
@@ -101,6 +102,11 @@ export class RecordsService {
     await tx.query(`insert into approvals (tenant_id, record_id, from_status, to_status, actor_id, comment) values (app_tenant(),$1,$2,$3,app_user(),$4)`,
       [id, cur.status, t.to, comment ?? null]);
     await audit(tx, actorOf(u), action, 'record', id, { status: cur.status }, { status: t.to, comment });
+    // Tell the next person in the workflow (and the editor when it ends).
+    const payload = { record_id: id, name: cur.name, path: `/records/${id}`, ...(comment ? { comment } : {}) };
+    if (action === 'submit') await notify(tx, await usersWith(tx, 'records.review', b.code, b.domain_code), 'submitted', payload);
+    else if (action === 'review') await notify(tx, await usersWith(tx, 'records.approve', b.code, b.domain_code), 'reviewed', payload);
+    else if (action === 'approve' || action === 'reject') await notify(tx, [cur.updated_by], action === 'approve' ? 'approved' : 'rejected', payload);
     return rows[0];
   }
 

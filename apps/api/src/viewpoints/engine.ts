@@ -7,15 +7,31 @@ export type Level = 'conceptual' | 'logical' | 'physical';
 interface Node { id: string; name: string; block_code: string; status: string; attrs: Record<string, unknown> }
 interface Edge { id: string; source_id: string; target_id: string; verb: string; name_ar: string | null }
 
-const brief = (n: Node) => ({ id: n.id, name: n.name, block_code: n.block_code, status: n.status });
+/**
+ * Architecture state shown by a viewpoint, relative to a development cycle:
+ * current = without the cycle's pending additions; target = after its changes (retirements removed, additions included).
+ */
+export interface PlanState { mode: 'current' | 'target'; plan: Map<string, 'add' | 'modify' | 'retire'>; pendingAdds: Set<string> }
 
-async function load(tx: Tx, blocks: string[]) {
-  const nodes: Node[] = (await tx.query(
+/** A node as the interface sees it; in the target state it carries its planned change. */
+const briefFor = (p?: PlanState) => (n: Node) => {
+  const plan = p?.mode === 'target' ? p.plan.get(n.id) : undefined;
+  return { id: n.id, name: n.name, block_code: n.block_code, status: n.status, ...(plan ? { plan } : {}) };
+};
+
+async function load(tx: Tx, blocks: string[], activePlan?: PlanState) {
+  let nodes: Node[] = (await tx.query(
     `select id, name, block_code, status, attrs from records where block_code = any($1) and status <> 'archived' order by name`, [blocks])).rows;
-  const edges: Edge[] = (await tx.query(
+  let edges: Edge[] = (await tx.query(
     `select l.id, l.source_id, l.target_id, m.verb, m.name_ar from record_links l join mm_relations m on m.id = l.relation_id
       join records s on s.id = l.source_id and s.status <> 'archived' join records t on t.id = l.target_id and t.status <> 'archived'
      where s.block_code = any($1) and t.block_code = any($1)`, [blocks])).rows;
+  if (activePlan) {
+    const p = activePlan;
+    const hidden = (id: string) => (p.mode === 'current' ? p.pendingAdds.has(id) : p.plan.get(id) === 'retire');
+    nodes = nodes.filter((n) => !hidden(n.id));
+    edges = edges.filter((e) => !hidden(e.source_id) && !hidden(e.target_id));
+  }
   // Inverse relation pairs (Hosts / Hosted By) are one fact: adjacency is undirected.
   const adj = new Map<string, Set<string>>();
   for (const e of edges) {
@@ -25,7 +41,7 @@ async function load(tx: Tx, blocks: string[]) {
   return { nodes, edges, adj, byId: new Map(nodes.map((n) => [n.id, n])) };
 }
 
-export interface RunContext { model: Model; showCost: boolean; level: Level; readable: (block: string) => boolean }
+export interface RunContext { model: Model; showCost: boolean; level: Level; readable: (block: string) => boolean; plan?: PlanState }
 
 /** Which blocks a viewpoint needs that are switched off (or out of the user's scope) for this entity. */
 export function missingBlocks(vp: Viewpoint, ctx: Pick<RunContext, 'model' | 'readable'>) {
@@ -34,10 +50,11 @@ export function missingBlocks(vp: Viewpoint, ctx: Pick<RunContext, 'model' | 're
 
 export async function run(tx: Tx, spec: ViewpointSpec, ctx: RunContext) {
   const model = ctx.model;
+  const brief = briefFor(ctx.plan);
   const blk = (c: string) => model.blocks.find((b) => b.code === c)!;
   switch (spec.kind) {
     case 'list': {
-      const { nodes } = await load(tx, spec.blocks);
+      const { nodes } = await load(tx, spec.blocks, ctx.plan);
       const b = blk(spec.blocks[0]);
       const active = b.attributes.filter((a) => a.active && (ctx.showCost || !COST_KEYS.test(a.key)));
       // Detail levels (FR-07-02): conceptual = name & description, logical = the viewpoint's key attributes, physical = everything.
@@ -50,7 +67,7 @@ export async function run(tx: Tx, spec: ViewpointSpec, ctx: RunContext) {
     }
     case 'matrix': {
       const via = new Set(spec.via ?? []);
-      const { nodes, adj, byId } = await load(tx, blocksOf(spec));
+      const { nodes, adj, byId } = await load(tx, blocksOf(spec), ctx.plan);
       const rows = nodes.filter((n) => spec.rows.includes(n.block_code));
       const cols = nodes.filter((n) => spec.cols.includes(n.block_code));
       const colSet = new Set(cols.map((c) => c.id));
@@ -75,7 +92,7 @@ export async function run(tx: Tx, spec: ViewpointSpec, ctx: RunContext) {
     }
     case 'group': {
       const by = spec.by;
-      const { nodes, adj, byId } = await load(tx, blocksOf(spec));
+      const { nodes, adj, byId } = await load(tx, blocksOf(spec), ctx.plan);
       const items = nodes.filter((n) => spec.blocks.includes(n.block_code));
       const groups = new Map<string, { key: string; label_ar: string; label_en: string; items: ReturnType<typeof brief>[] }>();
       const put = (key: string, ar: string, en: string, n: Node) => {
@@ -103,7 +120,7 @@ export async function run(tx: Tx, spec: ViewpointSpec, ctx: RunContext) {
       return { kind: 'group', groups: out };
     }
     case 'nest': {
-      const { nodes, adj, byId } = await load(tx, blocksOf(spec));
+      const { nodes, adj, byId } = await load(tx, blocksOf(spec), ctx.plan);
       const containers = nodes.filter((n) => n.block_code === spec.container).map((c) => ({
         ...brief(c),
         children: [...(adj.get(c.id) ?? [])].map((id) => byId.get(id)!).filter((x) => x && spec.children.includes(x.block_code)).map(brief)
@@ -114,7 +131,7 @@ export async function run(tx: Tx, spec: ViewpointSpec, ctx: RunContext) {
       return { kind: 'nest', containers, unplaced };
     }
     case 'graph': {
-      const { nodes, edges } = await load(tx, spec.blocks);
+      const { nodes, edges } = await load(tx, spec.blocks, ctx.plan);
       if (!spec.collapse) return { kind: 'graph', nodes: nodes.map(brief), edges };
       // Collapse an intermediate block into labelled edges: app —(interface)— app.
       const mid = new Map(nodes.filter((n) => n.block_code === spec.collapse).map((n) => [n.id, n]));

@@ -6,6 +6,7 @@ import { SessionProvider, useSession } from '@/lib/session';
 import { can, canInScope, setToken } from '@/lib/api';
 import { LanguageToggle, useI18n } from '@/lib/i18n';
 import { GlobalSearch } from '@/lib/GlobalSearch';
+import { NotificationBell } from '@/lib/Notifications';
 
 function Rail({ menu, onNavigate }: { menu: boolean; onNavigate: () => void }) {
   const { user, model, tenant, queue } = useSession();
@@ -26,6 +27,7 @@ function Rail({ menu, onNavigate }: { menu: boolean; onNavigate: () => void }) {
         {can(user, 'records.read') && <Link href="/" aria-current={cur('/')}>{t('nav.dashboard')}</Link>}
         {can(user, 'records.review') && <Link href="/approvals" aria-current={cur('/approvals')}>{t('nav.approvals')} {queue > 0 && <span className="count">{queue}</span>}</Link>}
         {can(user, 'records.read') && <Link href="/views" aria-current={cur('/views')}>{t('nav.viewpoints')}</Link>}
+        {can(user, 'records.read') && user?.tenantId && <Link href="/cycles" aria-current={cur('/cycles')}>{t('nav.cycles')}</Link>}
         {can(user, 'records.read') && user?.tenantId && <Link href="/reports" aria-current={cur('/reports')}>{t('nav.reports')}</Link>}
         {can(user, 'compliance.read') && <Link href="/compliance" aria-current={cur('/compliance')}>{t('nav.compliance')}</Link>}
         {can(user, 'compliance.library') && <Link href="/library" aria-current={cur('/library')}>{t('nav.library')}</Link>}
@@ -71,6 +73,7 @@ function Top({ menu, toggle }: { menu: boolean; toggle: () => void }) {
       {user.classification ? <span className={`cls cls-${user.classification}`} title={t('cls.hint')}>{t('cls.label')}: {t(`cls.${user.classification}`)}</span> : <span />}
       {can(user, 'records.read') && user.tenantId && <GlobalSearch />}
       <div className="who">
+        {user.tenantId && <NotificationBell />}
         <Link href="/account">{user.name}</Link>
         <span className="hint">{user.roles.map((r) => t(`role.${r}`)).join(t('list.sep'))}</span>
         <LanguageToggle />

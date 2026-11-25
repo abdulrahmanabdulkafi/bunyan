@@ -34,7 +34,9 @@ export type Permission =
   | 'compliance.read'
   | 'compliance.assess'
   | 'dashboard.sector'
-  | 'dashboard.national';
+  | 'dashboard.national'
+  | 'cycles.manage'
+  | 'viewpoints.build';
 
 const MATRIX: Record<Permission, Role[]> = {
   'tenant.manage': ['R0'],
@@ -55,6 +57,8 @@ const MATRIX: Record<Permission, Role[]> = {
   'compliance.assess': ['R2', 'R3', 'R4'],
   'dashboard.sector': ['R2', 'R6', 'R8', 'R9'],
   'dashboard.national': ['R2', 'R6', 'R8', 'R9'],
+  'cycles.manage': ['R2', 'R3'],
+  'viewpoints.build': ['R2', 'R3'],
 };
 
 /** Roles whose record permissions are limited to the domains/blocks in their scope. */

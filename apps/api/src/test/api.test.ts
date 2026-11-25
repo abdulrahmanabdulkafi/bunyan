@@ -265,7 +265,7 @@ describe('national meta-model (DGA EA Content Meta Model)', () => {
 describe('viewpoints', () => {
   it('lists the 35 phase-1 viewpoints plus those of the other four domains, all available now that every domain is active', async () => {
     const r = await api(T.ea, 'GET', '/viewpoints/catalog');
-    assert.equal(r.body.length, 58);
+    assert.equal(r.body.filter((v: { custom?: boolean }) => !v.custom).length, 58);
     const byDomain = (d: string) => r.body.filter((v: { domain: string }) => v.domain === d).length;
     assert.deepEqual([byDomain('applications'), byDomain('technology'), byDomain('security')], [15, 12, 8]);
     assert.deepEqual([byDomain('strategy'), byDomain('business'), byDomain('beneficiary'), byDomain('data')], [7, 6, 4, 6]);
@@ -801,5 +801,119 @@ describe('search, impact analysis and change history', () => {
     const auditor = (await api(T.auditor, 'GET', `/records/${c.body.id}/changes`)).body;
     assert.ok(auditor.find((x: { action: string }) => x.action === 'update').fields.some((f: { key: string }) => f.key === 'operating_cost'), 'auditor has cost access');
     assert.equal((await api(T.eb, 'GET', `/records/${c.body.id}/changes`)).status, 404);
+  });
+});
+
+describe('EA development cycles', () => {
+  let id = '';
+  const find = async (q: string) => (await api(T.ea, 'GET', `/search?q=${encodeURIComponent(q)}`)).body.items[0];
+
+  it('creates a cycle with a starter task for every phase; viewers read, only architects manage', async () => {
+    assert.equal((await api(T.viewer, 'POST', '/cycles', { name: 'دورة' })).status, 403);
+    const c = await api(T.arch, 'POST', '/cycles', { name: 'دورة اختبار', start_date: '2027-01-01', end_date: '2027-06-30', domains: ['applications'] });
+    assert.equal(c.status, 201, JSON.stringify(c.body));
+    assert.match(c.body.code, /^CYC-2027-\d\d$/);
+    id = c.body.id;
+    const full = (await api(T.viewer, 'GET', `/cycles/${id}`)).body;
+    assert.deepEqual([...new Set(full.tasks.map((t: { phase: string }) => t.phase))], full.phases);
+    assert.equal((await api(T.eb, 'GET', `/cycles/${id}`)).status, 404, 'other entity');
+    assert.equal((await api(T.arch, 'POST', '/cycles', { name: 'x', start_date: '2027-05-01', end_date: '2027-01-01' })).status, 400);
+  });
+
+  it('moves through phases one step at a time and notifies the people of the next phase', async () => {
+    assert.equal((await api(T.arch, 'PATCH', `/cycles/${id}`, { phase: 'baseline' })).status, 400, 'must be active first');
+    assert.equal((await api(T.arch, 'PATCH', `/cycles/${id}`, { status: 'active' })).body.status, 'active');
+    assert.equal((await api(T.arch, 'PATCH', `/cycles/${id}`, { phase: 'gap' })).status, 400, 'no skipping');
+    const full = (await api(T.arch, 'GET', `/cycles/${id}`)).body;
+    const me = full.members.find((m: { display_name: string }) => m.display_name === 'مسؤول البنية المؤسسية');
+    const task = full.tasks.find((t: { phase: string }) => t.phase === 'baseline');
+    assert.equal((await api(T.arch, 'PATCH', `/cycles/${id}/tasks/${task.id}`, { assignee_id: me.id })).status, 200);
+    const before = (await api(T.ea, 'GET', '/notifications')).body.unread;
+    assert.equal((await api(T.arch, 'PATCH', `/cycles/${id}`, { phase: 'baseline' })).body.phase, 'baseline');
+    const n = (await api(T.ea, 'GET', '/notifications')).body;
+    assert.ok(n.unread >= before + 1);
+    assert.ok(n.items.some((x: { kind: string; payload: { cycle_id: string } }) => x.kind === 'cycle_phase' && x.payload.cycle_id === id));
+    assert.ok(n.items.some((x: { kind: string }) => x.kind === 'task_assigned'));
+  });
+
+  it('cannot close with open tasks or before the approval phase', async () => {
+    assert.equal((await api(T.arch, 'PATCH', `/cycles/${id}`, { status: 'closed' })).status, 400);
+    const full = (await api(T.arch, 'GET', `/cycles/${id}`)).body;
+    for (const t of full.tasks) await api(T.arch, 'PATCH', `/cycles/${id}/tasks/${t.id}`, { status: 'done' });
+    for (const ph of ['target', 'gap', 'roadmap']) await api(T.arch, 'PATCH', `/cycles/${id}`, { phase: ph });
+    assert.equal((await api(T.arch, 'PATCH', `/cycles/${id}`, { status: 'closed' })).status, 400, 'still in roadmap');
+    await api(T.arch, 'PATCH', `/cycles/${id}`, { phase: 'approval' });
+    assert.equal((await api(T.arch, 'PATCH', `/cycles/${id}`, { status: 'closed' })).body.status, 'closed');
+    assert.equal((await api(T.arch, 'POST', `/cycles/${id}/tasks`, { phase: 'scope', title: 'متأخرة' })).status, 400, 'closed cycles are read-only');
+  });
+
+  it('plans changes and shows the current and target state of a viewpoint', async () => {
+    const demo = (await api(T.ea, 'GET', '/cycles')).body.find((c: { code: string }) => c.code === 'CYC-2026-01');
+    const full = (await api(T.ea, 'GET', `/cycles/${demo.id}`)).body;
+    const apps = full.state.find((s: { block_code: string }) => s.block_code === 'application');
+    assert.deepEqual([apps.adds, apps.retires, apps.target], [1, 1, apps.current]);
+    const name = (r: { rows: { name: string }[] }) => r.rows.map((x) => x.name);
+    const cur = (await api(T.ea, 'GET', `/viewpoints/run/APP-L1?cycle=${demo.id}&state=current`)).body;
+    const tgt = (await api(T.ea, 'GET', `/viewpoints/run/APP-L1?cycle=${demo.id}&state=target`)).body;
+    assert.ok(!name(cur).includes('منصة التراخيص الموحدة') && name(cur).includes('نظام إدارة الوثائق'));
+    assert.ok(name(tgt).includes('منصة التراخيص الموحدة') && !name(tgt).includes('نظام إدارة الوثائق'));
+    assert.equal(tgt.rows.find((r: { name: string }) => r.name === 'منصة التراخيص الموحدة').plan, 'add');
+    assert.equal(tgt.rows.find((r: { name: string }) => r.name === 'البوابة الإلكترونية').plan, 'modify');
+    // Matrices drop retired records from the target state too.
+    const m = (await api(T.ea, 'GET', `/viewpoints/run/BUS-M1?cycle=${demo.id}&state=target`)).body;
+    assert.equal(m.state, 'target');
+    const plain = (await api(T.ea, 'GET', '/viewpoints/run/APP-L1')).body;
+    assert.ok(name(plain).includes('منصة التراخيص الموحدة') && !plain.rows.some((r: { plan?: string }) => r.plan), 'no cycle = repository as it is');
+
+    const dc = await find('DC-02');
+    const add = await api(T.ea, 'POST', `/cycles/${demo.id}/changes`, { record_id: dc.id, change_type: 'retire', rationale: 'دمج' });
+    assert.equal(add.status, 201);
+    assert.equal((await api(T.ea, 'POST', `/cycles/${demo.id}/changes`, { record_id: dc.id, change_type: 'modify' })).status, 409, 'one plan per record');
+    assert.equal((await api(T.ea, 'DELETE', `/cycles/${demo.id}/changes/${add.body.id}`)).status, 200);
+  });
+});
+
+describe('approval notifications', () => {
+  it('notifies reviewers on submit and the editor on rejection, in the app and by e-mail', async () => {
+    process.env.SMTP_URL = 'memory';
+    const { outbox } = await import('../notifications/notifications.js');
+    outbox.length = 0;
+    const c = await api(T.entry, 'POST', '/records', { block: 'server', attrs: { server_name: 'SRV-NOTIFY-01' } });
+    assert.equal((await api(T.entry, 'POST', `/records/${c.body.id}/submit`, {})).status, 201);
+    const owner = (await api(T.owner, 'GET', '/notifications?unread=true')).body;
+    assert.ok(owner.items.some((n: { kind: string; payload: { record_id: string } }) => n.kind === 'submitted' && n.payload.record_id === c.body.id));
+    // A reviewer scoped to another domain is not bothered; the actor never notifies themself.
+    assert.ok(!(await api(T.entry, 'GET', '/notifications')).body.items.some((n: { kind: string; payload: { record_id: string } }) => n.kind === 'submitted' && n.payload.record_id === c.body.id));
+    assert.ok(outbox.some((m) => m.to === 'tech-owner@a.local' && /SRV-NOTIFY-01/.test(m.subject)));
+    assert.equal((await api(T.owner, 'POST', `/records/${c.body.id}/reject`, { comment: 'ينقص نظام التشغيل' })).status, 201);
+    const entry = (await api(T.entry, 'GET', '/notifications')).body;
+    const rej = entry.items.find((n: { kind: string; payload: { record_id: string } }) => n.kind === 'rejected' && n.payload.record_id === c.body.id);
+    assert.equal(rej.payload.comment, 'ينقص نظام التشغيل');
+    assert.equal((await api(T.entry, 'POST', `/notifications/${rej.id}/read`, {})).body.updated, 1);
+    assert.equal((await api(T.owner, 'POST', `/notifications/${rej.id}/read`, {})).body.updated, 0, 'nobody clears another user\'s notifications');
+    assert.equal((await api(T.entry, 'POST', '/notifications/read-all', {})).status, 201);
+    assert.equal((await api(T.entry, 'GET', '/notifications')).body.unread, 0);
+    delete process.env.SMTP_URL;
+  });
+});
+
+describe('custom viewpoints', () => {
+  it('previews, saves and runs an entity\'s own viewpoint; other entities never see it', async () => {
+    const spec = { kind: 'matrix', rows: ['business_capability'], cols: ['application'], via: ['processes_group', 'business_process'] };
+    const p = await api(T.arch, 'POST', '/viewpoints/preview', { spec });
+    assert.equal(p.status, 201, JSON.stringify(p.body));
+    assert.ok(p.body.cells.length > 0, 'capabilities reach applications through process groups and processes');
+    assert.equal((await api(T.arch, 'POST', '/viewpoints/preview', { spec: { kind: 'list', blocks: ['nope'] } })).status, 400);
+    assert.equal((await api(T.arch, 'POST', '/viewpoints/preview', { spec: { kind: 'group', blocks: ['application'], by: { attr: 'nope' } } })).status, 400);
+    assert.equal((await api(T.viewer, 'POST', '/viewpoints/preview', { spec })).status, 403);
+    const c = await api(T.arch, 'POST', '/viewpoints/custom', { name_ar: 'القدرات والتطبيقات', name_en: 'Capabilities and applications', domain: 'business', spec });
+    assert.equal(c.status, 201, JSON.stringify(c.body));
+    const cat = (await api(T.viewer, 'GET', '/viewpoints/catalog')).body;
+    assert.ok(cat.some((v: { code: string; custom: boolean }) => v.code === c.body.code && v.custom));
+    assert.ok((await api(T.viewer, 'GET', `/viewpoints/run/${c.body.code}`)).body.cells.length > 0);
+    assert.ok(!(await api(T.eb, 'GET', '/viewpoints/catalog')).body.some((v: { code: string }) => v.code === c.body.code));
+    assert.equal((await api(T.eb, 'GET', `/viewpoints/run/${c.body.code}`)).status, 404);
+    assert.equal((await api(T.arch, 'PATCH', `/viewpoints/custom/${c.body.code}`, { name_ar: 'القدرات والتطبيقات', name_en: 'Capabilities and apps', domain: 'business', spec: { kind: 'list', blocks: ['application'], columns: ['code'] } })).status, 200);
+    assert.equal((await api(T.arch, 'DELETE', `/viewpoints/custom/${c.body.code}`)).status, 200);
   });
 });

@@ -1,6 +1,9 @@
 import pg from 'pg';
 import { config } from './config.js';
 
+// SQL `date` columns are calendar days: keep them as 'YYYY-MM-DD' strings instead of midnight-UTC timestamps that shift across time zones.
+pg.types.setTypeParser(1082, (v: string) => v);
+
 export const pool = new pg.Pool({ connectionString: config.databaseUrl, max: config.dbPoolSize });
 
 /** Who is acting. Set on every transaction so Postgres row-level security can isolate tenants. */
@@ -11,6 +14,11 @@ export interface Actor {
 }
 
 export type Tx = pg.PoolClient;
+type TxHooks = Tx & { afterCommit?: (() => Promise<unknown>)[] };
+/** Run `job` after the surrounding transaction commits (dropped on rollback). */
+export function afterCommit(tx: Tx, job: () => Promise<unknown>) {
+  ((tx as TxHooks).afterCommit ??= []).push(job);
+}
 let txCounter = 0;
 export const txIdOf = (tx: Tx) => (tx as Tx & { txId?: number }).txId ?? 0;
 
@@ -30,8 +38,11 @@ export async function withActor<T>(actor: Actor, fn: (tx: Tx) => Promise<T>): Pr
     );
     const result = await fn(client);
     await client.query('commit');
+    // Side effects (e-mail) run only once the data they describe is committed, and never fail the request.
+    for (const job of (client as TxHooks).afterCommit?.splice(0) ?? []) job().catch((e) => console.error('after-commit job failed:', (e as Error).message));
     return result;
   } catch (err) {
+    (client as TxHooks).afterCommit = [];
     await client.query('rollback').catch(() => undefined);
     throw err;
   } finally {

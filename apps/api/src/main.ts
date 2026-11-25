@@ -15,6 +15,8 @@ import { ReportsController } from './reports/reports.js';
 import { ViewpointsController } from './viewpoints/viewpoints.js';
 import { ComplianceController } from './compliance/compliance.js';
 import { ExploreController } from './explore/explore.js';
+import { CyclesController } from './cycles/cycles.js';
+import { NotificationsController } from './notifications/notifications.js';
 import { IntegrationsController, IntegrationsService, startScheduler } from './integrations/integrations.js';
 
 /** Turn validation and database errors into clean JSON; never leak SQL or stack traces. */
@@ -38,7 +40,7 @@ class ErrorFilter implements ExceptionFilter {
 }
 
 @Module({
-  controllers: [AuthController, TenantsController, MetamodelController, RecordsController, ApprovalsController, ExcelController, ImportWizardController, BulkController, ReportsController, ViewpointsController, IntegrationsController, ComplianceController, ExploreController],
+  controllers: [AuthController, TenantsController, MetamodelController, RecordsController, ApprovalsController, ExcelController, ImportWizardController, BulkController, ReportsController, ViewpointsController, IntegrationsController, ComplianceController, ExploreController, CyclesController, NotificationsController],
   providers: [TenantsService, MetamodelService, RecordsService, IntegrationsService, { provide: APP_GUARD, useClass: AuthGuard }],
 })
 export class AppModule {}
