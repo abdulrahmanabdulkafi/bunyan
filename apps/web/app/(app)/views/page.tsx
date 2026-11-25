@@ -6,7 +6,7 @@ import { useSession } from '@/lib/session';
 import { useI18n } from '@/lib/i18n';
 
 
-const DOMAINS = ['applications', 'technology', 'security'];
+const DOMAINS = ['strategy', 'business', 'beneficiary', 'data', 'applications', 'technology', 'security'];
 
 export default function Viewpoints() {
   const { model } = useSession();
@@ -23,7 +23,7 @@ export default function Viewpoints() {
         <h1>{t('vp.title')}</h1>
         <p>{t('vp.subtitle', { ready, total: list.length })}</p>
       </div></div>
-      {DOMAINS.map((d) => (
+      {DOMAINS.filter((d) => list.some((v) => v.domain === d)).map((d) => (
         <section key={d} className="vp-domain">
           <h2><span className="dom-dot" style={{ ['--c' as string]: `var(--d-${d})` }} />{t(`domain.${d}`)}</h2>
           <ul className="vp-list">

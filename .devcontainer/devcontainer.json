@@ -1,0 +1,19 @@
+{
+  // نسخة تجربة بنقرة واحدة على GitHub Codespaces: قاعدة بيانات وبيانات تجريبية والواجهة على المنفذ 3000.
+  "name": "Bunyan — trial",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": { "label": "Bunyan", "onAutoForward": "openBrowser" },
+    "4000": { "label": "API", "onAutoForward": "silent" }
+  },
+  "postCreateCommand": "bash scripts/trial.sh setup",
+  "postStartCommand": "bash scripts/trial.sh start",
+  "customizations": {
+    "codespaces": { "openFiles": ["TRY.md"] },
+    "vscode": { "extensions": ["ms-azuretools.vscode-docker"] }
+  },
+  "hostRequirements": { "cpus": 2, "memory": "4gb" }
+}

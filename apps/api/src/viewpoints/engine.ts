@@ -88,7 +88,9 @@ export async function run(tx: Tx, spec: ViewpointSpec, ctx: RunContext) {
           const v = n.attrs[by.attr];
           const vals = (Array.isArray(v) ? v : v === undefined || v === null || v === '' ? [] : [v]).map(String);
           if (!vals.length) put('', 'غير مصنّف', 'Unclassified', n);
-          for (const x of vals) put(x, x, x, n);
+          // Predefined-list values are stored once (the list value); show them with the list's Arabic / English labels.
+          const opts = blk(n.block_code)?.attributes.find((a) => a.key === by.attr)?.options ?? [];
+          for (const x of vals) { const o = opts.find((y) => y.value === x); put(x, o?.label_ar || x, o?.label_en || x, n); }
           continue;
         }
         const owners = [...(adj.get(n.id) ?? [])].map((id) => byId.get(id)).filter((o) => o?.block_code === by.related) as Node[];

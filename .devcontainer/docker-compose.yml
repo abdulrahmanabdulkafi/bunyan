@@ -1,0 +1,17 @@
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/javascript-node:22
+    volumes: ["../..:/workspaces:cached"]
+    command: sleep infinity
+    environment:
+      ADMIN_DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+      DATABASE_URL: postgres://bunyan_app:bunyan_app@localhost:5432/bunyan
+      MFA_REQUIRED_ROLES: none
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment: { POSTGRES_PASSWORD: postgres }
+    volumes: [pgdata:/var/lib/postgresql/data]
+    network_mode: service:app
+volumes:
+  pgdata:

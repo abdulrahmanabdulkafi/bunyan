@@ -1,21 +1,24 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { SessionProvider, useSession } from '@/lib/session';
 import { can, canInScope, setToken } from '@/lib/api';
 import { LanguageToggle, useI18n } from '@/lib/i18n';
+import { GlobalSearch } from '@/lib/GlobalSearch';
 
-function Rail() {
+function Rail({ menu, onNavigate }: { menu: boolean; onNavigate: () => void }) {
   const { user, model, tenant, queue } = useSession();
   const { t, nm } = useI18n();
   const path = usePathname();
+  useEffect(() => { onNavigate(); }, [path]); // eslint-disable-line react-hooks/exhaustive-deps
   const [open, setOpen] = useState<Record<string, boolean>>({ applications: true, technology: true, security: true });
   const cur = (href: string) => (path === href || (href !== '/' && path.startsWith(href + '/')) ? 'page' : undefined);
 
   return (
-    <nav className="rail" aria-label={t('nav.main')}>
+    <nav className={`rail${menu ? ' open' : ''}`} id="rail" aria-label={t('nav.main')}>
       <div className="brand">
+        <button className="btn quiet menu-close" aria-controls="rail" onClick={onNavigate}>{t('common.close')}</button>
         <div className="brand-name">{t('brand')}</div>
         <div className="brand-tenant">{tenant ? nm(tenant) : t('nav.nationalPlatform')}</div>
       </div>
@@ -58,13 +61,15 @@ function Rail() {
   );
 }
 
-function Top() {
+function Top({ menu, toggle }: { menu: boolean; toggle: () => void }) {
   const { user } = useSession();
   const { t } = useI18n();
   if (!user) return null;
   return (
     <div className="topbar">
+      <button className="btn quiet menu-btn" aria-controls="rail" aria-expanded={menu} onClick={toggle}>{t('nav.menu')}</button>
       {user.classification ? <span className={`cls cls-${user.classification}`} title={t('cls.hint')}>{t('cls.label')}: {t(`cls.${user.classification}`)}</span> : <span />}
+      {can(user, 'records.read') && user.tenantId && <GlobalSearch />}
       <div className="who">
         <Link href="/account">{user.name}</Link>
         <span className="hint">{user.roles.map((r) => t(`role.${r}`)).join(t('list.sep'))}</span>
@@ -76,11 +81,12 @@ function Top() {
 }
 
 export default function AppLayout({ children }: { children: ReactNode }) {
+  const [menu, setMenu] = useState(false);
   return (
     <SessionProvider>
       <div className="shell">
-        <Rail />
-        <main className="main"><Top />{children}</main>
+        <Rail menu={menu} onNavigate={() => setMenu(false)} />
+        <main className="main"><Top menu={menu} toggle={() => setMenu(!menu)} />{children}</main>
       </div>
     </SessionProvider>
   );

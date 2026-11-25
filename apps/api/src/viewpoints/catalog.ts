@@ -1,5 +1,6 @@
 /**
- * The 35 phase-1 viewpoints — BRD section 3.3 (from the DGA viewpoints guide).
+ * The 35 phase-1 viewpoints — BRD section 3.3 (from the DGA viewpoints guide) — plus the core viewpoints of the
+ * strategy, business, beneficiary and data domains, so every domain of the national meta-model can be seen.
  * Each one is declarative: the engine builds it from the repository, so a new viewpoint is a new entry here.
  * Viewpoints marked `phase2` rely on blocks that are part of phase 2; they work as soon as the entity activates those blocks.
  */
@@ -12,7 +13,7 @@ export type ViewpointSpec =
 
 export interface Viewpoint {
   code: string;
-  domain: 'applications' | 'technology' | 'security';
+  domain: 'strategy' | 'business' | 'beneficiary' | 'data' | 'applications' | 'technology' | 'security';
   name_ar: string;
   name_en: string;
   purpose_ar: string;
@@ -126,6 +127,74 @@ export const VIEWPOINTS: Viewpoint[] = [
   { code: 'SEC-D2', domain: 'security', name_ar: 'المشهد العام لقدرات بنية الأمن', name_en: 'Security capabilities landscape',
     purpose_ar: 'مكونات الأمن حسب وظيفتها.', purpose_en: 'Security components by function.',
     spec: { kind: 'group', blocks: [...SEC_HW_SW, 'security_service'], by: { attr: 'function' } } },
+
+  // ── Strategic alignment (6) ──
+  list('STR-L1', 'strategy', 'objective', 'دليل الأهداف', 'Objectives catalogue', ['code', 'type', 'description']),
+  list('STR-L2', 'strategy', 'initiative', 'دليل المبادرات', 'Initiatives catalogue',
+    ['code', 'type', 'owner_of_the_initiative', 'start_date', 'completion_date', 'budget']),
+  list('STR-L3', 'strategy', 'key_performance_indicator', 'دليل مؤشرات الأداء', 'Key performance indicators catalogue',
+    ['code', 'indicator_level', 'measurement_unit', 'measurement_periodicity', 'baseline_value', 'target_value', 'actual_indicator_value']),
+  { code: 'STR-M1', domain: 'strategy', name_ar: 'مصفوفة الأهداف مع المبادرات', name_en: 'Objective / Initiative matrix',
+    purpose_ar: 'أي المبادرات تحقق أي الأهداف.', purpose_en: 'Which initiatives deliver which objectives.',
+    spec: { kind: 'matrix', rows: ['objective'], cols: ['initiative'] } },
+  { code: 'STR-M2', domain: 'strategy', name_ar: 'مصفوفة المبادرات مع الوحدات التنظيمية', name_en: 'Initiative / Organizational unit matrix',
+    purpose_ar: 'أي الوحدات التنظيمية مسؤولة عن أي المبادرات.', purpose_en: 'Which organizational units own which initiatives.',
+    spec: { kind: 'matrix', rows: ['initiative'], cols: ['organizational_unit'] } },
+  { code: 'STR-D1', domain: 'strategy', name_ar: 'خريطة التوجه الاستراتيجي', name_en: 'Strategy map',
+    purpose_ar: 'الرؤية والرسالة والركائز والأهداف والمبادرات والمشاريع وصلاتها.', purpose_en: 'Vision, mission, pillars, objectives, initiatives and projects, and how they connect.',
+    spec: { kind: 'graph', blocks: ['vision', 'mission', 'pillar', 'objective', 'initiative', 'project'] } },
+  { code: 'STR-D2', domain: 'strategy', name_ar: 'المشاريع حسب المبادرة', name_en: 'Projects by initiative',
+    purpose_ar: 'المشاريع مجمّعة حسب المبادرة التي تنفذها.', purpose_en: 'Projects grouped by the initiative they deliver.',
+    spec: { kind: 'group', blocks: ['project'], by: { related: 'initiative' } } },
+
+  // ── Business (6) ──
+  list('BUS-L1', 'business', 'service', 'دليل الخدمات', 'Services catalogue',
+    ['code', 'service_type', 'classification', 'automation_level', 'type_of_beneficiary', 'geographic_coverage']),
+  list('BUS-L2', 'business', 'business_capability', 'دليل قدرات الأعمال', 'Business capabilities catalogue',
+    ['capability_type', 'capability_maturity_level', 'description']),
+  { code: 'BUS-M1', domain: 'business', name_ar: 'مصفوفة الخدمات مع إجراءات العمل', name_en: 'Service / Business process matrix',
+    purpose_ar: 'أي إجراءات العمل تقدّم كل خدمة.', purpose_en: 'Which business processes deliver each service.',
+    spec: { kind: 'matrix', rows: ['service'], cols: ['business_process'] } },
+  { code: 'BUS-M2', domain: 'business', name_ar: 'مصفوفة قدرات الأعمال مع الوحدات التنظيمية', name_en: 'Business capability / Organizational unit matrix',
+    purpose_ar: 'أي الوحدات التنظيمية تملك كل قدرة.', purpose_en: 'Which organizational units hold each capability.',
+    spec: { kind: 'matrix', rows: ['business_capability'], cols: ['organizational_unit'] } },
+  { code: 'BUS-D1', domain: 'business', name_ar: 'خريطة قدرات الأعمال', name_en: 'Business capability map',
+    purpose_ar: 'قدرات الأعمال مجمّعة حسب نوعها.', purpose_en: 'Business capabilities grouped by type.',
+    spec: { kind: 'group', blocks: ['business_capability'], by: { attr: 'capability_type' } } },
+  { code: 'BUS-D2', domain: 'business', name_ar: 'هيكل مجموعات الإجراءات', name_en: 'Process groups structure',
+    purpose_ar: 'كل مجموعة إجراءات وما تحتويه من إجراءات عمل.', purpose_en: 'Each process group and the business processes in it.',
+    spec: { kind: 'nest', container: 'processes_group', children: ['business_process'] } },
+
+  // ── Beneficiary experience (4) ──
+  list('BEN-L1', 'beneficiary', 'beneficiary', 'دليل المستفيدين', 'Beneficiaries catalogue', ['type', 'description']),
+  { code: 'BEN-M1', domain: 'beneficiary', name_ar: 'مصفوفة المستفيدين مع الخدمات', name_en: 'Beneficiary / Service matrix',
+    purpose_ar: 'أي الخدمات يستفيد منها كل مستفيد.', purpose_en: 'Which services each beneficiary uses.',
+    spec: { kind: 'matrix', rows: ['beneficiary'], cols: ['service'] } },
+  { code: 'BEN-D1', domain: 'beneficiary', name_ar: 'رحلات المستفيد ومراحلها', name_en: 'Beneficiary journeys and phases',
+    purpose_ar: 'كل رحلة مستفيد ومراحلها.', purpose_en: 'Each beneficiary journey and its phases.',
+    spec: { kind: 'nest', container: 'beneficiary_journey', children: ['phase'] } },
+  { code: 'BEN-D2', domain: 'beneficiary', name_ar: 'مخطط تجربة المستفيد', name_en: 'Beneficiary experience map',
+    purpose_ar: 'الشخصيات والرحلات والمراحل والخطوات وصلاتها.', purpose_en: 'Personas, journeys, phases and steps, and how they connect.',
+    spec: { kind: 'graph', blocks: ['persona', 'beneficiary_journey', 'phase', 'step'] } },
+
+  // ── Data (6) ──
+  list('DAT-L1', 'data', 'data_entity', 'دليل كيانات البيانات', 'Data entities catalogue',
+    ['code', 'data_entity_classification', 'storage_classification', 'structure_classification', 'data_source']),
+  { code: 'DAT-M1', domain: 'data', name_ar: 'مصفوفة كيانات البيانات مع التطبيقات', name_en: 'Data entity / Application matrix',
+    purpose_ar: 'أي التطبيقات تستخدم كل كيان بيانات.', purpose_en: 'Which applications use each data entity.',
+    spec: { kind: 'matrix', rows: ['data_entity'], cols: ['application'] } },
+  { code: 'DAT-M2', domain: 'data', name_ar: 'مصفوفة كيانات البيانات مع الوحدات التنظيمية', name_en: 'Data entity / Organizational unit matrix',
+    purpose_ar: 'أي الوحدات التنظيمية تملك كل كيان بيانات.', purpose_en: 'Which organizational units own each data entity.',
+    spec: { kind: 'matrix', rows: ['data_entity'], cols: ['organizational_unit'] } },
+  { code: 'DAT-D1', domain: 'data', name_ar: 'كيانات البيانات حسب التصنيف', name_en: 'Data entities by classification',
+    purpose_ar: 'كيانات البيانات مجمّعة حسب مستوى تصنيفها.', purpose_en: 'Data entities grouped by classification level.',
+    spec: { kind: 'group', blocks: ['data_entity'], by: { attr: 'data_entity_classification' } } },
+  { code: 'DAT-D2', domain: 'data', name_ar: 'مستودعات البيانات ومحتواها', name_en: 'Data vaults and their contents',
+    purpose_ar: 'كل مستودع بيانات وما يحفظه من كيانات.', purpose_en: 'Each data vault and the data entities it stores.',
+    spec: { kind: 'nest', container: 'data_vault', children: ['data_entity'] } },
+  { code: 'DAT-D3', domain: 'data', name_ar: 'كيانات البيانات وسماتها', name_en: 'Data entities and their attributes',
+    purpose_ar: 'كل كيان بيانات وسماته.', purpose_en: 'Each data entity with its attributes.',
+    spec: { kind: 'nest', container: 'data_entity', children: ['data_attributes'] } },
 ];
 
 export function blocksOf(spec: ViewpointSpec): string[] {

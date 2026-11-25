@@ -263,12 +263,18 @@ describe('national meta-model (DGA EA Content Meta Model)', () => {
 });
 
 describe('viewpoints', () => {
-  it('lists the 35 viewpoints, all available now that every domain is active', async () => {
+  it('lists the 35 phase-1 viewpoints plus those of the other four domains, all available now that every domain is active', async () => {
     const r = await api(T.ea, 'GET', '/viewpoints/catalog');
-    assert.equal(r.body.length, 35);
+    assert.equal(r.body.length, 58);
     const byDomain = (d: string) => r.body.filter((v: { domain: string }) => v.domain === d).length;
     assert.deepEqual([byDomain('applications'), byDomain('technology'), byDomain('security')], [15, 12, 8]);
-    assert.equal(r.body.filter((v: { missing: string[] }) => v.missing.length === 0).length, 35);
+    assert.deepEqual([byDomain('strategy'), byDomain('business'), byDomain('beneficiary'), byDomain('data')], [7, 6, 4, 6]);
+    assert.equal(r.body.filter((v: { missing: string[] }) => v.missing.length === 0).length, 58);
+  });
+  it('labels predefined-list groups in both languages', async () => {
+    const r = (await api(T.ea, 'GET', '/viewpoints/run/DAT-D1')).body;
+    const g = r.groups.find((x: { key: string }) => x.key === 'Restricted');
+    assert.ok(g && g.label_en === 'Restricted' && g.label_ar !== 'Restricted' && g.items.length >= 2, JSON.stringify(r.groups));
   });
   it('builds every available viewpoint without error', async () => {
     const cat = (await api(T.ea, 'GET', '/viewpoints/catalog')).body;
@@ -731,5 +737,69 @@ describe('reports centre', () => {
     assert.ok(inv.rows.length > 0 && inv.rows.every((r: { domain: string }) => r.domain === 'technology'));
     assert.equal((await api(T.ea, 'GET', '/reports/nope')).status, 400);
     assert.equal((await api(T.platform, 'GET', '/reports/inventory')).status, 403);
+  });
+});
+
+describe('search, impact analysis and change history', () => {
+  it('reports health without a session', async () => {
+    const r = await api('', 'GET', '/health');
+    assert.equal(r.status, 200);
+    assert.equal(r.body.status, 'ok');
+  });
+
+  it('searches every block the user can read, and only those', async () => {
+    const r = await api(T.ea, 'GET', `/search?q=${encodeURIComponent('نظام')}`);
+    assert.equal(r.status, 200);
+    assert.ok(r.body.items.some((i: { block_code: string }) => i.block_code === 'application'));
+    // Codes and attribute values are searched too.
+    assert.ok((await api(T.ea, 'GET', '/search?q=INT-001')).body.items.some((i: { block_code: string }) => i.block_code === 'technical_integration_interface'));
+    // The technology-scoped data entry user never sees applications.
+    const scoped = await api(T.entry, 'GET', `/search?q=${encodeURIComponent('نظام')}`);
+    assert.equal(scoped.status, 200);
+    assert.ok(scoped.body.items.every((i: { block_code: string }) => !['application', 'service', 'data_entity'].includes(i.block_code)));
+    // Entity B sees nothing of entity A.
+    assert.equal((await api(T.eb, 'GET', '/search?q=SRV-CRM')).body.total, 0);
+    assert.equal((await api(T.ea, 'GET', '/search?q=x')).status, 400, 'at least two characters');
+  });
+
+  it('does not find records by cost for roles without cost access', async () => {
+    assert.ok((await api(T.ea, 'GET', '/search?q=1200000')).body.total >= 1);
+    assert.equal((await api(T.entry, 'GET', '/search?q=1200000')).body.total, 0);
+  });
+
+  it('walks relations for impact analysis, deeper with more depth', async () => {
+    const crm = (await api(T.ea, 'GET', '/search?q=APP-001')).body.items.find((i: { block_code: string }) => i.block_code === 'application');
+    const d1 = (await api(T.ea, 'GET', `/records/${crm.id}/impact?depth=1`)).body;
+    assert.ok(d1.total > 0 && d1.nodes.every((n: { depth: number }) => n.depth === 1));
+    assert.ok(d1.byBlock.server >= 1 && d1.byBlock.application_modules >= 2);
+    const d3 = (await api(T.ea, 'GET', `/records/${crm.id}/impact?depth=3`)).body;
+    assert.ok(d3.total > d1.total);
+    assert.ok(d3.byBlock.data_center >= 1, 'reaches the data center through its server and host');
+    assert.ok(!d3.nodes.some((n: { id: string }) => n.id === crm.id));
+    // Scoped user cannot open an application, and does not walk through one.
+    assert.equal((await api(T.entry, 'GET', `/records/${crm.id}/impact`)).status, 404);
+    const host = (await api(T.entry, 'GET', '/search?q=ESX-RUH-01')).body.items[0];
+    const scoped = (await api(T.entry, 'GET', `/records/${host.id}/impact?depth=4`)).body;
+    assert.ok(scoped.nodes.every((n: { block_code: string }) => n.block_code !== 'application'));
+    assert.equal((await api(T.eb, 'GET', `/records/${crm.id}/impact`)).status, 404, 'other entity');
+    assert.equal((await api(T.ea, 'GET', `/records/${crm.id}/impact?depth=9`)).status, 400);
+  });
+
+  it('shows field-level change history, without costs for roles that cannot see them', async () => {
+    const c = await api(T.ea, 'POST', '/records', { block: 'application', attrs: { name: 'تطبيق سجل التغييرات', operating_cost: 100 } });
+    assert.equal(c.status, 201);
+    const u = await api(T.ea, 'PATCH', `/records/${c.body.id}`, { attrs: { description: 'وصف جديد', operating_cost: 200 }, version: c.body.version });
+    assert.equal(u.status, 200);
+    const srv = (await api(T.ea, 'GET', '/search?q=SRV-DMS-01')).body.items[0];
+    const rel = (await api(T.ea, 'GET', '/metamodel')).body.relations.find((r: { source_code: string; verb: string; target_code: string }) => r.source_code === 'application' && r.target_code === 'server');
+    assert.equal((await api(T.ea, 'POST', `/records/${c.body.id}/links`, { relation_id: rel.id, target_id: srv.id })).status, 201);
+    const h = (await api(T.ea, 'GET', `/records/${c.body.id}/changes`)).body;
+    assert.deepEqual(h.map((x: { action: string }) => x.action), ['link', 'update', 'create']);
+    const upd = h.find((x: { action: string }) => x.action === 'update');
+    assert.deepEqual(upd.fields.map((f: { key: string }) => f.key).sort(), ['description', 'operating_cost']);
+    assert.equal(h[0].other.name, 'SRV-DMS-01');
+    const auditor = (await api(T.auditor, 'GET', `/records/${c.body.id}/changes`)).body;
+    assert.ok(auditor.find((x: { action: string }) => x.action === 'update').fields.some((f: { key: string }) => f.key === 'operating_cost'), 'auditor has cost access');
+    assert.equal((await api(T.eb, 'GET', `/records/${c.body.id}/changes`)).status, 404);
   });
 });

@@ -5,6 +5,7 @@ import { api, ApiError, can, canInScope, Rec, Relation } from '@/lib/api';
 import { useSession } from '@/lib/session';
 import { AttrInput } from '@/lib/AttrInput';
 import { useI18n } from '@/lib/i18n';
+import { ChangesPanel, ImpactPanel } from '@/lib/RecordInsights';
 
 interface LinkRow { id: string; relation_id: string; verb: string; relation_ar: string | null; direction: 'in' | 'out'; other_id: string; other_name: string; other_block: string; other_status: string }
 interface Full extends Rec { links: LinkRow[]; history: { id: string; from_status: string; to_status: string; comment: string | null; actor_name: string; created_at: string }[]; updated_by: string }
@@ -24,6 +25,7 @@ export default function RecordPage({ params }: { params: Promise<{ id: string }>
   const linkDlg = useRef<HTMLDialogElement>(null);
   const rejectDlg = useRef<HTMLDialogElement>(null);
   const [comment, setComment] = useState('');
+  const [tab, setTab] = useState<'attrs' | 'impact' | 'changes'>('attrs');
   const [controls, setControls] = useState<{ item_id: string; code: string; title_ar: string; title_en: string | null; framework: string; version: string; status: string }[]>([]);
 
   const load = useCallback(async () => {
@@ -92,6 +94,14 @@ export default function RecordPage({ params }: { params: Promise<{ id: string }>
 
       <div className="record-layout">
         <section>
+          <div className="tabs" role="tablist">
+            {(['attrs', 'impact', 'changes'] as const).map((k) => (
+              <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)}>{t(`record.tab.${k}`)}</button>
+            ))}
+          </div>
+          {tab === 'impact' && <ImpactPanel id={id} model={model} />}
+          {tab === 'changes' && <ChangesPanel key={rec.version + rec.status} id={id} model={model} blockCode={block.code} />}
+          {tab === 'attrs' && <>
           <div className="form-grid">
             {visible.map((a) => (
               <label key={a.key} className={`field${a.multiple || a.type === 'multi_text' || a.key === 'description' ? ' wide' : ''}`} htmlFor={`f-${a.key}`} title={a.description ?? (locale === 'ar' ? a.name_en : a.name_ar)}>
@@ -107,6 +117,7 @@ export default function RecordPage({ params }: { params: Promise<{ id: string }>
               {dirty && <button className="btn quiet" onClick={() => { setAttrs(rec.attrs); setDirty(false); }}>{t('record.undo')}</button>}
             </div>
           )}
+          </>}
         </section>
 
         <aside className="side">

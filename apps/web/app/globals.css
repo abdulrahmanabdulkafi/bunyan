@@ -285,3 +285,39 @@ select[aria-invalid='true'] { border-color: var(--red); }
 td.warn-n { color: #7a5410; font-weight: 600; }
 td.bad-n, .figure.bad b { color: var(--red); }
 tr.muted td { color: var(--ink-3, #8a8f8c); }
+
+/* ── Global search ───────────────────────────── */
+.gsearch { position: relative; flex: 1; max-width: 440px; }
+.gsearch input { width: 100%; padding-inline-end: 64px; }
+.gsearch kbd { position: absolute; inset-inline-end: 10px; top: 50%; transform: translateY(-50%); font-family: inherit; font-size: 11px; border: 1px solid var(--rule); border-radius: 4px; padding: 0 5px; pointer-events: none; }
+.gsearch-list { position: absolute; inset-inline: 0; top: calc(100% + 4px); z-index: 30; list-style: none; margin: 0; padding: 4px; background: var(--panel, #fff); border: 1px solid var(--rule); border-radius: var(--r-md); box-shadow: 0 10px 30px rgba(23, 40, 44, 0.14); max-height: 420px; overflow-y: auto; }
+.gsearch-list li { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: var(--r-sm); font-size: 14px; cursor: pointer; }
+.gsearch-list li.hint { cursor: default; }
+.gsearch-list li[aria-selected='true'] { background: var(--green-2); }
+.gsearch-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── Impact analysis & change history ───────────────────────────── */
+button.chip { cursor: pointer; font: inherit; font-size: 13px; }
+button.chip[aria-pressed='true'] { background: var(--ink); color: #fff; }
+.changes li { padding-bottom: var(--s-3); }
+.diff { margin-top: 6px; border-collapse: collapse; font-size: 13px; width: 100%; }
+.diff th { text-align: start; font-weight: 500; color: var(--ink-2); padding: 3px 8px 3px 0; width: 30%; vertical-align: top; }
+[dir='rtl'] .diff th { padding: 3px 0 3px 8px; }
+.diff td { padding: 3px 6px; vertical-align: top; overflow-wrap: anywhere; }
+.diff del { color: var(--red); text-decoration: line-through; }
+.diff ins { color: var(--green); text-decoration: none; font-weight: 500; }
+
+/* ── Small screens: the navigation rail becomes a menu ───────────────────────────── */
+.menu-btn { display: none; }
+@media (max-width: 900px) {
+  .menu-btn { display: inline-flex; }
+  .rail { display: none; }
+  .rail.open { display: block; position: fixed; inset: 0; z-index: 40; height: 100vh; overflow-y: auto; }
+  .topbar { flex-wrap: wrap; }
+  .gsearch { order: 10; flex-basis: 100%; max-width: none; }
+  .gsearch kbd { display: none; }
+  .topbar .who { flex-wrap: wrap; }
+  .figures { gap: var(--s-5); }
+}
+.menu-close { display: none; }
+@media (max-width: 900px) { .rail.open .menu-close { display: inline-flex; float: inline-end; color: #dfe7e5; } }
